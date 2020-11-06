@@ -59,7 +59,7 @@ namespace Schach_v1
 
                     id++;
 
-                    // TEST
+                    // TEST von Patrick
                     
                 }
                 
