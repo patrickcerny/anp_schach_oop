@@ -1,0 +1,9 @@
+C:\Users\patri\Desktop\Schach_v1\Schach_v1\bin\Debug\Schach_v1.exe.config
+C:\Users\patri\Desktop\Schach_v1\Schach_v1\bin\Debug\Schach_v1.exe
+C:\Users\patri\Desktop\Schach_v1\Schach_v1\bin\Debug\Schach_v1.pdb
+C:\Users\patri\Desktop\Schach_v1\Schach_v1\obj\Debug\Schach_v1.csprojAssemblyReference.cache
+C:\Users\patri\Desktop\Schach_v1\Schach_v1\obj\Debug\Schach_v1.Properties.Resources.resources
+C:\Users\patri\Desktop\Schach_v1\Schach_v1\obj\Debug\Schach_v1.csproj.GenerateResource.cache
+C:\Users\patri\Desktop\Schach_v1\Schach_v1\obj\Debug\Schach_v1.csproj.CoreCompileInputs.cache
+C:\Users\patri\Desktop\Schach_v1\Schach_v1\obj\Debug\Schach_v1.exe
+C:\Users\patri\Desktop\Schach_v1\Schach_v1\obj\Debug\Schach_v1.pdb

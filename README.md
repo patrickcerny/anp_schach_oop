@@ -1,2 +1,2 @@
-# anp_schach_oop
-ANP Schach Projekt in C#
+# Chess_OOP
+ OOP Chess game in C#
