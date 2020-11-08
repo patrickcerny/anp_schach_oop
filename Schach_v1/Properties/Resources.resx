@@ -136,10 +136,10 @@
   <data name="king_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\king_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pond_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="pawn_black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\pond_black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="pond_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="pawn_white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\img\pond_white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="queen_black" type="System.Resources.ResXFileRef, System.Windows.Forms">

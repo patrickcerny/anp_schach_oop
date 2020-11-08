@@ -123,9 +123,9 @@ namespace Schach_v1.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pond_black {
+        internal static System.Drawing.Bitmap pawn_black {
             get {
-                object obj = ResourceManager.GetObject("pond_black", resourceCulture);
+                object obj = ResourceManager.GetObject("pawn_black", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace Schach_v1.Properties {
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pond_white {
+        internal static System.Drawing.Bitmap pawn_white {
             get {
-                object obj = ResourceManager.GetObject("pond_white", resourceCulture);
+                object obj = ResourceManager.GetObject("pawn_white", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
