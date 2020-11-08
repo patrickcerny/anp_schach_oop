@@ -68,6 +68,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -81,6 +82,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\bishop_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\bishop_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\horse_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\horse_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\king_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\king_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\pond_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\pond_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\queen_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\queen_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\tower_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="img\tower_white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
