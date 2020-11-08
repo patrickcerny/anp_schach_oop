@@ -12,7 +12,7 @@ namespace Schach_v1
 {
     public partial class Form1 : Form
     {
-
+        //Colors des SChachbretts
         Color[] _tileColors =  new Color[] {Color.FromArgb(163, 163, 163), Color.FromArgb(102, 59, 7) };
 
 
@@ -97,10 +97,15 @@ namespace Schach_v1
                     }
 
 
-                    //testpferd
-                    if (i == 3 && j == 7)
+                    //testfigur
+                    if (i == 2 && j == 4)
                     {
-                        Controls.Add(new Horse(ClientSize, ChessTile, Tiles));
+                        Controls.Add(new Pawn(ClientSize, ChessTile, Tiles));
+                    }
+
+                    if (i == 5 && j == 2)
+                    {
+                        Controls.Add(new King(ClientSize, ChessTile, Tiles));
                     }
 
                     //generation other figures

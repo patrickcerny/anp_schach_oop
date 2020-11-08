@@ -36,25 +36,58 @@ namespace Schach_v1
             //ALLE möglichen felder, auch wenn sie belegt sind
             foreach (Tile tile in Tiles)
             {
+                if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1)
+                {
+                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"])
+                    {
+                        PossibleMoves.Add(tile);
+                    }
+                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
+                    {
+                        PossibleMoves.Add(tile);
+                    }
+                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
+                    {
+                        PossibleMoves.Add(tile);
+                    }
 
-                if (tile.ID == figure.Position -8 )
-                {
-                    PossibleMoves.Add(tile);
+                }
 
-                    
-                }
-                if (tile.ID == figure.Position + 8)
+                if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1)
                 {
-                    PossibleMoves.Add(tile);
+                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"])
+                    {
+                        PossibleMoves.Add(tile);
+                    }
+                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
+                    {
+                        PossibleMoves.Add(tile);
+                    }
+                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
+                    {
+                        PossibleMoves.Add(tile);
+                    }
+
                 }
-                if (tile.ID == figure.Position - 1)
+
+                if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
                 {
-                    PossibleMoves.Add(tile);
+                    if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"])
+                    {
+                        PossibleMoves.Add(tile);
+                    }
+
                 }
-                if (tile.ID == figure.Position  +1)
+
+                if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
                 {
-                    PossibleMoves.Add(tile);
+                    if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"])
+                    {
+                        PossibleMoves.Add(tile);
+                    }
+
                 }
+
             }
 
 

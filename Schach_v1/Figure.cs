@@ -12,7 +12,6 @@ namespace Schach_v1
         //event, wenn die Figur sich bewegt
         public event EventTypeMoveFigure Moves;
 
-        public int Position;
 
         //Farbe die Felder bekommen, wenn auf sie gezogen werden kann
         Color _possibleMoveColor;
@@ -72,7 +71,7 @@ namespace Schach_v1
                 _figureColor = Color.White;
             }
 
-            Position = startingTile.ID;
+            
 
             //Tile auf dem es sich befindet
             CurrentTile = startingTile;
