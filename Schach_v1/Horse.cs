@@ -28,7 +28,7 @@ namespace Schach_v1
 
         public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
         {
-            Console.WriteLine(figure.CurrentTile.Coordinates["X"] + "  " + figure.CurrentTile.Coordinates["Y"]);
+            
 
             List<Tile> PossibleMoves = new List<Tile>();
             List<Tile> TilesToRemove = new List<Tile>();
@@ -38,7 +38,7 @@ namespace Schach_v1
             {
                 if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 2)
                 {
-                    Console.WriteLine(tile.Coordinates["Y"] + " " + tile.ID);
+                    
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
                     {
                         PossibleMoves.Add(tile);
@@ -52,7 +52,7 @@ namespace Schach_v1
 
                 if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 2)
                 {
-                    Console.WriteLine(tile.Coordinates["Y"] + " " + tile.ID);
+                   
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
                     {
                         PossibleMoves.Add(tile);
@@ -66,7 +66,7 @@ namespace Schach_v1
 
                 if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1)
                 {
-                    Console.WriteLine(tile.Coordinates["Y"] + " " + tile.ID);
+                    
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2)
                     {
                         PossibleMoves.Add(tile);
@@ -80,7 +80,7 @@ namespace Schach_v1
 
                 if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1)
                 {
-                    Console.WriteLine(tile.Coordinates["Y"] + " " + tile.ID);
+                    
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2)
                     {
                         PossibleMoves.Add(tile);

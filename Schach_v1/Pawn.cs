@@ -42,31 +42,31 @@ namespace Schach_v1
                 //nur wenn pawn schwarz ist kann er nach unten
                 if (figure.FigureColor == Color.Black)
                 {
-                    //geradeaus
                     if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"])
                     {
-                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
+                        //geraudeaus fahren 8ein einzelnes feld
+                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1 && tile.CurrenFigure == null)
                         {
-                            PossibleMoves.Add(tile);
-                        }
-                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2 && figure.CurrentTile.Coordinates["Y"] == 1)
-                        {
-                            PossibleMoves.Add(tile);
-                        }
-                    }
 
-                    
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
-                    {
-                        if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1 && tile.CurrenFigure != null)
-                        {
                             PossibleMoves.Add(tile);
                         }
 
-                        if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1 && tile.CurrenFigure != null)
+                        //geradeaus fahren wenn das 1. feld nicht belegt ist und man an der startposition ist
+                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2 && tile.CurrenFigure == null && figure.CurrentTile.Coordinates["Y"] == 1)
                         {
-                            PossibleMoves.Add(tile);
+                            //findet das feld unter dem 2. möglichen zugfeld und fragt ab ob dieses null ist == true => kann besprungen werden
+                            Tile tileUnderPawn = Tiles.Find(x => x.Coordinates["X"] == tile.Coordinates["X"] && x.Coordinates["Y"] - 1 == figure.CurrentTile.Coordinates["Y"]);
+                            Console.WriteLine("X" + tileUnderPawn.Coordinates["X"] + ", Y" + tileUnderPawn.Coordinates["Y"]);
+                            if (tileUnderPawn.CurrenFigure == null)
+                            {
+                                PossibleMoves.Add(tile);
+                            }
+                            
+                            
                         }
+
+                        
+                        
                     }
                     
                 }
@@ -101,20 +101,6 @@ namespace Schach_v1
 
             }
 
-            //welche felder entfernt werden müssen da sie nicht zugänglich sind
-            foreach (Tile item in PossibleMoves)
-            {
-
-                if (item.CurrenFigure != null)
-                {
-
-                    if (item.CurrenFigure.FigureColor == figure.FigureColor)
-                    {
-
-                        TilesToRemove.Add(item);
-                    }
-                }
-            }
 
 
             //entfernung der nicht möglichen moves

@@ -98,14 +98,14 @@ namespace Schach_v1
 
 
                     //testfigur
-                    if (i == 2 && j == 4)
+                    if (i == 2 && j == 6)
                     {
                         Controls.Add(new Pawn(ClientSize, ChessTile, Tiles));
                     }
 
                     if (i == 5 && j == 2)
                     {
-                        Controls.Add(new King(ClientSize, ChessTile, Tiles));
+                        Controls.Add(new Queen(ClientSize, ChessTile, Tiles));
                     }
 
                     //generation other figures
