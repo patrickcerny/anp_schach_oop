@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Schach_v1
 {
     public delegate void EventTypeMoveFigure();
-    public class Figure : Panel
+    public abstract class Figure : Panel
     {
 
         //event, wenn die Figur sich bewegt
@@ -141,13 +141,7 @@ namespace Schach_v1
         /// </summary>
         /// <param name="figure"></param>
         /// <returns></returns>
-        public virtual List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles) {
-
-            //Inhalt der Function eigentlich nur Dummy Code, da sie eh Immer überschrieben wird
-            List<Tile> PossibleMoves = new List<Tile> { };
-
-            return PossibleMoves;
-        }
+        public abstract List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles);
       
     }
 }

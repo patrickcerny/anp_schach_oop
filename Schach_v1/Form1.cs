@@ -98,14 +98,14 @@ namespace Schach_v1
 
 
                     //testfigur
-                    if (i == 2 && j == 6)
+                    if (i == 4 && j == 5)
                     {
-                        Controls.Add(new Pawn(ClientSize, ChessTile, Tiles));
+                        Controls.Add(new King(ClientSize, ChessTile, Tiles));
                     }
 
                     if (i == 5 && j == 2)
                     {
-                        Controls.Add(new Queen(ClientSize, ChessTile, Tiles));
+                        Controls.Add(new Bishop(ClientSize, ChessTile, Tiles));
                     }
 
                     //generation other figures
@@ -195,10 +195,7 @@ namespace Schach_v1
                     //Färbt 
                     tile.CurrenFigure.BackColor = tile.BackColor;
                 }
-                
-
             }
-
         }
     }
 }

@@ -54,9 +54,11 @@ namespace Schach_v1
 
                         //Sortiert die Tiles AUSTEIGEND
                         MovesInDirection.OrderBy(x => x.Coordinates["Y"]);
-
+                        
                         //ändert die Reiehnfolge auf ABSTEIGEND
                         MovesInDirection.Reverse();
+
+
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
                         {
@@ -92,8 +94,6 @@ namespace Schach_v1
                             {
                                 MovesInDirection.Add(tile);
                             }
-
-
                         }
 
                         //Sortiert die Tiles AUSTEIGEND

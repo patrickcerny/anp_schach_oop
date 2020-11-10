@@ -60,13 +60,8 @@ namespace Schach_v1
                             if (tileUnderPawn.CurrenFigure == null)
                             {
                                 PossibleMoves.Add(tile);
-                            }
-                            
-                            
+                            } 
                         }
-
-                        
-                        
                     }
                     
                 }
