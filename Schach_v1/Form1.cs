@@ -98,9 +98,9 @@ namespace Schach_v1
 
 
                     //testfigur
-                    if (i == 4 && j == 5)
+                    if (i == 2 && j == 5)
                     {
-                        Controls.Add(new King(ClientSize, ChessTile, Tiles));
+                        Controls.Add(new Pawn(ClientSize, ChessTile, Tiles));
                     }
 
                     if (i == 5 && j == 2)

@@ -42,12 +42,12 @@ namespace Schach_v1
                 //nur wenn pawn schwarz ist kann er nach unten
                 if (figure.FigureColor == Color.Black)
                 {
+                    //ob die Tile genau drüber isch
                     if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"])
                     {
                         //geraudeaus fahren 8ein einzelnes feld
                         if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1 && tile.CurrenFigure == null)
                         {
-
                             PossibleMoves.Add(tile);
                         }
 
@@ -56,57 +56,82 @@ namespace Schach_v1
                         {
                             //findet das feld unter dem 2. möglichen zugfeld und fragt ab ob dieses null ist == true => kann besprungen werden
                             Tile tileUnderPawn = Tiles.Find(x => x.Coordinates["X"] == tile.Coordinates["X"] && x.Coordinates["Y"] - 1 == figure.CurrentTile.Coordinates["Y"]);
-                            Console.WriteLine("X" + tileUnderPawn.Coordinates["X"] + ", Y" + tileUnderPawn.Coordinates["Y"]);
                             if (tileUnderPawn.CurrenFigure == null)
                             {
                                 PossibleMoves.Add(tile);
-                            } 
+                            }
                         }
                     }
-                    
+                    //checkt ob es ein Tile über der figure ist
+                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
+                    {
+                        //checkt ob das feld links oder rechts vom pawn ist
+                        if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1 || tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1)
+                        {
+                            //checkt ob das feld nicht leer ist
+                            if (tile.CurrenFigure != null)
+                            {
+                                //checkt ob die figur gegnerisch ist
+                                if (tile.CurrenFigure.FigureColor != figure.FigureColor)
+                                {
+                                    PossibleMoves.Add(tile);
+                                }
+                            }
+                        }
+
+                    }
+
+
                 }
                 //nur wenn pawn weiss ist kann er nach oben
                 else
                 {
+                    
+                    //ob die Tile genau drüber isch
                     if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"])
                     {
-                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
+                        //geraudeaus fahren 8ein einzelnes feld
+                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1 && tile.CurrenFigure == null)
                         {
                             PossibleMoves.Add(tile);
                         }
-                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 2 && figure.CurrentTile.Coordinates["Y"] == 6)
+
+                        //geradeaus fahren wenn das 1. feld nicht belegt ist und man an der startposition ist
+                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 2 && tile.CurrenFigure == null && figure.CurrentTile.Coordinates["Y"] == 6)
                         {
-                            PossibleMoves.Add(tile);
+                            //findet das feld unter dem 2. möglichen zugfeld und fragt ab ob dieses null ist == true => kann besprungen werden
+                            Tile tileUnderPawn = Tiles.Find(x => x.Coordinates["X"] == tile.Coordinates["X"] && x.Coordinates["Y"] + 1 == figure.CurrentTile.Coordinates["Y"]);
+                            
+                            if (tileUnderPawn.CurrenFigure == null)
+                            {
+                                PossibleMoves.Add(tile);
+                            }
                         }
                     }
-
-                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
+                    //checkt ob es ein Tile über der figure ist
+                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
                     {
-                        if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1 && tile.CurrenFigure != null )
+                        //checkt ob das feld links oder rechts vom pawn ist
+                        if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1 || tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1)
                         {
-                            PossibleMoves.Add(tile);
+                            //checkt ob das feld nicht leer ist
+                            if (tile.CurrenFigure != null)
+                            {
+                                //checkt ob die figur gegnerisch ist
+                                if (tile.CurrenFigure.FigureColor != figure.FigureColor)
+                                {
+                                    PossibleMoves.Add(tile);
+                                }
+                            }
                         }
 
-                        if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1 && tile.CurrenFigure != null)
-                        {
-                            PossibleMoves.Add(tile);
-                        }
                     }
+                    
                 }
-
+ 
             }
-
-
-
-            //entfernung der nicht möglichen moves
-            foreach (Tile tileToRemove in TilesToRemove)
-            {
-                PossibleMoves.Remove(tileToRemove);
-            }
-
             return PossibleMoves;
         }
     }
-
 
 }

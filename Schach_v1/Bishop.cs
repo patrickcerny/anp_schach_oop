@@ -89,7 +89,7 @@ namespace Schach_v1
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesUpperRight)
             {
-                Console.WriteLine(tile.Coordinates["X"]);
+                
                 //wenn das Feld leer ist wird es hinzugefügt
                 if (tile.CurrenFigure == null)
                 {
@@ -122,7 +122,7 @@ namespace Schach_v1
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesLowerRight)
             {
-                Console.WriteLine(tile.Coordinates["X"]);
+                
                 //wenn das Feld leer ist wird es hinzugefügt
                 if (tile.CurrenFigure == null)
                 {
@@ -153,8 +153,7 @@ namespace Schach_v1
 
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesLowerLeft)
-            {
-                Console.WriteLine(tile.Coordinates["X"]);
+            { 
                 //wenn das Feld leer ist wird es hinzugefügt
                 if (tile.CurrenFigure == null)
                 {
@@ -187,7 +186,7 @@ namespace Schach_v1
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesUpperLeft)
             {
-                Console.WriteLine(tile.Coordinates["X"]);
+                
                 //wenn das Feld leer ist wird es hinzugefügt
                 if (tile.CurrenFigure == null)
                 {
