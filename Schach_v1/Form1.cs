@@ -15,12 +15,18 @@ namespace Schach_v1
         //Colors des SChachbretts
         Color[] _tileColors =  new Color[] {Color.FromArgb(163, 163, 163), Color.FromArgb(102, 59, 7) };
 
+        //farbe die das Feld annimmt wenn es besprungen werden kann
+        public Color PossibleMoveColor = Color.ForestGreen;
 
         //größe des Boards
         const int _BOARDSIZE = 800;
         
         //größe der einzelnen Teile
         Size _tileSize;
+
+        //letzte Figur die angeklickt worden ist
+        Figure _lastFigureClicked = null;
+
 
         List<Tile> Tiles = new List<Tile> { };
 
@@ -66,6 +72,7 @@ namespace Schach_v1
 
                    //Erstellung des Tiles und Position anhand der ID
                     Tile ChessTile = new Tile(_tileSize, color, id, new int[] { j, i });
+                    ChessTile.TileClicked += ChessTile_TileClicked;
                     ChessTile.Left = ChessTile.Width * j;
                     ChessTile.Top = ChessTile.Height * i;
 
@@ -155,16 +162,69 @@ namespace Schach_v1
             {
                 if (item is Figure figure)
                 {
-                    figure.Moves += Figure_Moves;
+                    figure.FigureClicked += Figure_FigureClicked;
+
                 }
             }
 
         }
 
-        private void Figure_Moves()
+        private void ChessTile_TileClicked(object sender, EventArgs e)
         {
-            RePaintBoard();
+            Tile clickedTile = sender as Tile;
+            Console.WriteLine("Tile geclicked");
+
+            if (clickedTile.BackColor == PossibleMoveColor && _lastFigureClicked != null)
+            {
+                //Console.WriteLine(_lastFigureClicked.CurrentTile.Coordinates["X"] + "X, " + _lastFigureClicked.CurrentTile.Coordinates["Y"]+ " Y");
+
+
+                //des münnd ma uns nomml aschoa gea
+
+                clickedTile.CurrenFigure = _lastFigureClicked;
+
+
+                clickedTile.CurrenFigure.CurrentTile = clickedTile;
+
+
+                Console.WriteLine("New: " + clickedTile.Coordinates["X"] + " X, " + clickedTile.Coordinates["Y"] + " Y");
+
+                //position anhand der Position des Tiles
+                clickedTile.CurrenFigure.Left = clickedTile.Left + _tileSize.Width / 2 - clickedTile.CurrenFigure. Width / 2;
+                clickedTile.CurrenFigure.Top = clickedTile.Top + _tileSize.Height / 2 - clickedTile.CurrenFigure.Height / 2;
+
+                
+                clickedTile.CurrenFigure.BringToFront();
+
+                
+
+
+                RePaintBoard();
+
+
+
+
+                _lastFigureClicked.CurrentTile.CurrenFigure = null;
+
+
+                //Console.WriteLine("New: " + _lastFigureClicked.CurrentTile.Coordinates["X"] + " X, " + _lastFigureClicked.CurrentTile.Coordinates["Y"] + " Y");
+
+
+            }
+           
         }
+
+        private void Figure_FigureClicked(object sender, EventArgs e)
+        {
+            Figure clickedFigure = sender as Figure;
+            _lastFigureClicked = clickedFigure;
+            RePaintBoard();
+            
+            
+
+        }
+
+
 
         //färbt das Board neu
         public void RePaintBoard()

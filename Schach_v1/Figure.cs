@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace Schach_v1
 {
-    public delegate void EventTypeMoveFigure();
+    public delegate void EventTypeClickedFigure(object sender, EventArgs e);
     public abstract class Figure : Panel
     {
 
         //event, wenn die Figur sich bewegt
-        public event EventTypeMoveFigure Moves;
+        public event EventTypeClickedFigure FigureClicked;
 
 
         //Farbe die Felder bekommen, wenn auf sie gezogen werden kann
@@ -18,6 +18,8 @@ namespace Schach_v1
 
         //das Tile auf dem sich die Figure befindet
         public Tile CurrentTile;
+
+        
 
         //Liste aller Tiles in der Form
         List<Tile> BoardTiles;
@@ -106,6 +108,7 @@ namespace Schach_v1
         {
             return tile.BackColor;
         }
+
         /// <summary>
         /// Überschriebene Click funktion
         /// </summary>
@@ -113,8 +116,7 @@ namespace Schach_v1
         protected override void OnClick(EventArgs e)
         {
             //Invoked das Move event
-            Moves?.Invoke();
-
+            FigureClicked?.Invoke(this, e);
 
             //Tiles, welche gefärbt werden müssen
             List<Tile> _tilesToColor = GetPossibleMoves(this, BoardTiles);

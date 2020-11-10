@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace Schach_v1
 {
+    public delegate void EventTypeTileClicked(object sender, EventArgs e);
+
     public class Tile : Panel
     {
+        public event EventTypeTileClicked TileClicked;
         //ID des Tiles (0-63)
         public int ID;
 
@@ -14,6 +18,7 @@ namespace Schach_v1
 
         //die Daraufliegende Figur
         public Figure CurrenFigure = null;
+
 
         public Tile(Size tileSize, Color Color, int id, int[] Coords)
         {
@@ -33,6 +38,11 @@ namespace Schach_v1
             
         }
 
-
+        protected override void OnClick(EventArgs e)
+        {
+            TileClicked?.Invoke(this, e);
+        }
     }
+    
+
 }
