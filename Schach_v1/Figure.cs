@@ -12,6 +12,9 @@ namespace Schach_v1
         //event, wenn die Figur sich bewegt
         public event EventTypeClickedFigure FigureClicked;
 
+        
+
+        Color CurrentPlayer = Color.White;
 
         //Farbe die Felder bekommen, wenn auf sie gezogen werden kann
         Color _possibleMoveColor;
@@ -115,26 +118,49 @@ namespace Schach_v1
         /// <param name="e"></param>
         protected override void OnClick(EventArgs e)
         {
-            //Invoked das Move event
+
+
+
+            //bool ob die Figur überhaupt noch auf dem Feld ist
+            bool isFigOnBoard;
+
+            //Invoked das Clicked event
             FigureClicked?.Invoke(this, e);
 
-            //Tiles, welche gefärbt werden müssen
-            List<Tile> _tilesToColor = GetPossibleMoves(this, BoardTiles);
-
-            //färbt jedes Tile 
-            foreach (Tile item in _tilesToColor)
+            //checkt ob die angeklickte figur auf dem board ist
+            isFigOnBoard = false;
+            foreach (Tile tile in BoardTiles)
             {
-                //jedes mögliche Feld wird Rot gefärbt
-                item.BackColor = _possibleMoveColor;
-
-                //checkt ob auf dem Feld überhaupt eine Figure ist
-                if (item.CurrenFigure != null)
+                if (tile.CurrenFigure == this)
                 {
-                    //färbt jedes Figure dessen Hintergrundfarbe geändert wurde
-                    item.CurrenFigure.BackColor = item.CurrenFigure.ChangeBackColor(item);
+                    isFigOnBoard = true;
                 }
-                
             }
+
+            
+
+            //falls ja dann werden die möglichen moves angezeigt ansonsten wird die Figur !in der Form! einfach entfernt
+            if (isFigOnBoard)
+            {
+                //Tiles, welche gefärbt werden müssen
+                List<Tile> _tilesToColor = GetPossibleMoves(this, BoardTiles);
+
+                //färbt jedes Tile 
+                foreach (Tile item in _tilesToColor)
+                {
+                    //jedes mögliche Feld wird Rot gefärbt
+                    item.BackColor = _possibleMoveColor;
+
+                    //checkt ob auf dem Feld überhaupt eine Figure ist
+                    if (item.CurrenFigure != null)
+                    {
+                        //färbt jedes Figure dessen Hintergrundfarbe geändert wurde
+                        item.CurrenFigure.BackColor = item.CurrenFigure.ChangeBackColor(item);
+                    }
+
+                }
+            }
+            
 
             
         }

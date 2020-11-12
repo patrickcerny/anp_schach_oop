@@ -37,7 +37,6 @@ namespace Schach_v1
             List<Tile> PossibleMoves = new List<Tile>();
             List<Tile> MovesInDirection = new List<Tile>();
 
-
             List<Tile> MovesUpperRight = new List<Tile>();
             List<Tile> MovesLowerRight = new List<Tile>();
             List<Tile> MovesLowerLeft = new List<Tile>();
