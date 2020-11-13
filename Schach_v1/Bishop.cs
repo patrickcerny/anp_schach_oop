@@ -9,7 +9,7 @@ namespace Schach_v1
 {
     class Bishop : Figure
     {
-        public Bishop(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
+        public Bishop(Size panelSize, Tile startingTile) : base(panelSize, startingTile)
         {
 
             FigureType = FigureTypes.bishop;

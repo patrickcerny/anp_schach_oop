@@ -9,7 +9,7 @@ namespace Schach_v1
 {
     class King : Figure
     {
-        public King(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
+        public King(Size panelSize, Tile startingTile) : base(panelSize, startingTile)
         {
             
             FigureType = FigureTypes.king;

@@ -9,7 +9,7 @@ namespace Schach_v1
 {
     class Tower : Figure
     {
-        public Tower(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
+        public Tower(Size panelSize, Tile startingTile) : base(panelSize, startingTile)
         {
 
             FigureType = FigureTypes.tower;

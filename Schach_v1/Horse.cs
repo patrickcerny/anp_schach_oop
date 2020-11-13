@@ -9,7 +9,7 @@ namespace Schach_v1
 {
     class Horse : Figure
     {
-        public Horse(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
+        public Horse(Size panelSize, Tile startingTile) : base(panelSize, startingTile)
         {
 
             FigureType = FigureTypes.horse;

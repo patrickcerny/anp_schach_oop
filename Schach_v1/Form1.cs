@@ -30,7 +30,7 @@ namespace Schach_v1
         //letzte Figur die angeklickt worden ist
         Figure _lastFigureClicked = null;
 
-
+        //liste aller tiles
         List<Tile> Tiles = new List<Tile> { };
 
         public Form1()
@@ -84,11 +84,11 @@ namespace Schach_v1
                     {
                         if (j == 3)
                         {
-                            Controls.Add(new Queen(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new Queen(ClientSize, ChessTile));
                         }
                         if (j == 4)
                         {
-                            Controls.Add(new King(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new King(ClientSize, ChessTile));
                         }
                     }
 
@@ -97,11 +97,11 @@ namespace Schach_v1
                     {
                         if (j == 3)
                         {
-                            Controls.Add(new Queen(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new Queen(ClientSize, ChessTile));
                         }
                         if (j == 4)
                         {
-                            Controls.Add(new King(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new King(ClientSize, ChessTile));
                         }
                     }
 
@@ -110,25 +110,25 @@ namespace Schach_v1
                     {
                         if (j == 0 || j == 7)
                         {
-                            Controls.Add(new Tower(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new Tower(ClientSize, ChessTile));
                         }
 
                         if (j == 1 || j == 6)
                         {
-                            Controls.Add(new Horse(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new Horse(ClientSize, ChessTile));
                             
                         }
 
                         if (j == 2 || j == 5)
                         {
-                            Controls.Add(new Bishop(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new Bishop(ClientSize, ChessTile));
                         }
                     }
 
                     //generation pawns
                     if (i == 1 || i == 6)
                     {
-                        Controls.Add(new Pawn(ClientSize, ChessTile, Tiles));
+                        Controls.Add(new Pawn(ClientSize, ChessTile));
                     }
 
                     //hinzufpgen zur liste der Tiles
@@ -188,45 +188,99 @@ namespace Schach_v1
                             //der zug wird vollbracht
                             MoveFigure(clickedTile);
                         }
+                        //spieler wird getausch
+                        ChangePlayer();
                     }
-                    //spieler wird getausch
-                    ChangePlayer();
+                    
                 }
             } 
         }
 
         private void Figure_FigureClicked(object sender, EventArgs e)
         {
+            //das board einfach neu painten
+           
 
             Figure clickedFigure = sender as Figure;
+            bool isFIgureOnBoard = false;
 
 
             //wenn die figur nicht die farbe des zurzeit angreifenden spielers hat (möglichkeit auf absicht auf das schlagen der Figur)
             if (clickedFigure.FigureColor != CurrentPlayer)
             {
+                Console.WriteLine("gegner figur geklickt");
+                Console.WriteLine(clickedFigure.CurrentTile.Coordinates["X"] + ": X, "+ clickedFigure.CurrentTile.Coordinates["Y"] + ": Y");
                 if (clickedFigure.CurrentTile.BackColor == PossibleMoveColor)
                 {
+                    Console.WriteLine("gegner figur gef");
                     Controls.Remove(clickedFigure);
                     clickedFigure.CurrentTile.CurrenFigure = null;
                     MoveFigure(clickedFigure.CurrentTile);
                     ChangePlayer();
                 }
-
             }
-            //ansonsten ist es halt die zuletzt gedrückte Figur
+            
             else
             {
+                //ansonsten ist es halt die zuletzt gedrückte Figur
                 _lastFigureClicked = clickedFigure;
+
+                RePaintBoard();
+                //Tiles, welche gefärbt werden müssen
+                List<Tile> _tilesToColor = clickedFigure.GetPossibleMoves(clickedFigure, Tiles);
+
+                    //färbt jedes Tile 
+                    foreach (Tile item in _tilesToColor)
+                    {
+                        Console.WriteLine(item.BackColor);
+                        //jedes mögliche Feld wird in die mögliche zug farbe gefärbt
+                        item.BackColor = PossibleMoveColor;
+
+                        //checkt ob auf dem Feld überhaupt eine Figure ist
+                        if (item.CurrenFigure != null)
+                        {
+                            //färbt jedes Figure dessen Hintergrundfarbe geändert wurde
+                            item.CurrenFigure.BackColor = item.CurrenFigure.ChangeBackColor(item);
+                        }
+
+                    }
+
+
+
+
+
+
             }
 
 
-
-
-            //das board einfach neu painten
-            RePaintBoard();
 
 
             
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
 
