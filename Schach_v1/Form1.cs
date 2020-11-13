@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Schach_v1
 {
@@ -37,8 +38,10 @@ namespace Schach_v1
         {
             InitializeComponent();
             InitWindow();
-            
-            
+            InitInfoBar();
+
+
+
         }
 
         /// <summary>
@@ -52,6 +55,7 @@ namespace Schach_v1
             //festlegung der Größe des Spielfeldes
             ClientSize = new Size(_BOARDSIZE, _BOARDSIZE);
             _tileSize = new Size(ClientSize.Width / 8, ClientSize.Height / 8);
+            ClientSize = new Size(_BOARDSIZE + _tileSize.Width * 3, _BOARDSIZE);
 
             //erstellung aller Tiles mit den ID's 0-63
             for (int i = 0; i < 8; i++)
@@ -157,6 +161,57 @@ namespace Schach_v1
                 }
             }
 
+        }
+
+        // Methode zur Erstellung vom Informationsbalken rechts
+        public void InitInfoBar()
+        {
+            // InfoBar recht erstellen und definieren
+            Panel InfoBar = new Panel()
+            {
+                Top = 0,
+                Left = 800,
+                Width = _tileSize.Width * 3,
+                Height = _tileSize.Height * 8
+            };
+            Controls.Add(InfoBar);
+
+            // Label zur Ausgabe des Spielers (am Zug), erstellen und definieren
+            Label lbl_currentPlayer = new Label()
+            {
+                Top = _tileSize.Height /2,
+                Left = _tileSize.Width - _tileSize.Width / 6,
+                Width = _tileSize.Width * 3,
+                Height = _tileSize.Height,
+                Font = new Font("Arial", 26)                
+            };
+            
+            // Prüfen welcher Spieler an der Reihe ist und dann im Label ausgeben
+            if (CurrentPlayer == Color.Black)
+            {
+                lbl_currentPlayer.Text = "Schwarz";
+            }
+            else
+            {
+                lbl_currentPlayer.Text = "Weiß";
+            }
+            InfoBar.Controls.Add(lbl_currentPlayer); // Label ins Panel hinzufügen
+
+            TextBox txt_durationTimer = new TextBox()
+            {
+                Top = lbl_currentPlayer.Height + _tileSize.Height,
+                Left = _tileSize.Width - _tileSize.Width / 8
+            };
+            InfoBar.Controls.Add(txt_durationTimer);
+            txt_durationTimer.Text = "15";
+            int duration = Convert.ToInt32(txt_durationTimer.Text);
+
+            // Stopuhr für beide Spieler
+            Stopwatch spw_durationBlack = new Stopwatch();
+            Stopwatch spw_durationWhite = new Stopwatch();
+
+            // TO DO: Stopwatch Tick implementieren und im label ausgeben.  
+            
         }
 
         private void ChessTile_TileClicked(object sender, EventArgs e)

@@ -16,3 +16,11 @@ C:\Users\patri\Desktop\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.cspro
 C:\Users\patri\Desktop\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.csproj.CoreCompileInputs.cache
 C:\Users\patri\Desktop\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.exe
 C:\Users\patri\Desktop\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.pdb
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\bin\Debug\Schach_v1.exe.config
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\bin\Debug\Schach_v1.exe
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\bin\Debug\Schach_v1.pdb
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.csprojAssemblyReference.cache
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.Properties.Resources.resources
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.csproj.GenerateResource.cache
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.exe
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.pdb
