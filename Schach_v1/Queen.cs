@@ -15,7 +15,6 @@ namespace Schach_v1
     {
         public Queen(Size panelSize, Tile startingTile) : base(panelSize, startingTile)
         {
-            
             FigureType = FigureTypes.queen;
 
             if (FigureColor == Color.Black)
@@ -26,8 +25,6 @@ namespace Schach_v1
             {
                 BackgroundImage = Properties.Resources.queen_white;
             }
-
-
         }
 
 
@@ -62,8 +59,6 @@ namespace Schach_v1
                             {
                                 MovesInDirection.Add(tile);
                             }
-
-                            
                         }
 
                         //Sortiert die Tiles AUSTEIGEND
@@ -109,12 +104,8 @@ namespace Schach_v1
 
 
                         }
-
-
                         //Sortiert die Tiles AUSTEIGEND
                         MovesInDirection.OrderBy(x => x.Coordinates["X"]);
-
-                        
 
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
@@ -157,8 +148,6 @@ namespace Schach_v1
                         //Sortiert die Tiles AUSTEIGEND
                         MovesInDirection.OrderBy(x => x.Coordinates["Y"]);
 
-                        
-
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
                         {
@@ -183,8 +172,6 @@ namespace Schach_v1
                                 }
                             }
                         }
-
-
                         break;
 
                     //nach links
@@ -236,7 +223,6 @@ namespace Schach_v1
             {
                 if (figure.CurrentTile.Coordinates["X"] + figure.CurrentTile.Coordinates["Y"] == tile.Coordinates["X"] + tile.Coordinates["Y"])
                 {
-
                     //nur die Tiles oben rechts und unten links
                     if (tile.Coordinates["Y"] < figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] > figure.CurrentTile.Coordinates["X"])
                     {
@@ -253,8 +239,6 @@ namespace Schach_v1
                 //nur die Tiles oben links
                 if (figure.CurrentTile.Coordinates["Y"] - figure.CurrentTile.Coordinates["X"] == tile.Coordinates["Y"] - tile.Coordinates["X"])
                 {
-
-
                     if (tile.Coordinates["Y"] < figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] < figure.CurrentTile.Coordinates["X"])
                     {
 
@@ -307,8 +291,6 @@ namespace Schach_v1
             //Sortiert die Tiles AUSTEIGEND
             MovesLowerRight.OrderBy(x => x.Coordinates["X"]);
 
-
-
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesLowerRight)
             {
@@ -337,8 +319,6 @@ namespace Schach_v1
             //UNTEN LINKS SORTIERUNG UND ENTFERNUNG
             //Sortiert die Tiles AUSTEIGEND
             MovesLowerLeft.OrderBy(x => x.Coordinates["X"]);
-
-
 
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesLowerLeft)
@@ -398,5 +378,6 @@ namespace Schach_v1
             }
             return PossibleMoves;
         }
+        
     }
 }

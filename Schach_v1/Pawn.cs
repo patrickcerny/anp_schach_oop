@@ -13,7 +13,6 @@ namespace Schach_v1
 
         public Pawn(Size panelSize, Tile startingTile) : base(panelSize, startingTile)
         {
-
             FigureType = FigureTypes.pawn;
 
             if (FigureColor == Color.Black)
@@ -24,10 +23,6 @@ namespace Schach_v1
             {
                 BackgroundImage = Properties.Resources.pawn_white;
             }
-
-
-            
-            
         }
         public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
         {
@@ -78,15 +73,11 @@ namespace Schach_v1
                                 }
                             }
                         }
-
                     }
-
-
                 }
                 //nur wenn pawn weiss ist kann er nach oben
                 else
                 {
-                    
                     //ob die Tile genau drüber isch
                     if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"])
                     {
@@ -124,14 +115,10 @@ namespace Schach_v1
                                 }
                             }
                         }
-
                     }
-                    
                 }
- 
             }
             return PossibleMoves;
         }
     }
-
 }

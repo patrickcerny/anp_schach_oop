@@ -62,18 +62,18 @@ namespace Schach_v1
                     Color color;
                     if (id % 2 == 0 && i % 2 == 0)
                     {
-                        color = _tileColors[1];
+                        color = _tileColors[0];
                     }
                     else if (id % 2 == 1 && i % 2 == 1){
-                        color = _tileColors[1];
+                        color = _tileColors[0];
                     }
                     else
                     {
-                        color = _tileColors[0];
+                        color = _tileColors[01];
                     }
 
                    //Erstellung des Tiles und Position anhand der ID
-                    Tile ChessTile = new Tile(_tileSize, color, id, new int[] { j, i });
+                    Tile ChessTile = new Tile(_tileSize, color, new int[] { j, i });
                     ChessTile.TileClicked += ChessTile_TileClicked;
                     ChessTile.Left = ChessTile.Width * j;
                     ChessTile.Top = ChessTile.Height * i;
@@ -88,7 +88,7 @@ namespace Schach_v1
                         }
                         if (j == 4)
                         {
-                            Controls.Add(new King(ClientSize, ChessTile));
+                            Controls.Add(new King(ClientSize, ChessTile, Tiles));
                         }
                     }
 
@@ -101,7 +101,7 @@ namespace Schach_v1
                         }
                         if (j == 4)
                         {
-                            Controls.Add(new King(ClientSize, ChessTile));
+                            Controls.Add(new King(ClientSize, ChessTile, Tiles));
                         }
                     }
 
@@ -202,17 +202,13 @@ namespace Schach_v1
            
 
             Figure clickedFigure = sender as Figure;
-            bool isFIgureOnBoard = false;
 
 
             //wenn die figur nicht die farbe des zurzeit angreifenden spielers hat (möglichkeit auf absicht auf das schlagen der Figur)
             if (clickedFigure.FigureColor != CurrentPlayer)
             {
-                Console.WriteLine("gegner figur geklickt");
-                Console.WriteLine(clickedFigure.CurrentTile.Coordinates["X"] + ": X, "+ clickedFigure.CurrentTile.Coordinates["Y"] + ": Y");
                 if (clickedFigure.CurrentTile.BackColor == PossibleMoveColor)
                 {
-                    Console.WriteLine("gegner figur gef");
                     Controls.Remove(clickedFigure);
                     clickedFigure.CurrentTile.CurrenFigure = null;
                     MoveFigure(clickedFigure.CurrentTile);
@@ -229,90 +225,46 @@ namespace Schach_v1
                 //Tiles, welche gefärbt werden müssen
                 List<Tile> _tilesToColor = clickedFigure.GetPossibleMoves(clickedFigure, Tiles);
 
-                    //färbt jedes Tile 
-                    foreach (Tile item in _tilesToColor)
+                //färbt jedes Tile 
+                foreach (Tile item in _tilesToColor)
+                {
+                    //jedes mögliche Feld wird in die mögliche zug farbe gefärbt
+                    item.BackColor = PossibleMoveColor;
+
+                    //checkt ob auf dem Feld überhaupt eine Figure ist
+                    if (item.CurrenFigure != null)
                     {
-                        Console.WriteLine(item.BackColor);
-                        //jedes mögliche Feld wird in die mögliche zug farbe gefärbt
-                        item.BackColor = PossibleMoveColor;
-
-                        //checkt ob auf dem Feld überhaupt eine Figure ist
-                        if (item.CurrenFigure != null)
-                        {
-                            //färbt jedes Figure dessen Hintergrundfarbe geändert wurde
-                            item.CurrenFigure.BackColor = item.CurrenFigure.ChangeBackColor(item);
-                        }
-
+                        //färbt jedes Figure dessen Hintergrundfarbe geändert wurde
+                        item.CurrenFigure.BackColor = item.CurrenFigure.ChangeBackColor(item);
                     }
 
-
-
-
-
-
+                }
             }
-
-
-
-
-            
-
-
-
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
 
-
-
-
-        //färbt das Board neu
+        /// <summary>
+        /// färbt das board neu ein
+        /// </summary>
         public void RePaintBoard()
         {
            //geht jedes einzelne Tile durch
             foreach (Tile tile in Tiles)
             {
-
-                if (tile.Coordinates["X"] == 2 && tile.Coordinates["Y"] == 5)
-                {
-                    Console.WriteLine(tile.CurrenFigure);
-                }
-
                 //Setzt die Farben auf den Standard zurück
-                if (tile.ID % 2 == 0 && tile.Coordinates["Y"] % 2 == 0)
+                if (tile.Coordinates["X"] % 2 == 0 && tile.Coordinates["Y"] % 2 == 0)
                 {
                     
-                    tile.BackColor = _tileColors[1];
+                    tile.BackColor = _tileColors[0];
                 }
-                else if (tile.ID % 2 == 1 && tile.Coordinates["Y"] % 2 == 1)
+                else if (tile.Coordinates["X"] % 2 == 1 && tile.Coordinates["Y"] % 2 == 1)
                 {
                     
-                    tile.BackColor = _tileColors[1];
+                    tile.BackColor = _tileColors[0];
                 }
                 else
                 {
                     
-                    tile.BackColor = _tileColors[0];
+                    tile.BackColor = _tileColors[1];
                 }
 
                 //checkt ob das Tile eine Currenfigurehat
@@ -324,40 +276,36 @@ namespace Schach_v1
             }
         }
 
-        void MoveFigure(object sender)
-        {
-            Tile clickedTile = sender as Tile;
-            Console.WriteLine("Tile geclicked");
+        /// <summary>
+        /// Bewegt die figur auf das Tile
+        /// </summary>
+        /// <param name="clickedTile">Tile, auf welches die Figur bewegt werden soll</param>
+        void MoveFigure(Tile clickedTile)
+        {          
 
-            
-                //Console.WriteLine(_lastFigureClicked.CurrentTile.Coordinates["X"] + "X, " + _lastFigureClicked.CurrentTile.Coordinates["Y"]+ " Y");
+            //setzt auf das geclickte Tile die alte figure
+            clickedTile.CurrenFigure = _lastFigureClicked;
 
-
-                //des münnd ma uns nomml aschoa gea
-
-                //setzt auf das geclickte Tile die alte figure
-                clickedTile.CurrenFigure = _lastFigureClicked;
-
-                //cleart das alte Tile wo die Figure war
-                _lastFigureClicked.CurrentTile.CurrenFigure = null;
+            //cleart das alte Tile wo die Figure war
+            _lastFigureClicked.CurrentTile.CurrenFigure = null;
 
 
-                clickedTile.CurrenFigure.CurrentTile = clickedTile;
+            clickedTile.CurrenFigure.CurrentTile = clickedTile;
 
-                //position anhand der Position des Tiles
-                clickedTile.CurrenFigure.Left = clickedTile.Left + _tileSize.Width / 2 - clickedTile.CurrenFigure.Width / 2;
-                clickedTile.CurrenFigure.Top = clickedTile.Top + _tileSize.Height / 2 - clickedTile.CurrenFigure.Height / 2;
+            //position anhand der Position des Tiles
+            clickedTile.CurrenFigure.Left = clickedTile.Left + _tileSize.Width / 2 - clickedTile.CurrenFigure.Width / 2;
+            clickedTile.CurrenFigure.Top = clickedTile.Top + _tileSize.Height / 2 - clickedTile.CurrenFigure.Height / 2;
 
-                //z-index mol wieder
-                clickedTile.CurrenFigure.BringToFront();
+            //z-index mol wieder
+            clickedTile.CurrenFigure.BringToFront();
 
-                //neu färben
-                RePaintBoard();
-       
-
+            //neu färben
+            RePaintBoard();
         }
 
-
+        /// <summary>
+        /// Wechselt den zurzeit spielenden spieler
+        /// </summary>
         void ChangePlayer()
         {
             if (CurrentPlayer == Color.White)

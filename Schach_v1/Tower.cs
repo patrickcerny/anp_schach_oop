@@ -33,7 +33,6 @@ namespace Schach_v1
             //geht vier mal in alle Directions
             for (int i = 0; i < 4; i++)
             {
-
                 //Cleared die Liste von dem Vorherigem Durchlauf
                 MovesInDirection.Clear();
                 switch (i)
@@ -48,8 +47,6 @@ namespace Schach_v1
                             {
                                 MovesInDirection.Add(tile);
                             }
-
-
                         }
 
                         //Sortiert die Tiles AUSTEIGEND
@@ -57,7 +54,6 @@ namespace Schach_v1
                         
                         //ändert die Reiehnfolge auf ABSTEIGEND
                         MovesInDirection.Reverse();
-
 
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
@@ -210,8 +206,6 @@ namespace Schach_v1
                 }
             }
             return PossibleMoves;
-
-
         }
     }
 }
