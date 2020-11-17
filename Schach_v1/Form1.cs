@@ -34,6 +34,9 @@ namespace Schach_v1
 
         List<Tile> Tiles = new List<Tile> { };
 
+        // Label zur Ausgabe des CurrentPlayers
+        Label lbl_currentPlayer;
+
         public Form1()
         {
             InitializeComponent();
@@ -139,7 +142,6 @@ namespace Schach_v1
                     Tiles.Add(ChessTile);
 
                     //hinzufügen der Figur und des Tile's
-
                     Controls.Add(ChessTile);
 
                     //id counter
@@ -177,7 +179,7 @@ namespace Schach_v1
             Controls.Add(InfoBar);
 
             // Label zur Ausgabe des Spielers (am Zug), erstellen und definieren
-            Label lbl_currentPlayer = new Label()
+            lbl_currentPlayer = new Label()
             {
                 Top = _tileSize.Height /2,
                 Left = _tileSize.Width - _tileSize.Width / 6,
@@ -186,21 +188,14 @@ namespace Schach_v1
                 Font = new Font("Arial", 26)                
             };
             
-            // Prüfen welcher Spieler an der Reihe ist und dann im Label ausgeben
-            if (CurrentPlayer == Color.Black)
-            {
-                lbl_currentPlayer.Text = "Schwarz";
-            }
-            else
-            {
-                lbl_currentPlayer.Text = "Weiß";
-            }
+            
+            
             InfoBar.Controls.Add(lbl_currentPlayer); // Label ins Panel hinzufügen
 
             TextBox txt_durationTimer = new TextBox()
             {
-                Top = lbl_currentPlayer.Height + _tileSize.Height,
-                Left = _tileSize.Width - _tileSize.Width / 8
+                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top,
+                Left = 70
             };
             InfoBar.Controls.Add(txt_durationTimer);
             txt_durationTimer.Text = "15";
@@ -209,7 +204,15 @@ namespace Schach_v1
             // Stopuhr für beide Spieler
             Stopwatch spw_durationBlack = new Stopwatch();
             Stopwatch spw_durationWhite = new Stopwatch();
+            // Button zum abschicken
+            Button btn_pushDuration = new Button()
+            {
+                Left = txt_durationTimer.Left + txt_durationTimer.Width,
+                Top = lbl_currentPlayer.Top + lbl_currentPlayer.Height
+            };
+            InfoBar.Controls.Add(btn_pushDuration);
 
+            
             // TO DO: Stopwatch Tick implementieren und im label ausgeben.  
             
         }
@@ -284,9 +287,6 @@ namespace Schach_v1
             
         }
 
-
-
-
         //färbt das Board neu
         public void RePaintBoard()
         {
@@ -358,16 +358,20 @@ namespace Schach_v1
 
         }
 
-
         void ChangePlayer()
         {
             if (CurrentPlayer == Color.White)
             {
                 CurrentPlayer = Color.Black;
+                // Prüfen welcher Spieler an der Reihe ist und dann im Label ausgeben
+                lbl_currentPlayer.ForeColor = Color.White;
+                lbl_currentPlayer.BackColor = Color.Black;
+                lbl_currentPlayer.Text = "Schwarz";
             }
             else
             {
                 CurrentPlayer = Color.White;
+                lbl_currentPlayer.Text = "Weiß";
             }
         }
     }
