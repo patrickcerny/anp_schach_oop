@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Schach_v1
 {
@@ -33,12 +34,17 @@ namespace Schach_v1
         //liste aller tiles
         List<Tile> Tiles = new List<Tile> { };
 
+        // Label zur Ausgabe des CurrentPlayers
+        Label lbl_currentPlayer;
+
         public Form1()
         {
             InitializeComponent();
             InitWindow();
-            
-            
+            InitInfoBar();
+
+
+
         }
 
         /// <summary>
@@ -52,6 +58,7 @@ namespace Schach_v1
             //festlegung der Größe des Spielfeldes
             ClientSize = new Size(_BOARDSIZE, _BOARDSIZE);
             _tileSize = new Size(ClientSize.Width / 8, ClientSize.Height / 8);
+            ClientSize = new Size(_BOARDSIZE + _tileSize.Width * 3, _BOARDSIZE);
 
             //erstellung aller Tiles mit den ID's 0-63
             for (int i = 0; i < 8; i++)
@@ -135,7 +142,6 @@ namespace Schach_v1
                     Tiles.Add(ChessTile);
 
                     //hinzufügen der Figur und des Tile's
-
                     Controls.Add(ChessTile);
 
                     //id counter
@@ -157,6 +163,58 @@ namespace Schach_v1
                 }
             }
 
+        }
+
+        // Methode zur Erstellung vom Informationsbalken rechts
+        public void InitInfoBar()
+        {
+            // InfoBar recht erstellen und definieren
+            Panel InfoBar = new Panel()
+            {
+                Top = 0,
+                Left = 800,
+                Width = _tileSize.Width * 3,
+                Height = _tileSize.Height * 8
+            };
+            Controls.Add(InfoBar);
+
+            // Label zur Ausgabe des Spielers (am Zug), erstellen und definieren
+            lbl_currentPlayer = new Label()
+            {
+                Top = _tileSize.Height /2,
+                Left = _tileSize.Width - _tileSize.Width / 6,
+                Width = _tileSize.Width * 3,
+                Height = _tileSize.Height,
+                Font = new Font("Arial", 26)                
+            };
+            
+            
+            
+            InfoBar.Controls.Add(lbl_currentPlayer); // Label ins Panel hinzufügen
+
+            TextBox txt_durationTimer = new TextBox()
+            {
+                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top,
+                Left = 70
+            };
+            InfoBar.Controls.Add(txt_durationTimer);
+            txt_durationTimer.Text = "15";
+            int duration = Convert.ToInt32(txt_durationTimer.Text);
+
+            // Stopuhr für beide Spieler
+            Stopwatch spw_durationBlack = new Stopwatch();
+            Stopwatch spw_durationWhite = new Stopwatch();
+            // Button zum abschicken
+            Button btn_pushDuration = new Button()
+            {
+                Left = txt_durationTimer.Left + txt_durationTimer.Width,
+                Top = lbl_currentPlayer.Top + lbl_currentPlayer.Height
+            };
+            InfoBar.Controls.Add(btn_pushDuration);
+
+            
+            // TO DO: Stopwatch Tick implementieren und im label ausgeben.  
+            
         }
 
         private void ChessTile_TileClicked(object sender, EventArgs e)
@@ -242,9 +300,7 @@ namespace Schach_v1
             }
         }
 
-        /// <summary>
-        /// färbt das board neu ein
-        /// </summary>
+        //färbt das Board neu
         public void RePaintBoard()
         {
            //geht jedes einzelne Tile durch
@@ -303,18 +359,20 @@ namespace Schach_v1
             RePaintBoard();
         }
 
-        /// <summary>
-        /// Wechselt den zurzeit spielenden spieler
-        /// </summary>
         void ChangePlayer()
         {
             if (CurrentPlayer == Color.White)
             {
                 CurrentPlayer = Color.Black;
+                // Prüfen welcher Spieler an der Reihe ist und dann im Label ausgeben
+                lbl_currentPlayer.ForeColor = Color.White;
+                lbl_currentPlayer.BackColor = Color.Black;
+                lbl_currentPlayer.Text = "Schwarz";
             }
             else
             {
                 CurrentPlayer = Color.White;
+                lbl_currentPlayer.Text = "Weiß";
             }
         }
     }
