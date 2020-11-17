@@ -10,8 +10,6 @@ namespace Schach_v1
     public class Tile : Panel
     {
         public event EventTypeTileClicked TileClicked;
-        //ID des Tiles (0-63)
-        public int ID;
 
         //X und Y Coordinaten des Tiles
         public Dictionary<string, int> Coordinates = new Dictionary<string, int>();
@@ -19,14 +17,10 @@ namespace Schach_v1
         //die Daraufliegende Figur
         public Figure CurrenFigure = null;
 
-
-        public Tile(Size tileSize, Color Color, int id, int[] Coords)
+        public Tile(Size tileSize, Color Color, int[] Coords)
         {
             //Setzung der Hintergrundfarbe
             BackColor = Color;
-
-            //Setzung der ID
-            ID = id;
 
             //Breite und höhe der Tiles anhand der Übergebenden Parameter
             Width = tileSize.Width;
@@ -43,6 +37,4 @@ namespace Schach_v1
             TileClicked?.Invoke(this, e);
         }
     }
-    
-
 }
