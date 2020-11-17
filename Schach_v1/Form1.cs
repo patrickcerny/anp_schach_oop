@@ -14,7 +14,7 @@ namespace Schach_v1
     public partial class Form1 : Form
     {
         //Colors des SChachbretts
-        Color[] _tileColors =  new Color[] {Color.FromArgb(163, 163, 163), Color.FromArgb(102, 59, 7) };
+        Color[] _tileColors = new Color[] { Color.FromArgb(163, 163, 163), Color.FromArgb(102, 59, 7) };
 
         //farbe die das Feld annimmt wenn es besprungen werden kann
         public Color PossibleMoveColor = Color.ForestGreen;
@@ -24,7 +24,7 @@ namespace Schach_v1
 
         //größe des Boards
         const int _BOARDSIZE = 800;
-        
+
         //größe der einzelnen Teile
         Size _tileSize;
 
@@ -36,6 +36,12 @@ namespace Schach_v1
 
         // Label zur Ausgabe des CurrentPlayers
         Label lbl_currentPlayer;
+
+        // Textbox für Eingabe der Zeit
+        TextBox txt_durationStopwatch;
+
+        // Var zum speichern der eingegebenen Zeit (Spielzeit)
+        int duration = 0;
 
         public Form1()
         {
@@ -71,7 +77,7 @@ namespace Schach_v1
                     {
                         color = _tileColors[1];
                     }
-                    else if (id % 2 == 1 && i % 2 == 1){
+                    else if (id % 2 == 1 && i % 2 == 1) {
                         color = _tileColors[1];
                     }
                     else
@@ -79,7 +85,7 @@ namespace Schach_v1
                         color = _tileColors[0];
                     }
 
-                   //Erstellung des Tiles und Position anhand der ID
+                    //Erstellung des Tiles und Position anhand der ID
                     Tile ChessTile = new Tile(_tileSize, color, id, new int[] { j, i });
                     ChessTile.TileClicked += ChessTile_TileClicked;
                     ChessTile.Left = ChessTile.Width * j;
@@ -123,7 +129,7 @@ namespace Schach_v1
                         if (j == 1 || j == 6)
                         {
                             Controls.Add(new Horse(ClientSize, ChessTile, Tiles));
-                            
+
                         }
 
                         if (j == 2 || j == 5)
@@ -146,9 +152,6 @@ namespace Schach_v1
 
                     //id counter
                     id++;
-
-                    
-                    
                 }
 
             }
@@ -162,7 +165,6 @@ namespace Schach_v1
 
                 }
             }
-
         }
 
         // Methode zur Erstellung vom Informationsbalken rechts
@@ -181,25 +183,23 @@ namespace Schach_v1
             // Label zur Ausgabe des Spielers (am Zug), erstellen und definieren
             lbl_currentPlayer = new Label()
             {
-                Top = _tileSize.Height /2,
-                Left = _tileSize.Width - _tileSize.Width / 6,
                 Width = _tileSize.Width * 3,
-                Height = _tileSize.Height,
-                Font = new Font("Arial", 26)                
+                Height = _tileSize.Height * 2,
+                Font = new Font("Arial", 26)
             };
-            
-            
-            
             InfoBar.Controls.Add(lbl_currentPlayer); // Label ins Panel hinzufügen
+            // Spieler anfangs auf schwarz setzen damit beim Ersten Change Weiß ausgegeben wird (weiß beginnt)
+            CurrentPlayer = Color.Black;
+            ChangePlayer();
 
-            TextBox txt_durationTimer = new TextBox()
+            txt_durationStopwatch = new TextBox()
             {
-                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top,
+                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top + 20,
                 Left = 70
             };
-            InfoBar.Controls.Add(txt_durationTimer);
-            txt_durationTimer.Text = "15";
-            int duration = Convert.ToInt32(txt_durationTimer.Text);
+            InfoBar.Controls.Add(txt_durationStopwatch);
+
+            txt_durationStopwatch.Text = "15"; // Standard gemäß haben beide Spieler 15 Minuten Zeit
 
             // Stopuhr für beide Spieler
             Stopwatch spw_durationBlack = new Stopwatch();
@@ -207,15 +207,38 @@ namespace Schach_v1
             // Button zum abschicken
             Button btn_pushDuration = new Button()
             {
-                Left = txt_durationTimer.Left + txt_durationTimer.Width,
-                Top = lbl_currentPlayer.Top + lbl_currentPlayer.Height
+                Left = txt_durationStopwatch.Left + txt_durationStopwatch.Width,
+                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top + 20,
+                Text = "set"
             };
+            // Eventhandler hinzufügen für Click Event
+            btn_pushDuration.Click += Btn_pushDuration_Click;
             InfoBar.Controls.Add(btn_pushDuration);
 
-            
+            // Timer generieren der jede Sekunde tickt 
+            Timer tmr_sekunde = new Timer();
+            tmr_sekunde.Interval = 100;
+            tmr_sekunde.Start();
+            tmr_sekunde.Tick += Tmr_Sekunde_Tick;
+
             // TO DO: Stopwatch Tick implementieren und im label ausgeben.  
-            
+
         }
+
+        private void Tmr_Sekunde_Tick(object sender, EventArgs e)
+        {
+            // TO DO: Stopuhr um 1 vermindern
+        }
+
+        private void Btn_pushDuration_Click(object sender, EventArgs e)
+        {
+            txt_durationStopwatch.Text = "15"; // Standard gemäß haben beide Spieler 15 Minuten Zeit
+            duration = Convert.ToInt32(txt_durationStopwatch.Text); // Dauer in Var speichern
+            txt_durationStopwatch.Clear();
+        }
+
+        // TO DO: MEthode vom Click des Buttons machen
+
 
         private void ChessTile_TileClicked(object sender, EventArgs e)
         {
@@ -366,11 +389,16 @@ namespace Schach_v1
                 // Prüfen welcher Spieler an der Reihe ist und dann im Label ausgeben
                 lbl_currentPlayer.ForeColor = Color.White;
                 lbl_currentPlayer.BackColor = Color.Black;
+                lbl_currentPlayer.TextAlign = ContentAlignment.MiddleCenter;
                 lbl_currentPlayer.Text = "Schwarz";
             }
             else
             {
                 CurrentPlayer = Color.White;
+                // Im Infobar ausgeben welcher Spieler an der Reihe ist
+                lbl_currentPlayer.ForeColor = Color.Black;
+                lbl_currentPlayer.BackColor = Color.White;
+                lbl_currentPlayer.TextAlign = ContentAlignment.MiddleCenter;
                 lbl_currentPlayer.Text = "Weiß";
             }
         }

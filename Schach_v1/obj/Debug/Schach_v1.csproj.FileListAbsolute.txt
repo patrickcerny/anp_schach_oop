@@ -24,3 +24,4 @@ C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.Pro
 C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.csproj.GenerateResource.cache
 C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.exe
 C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.pdb
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_v1\obj\Debug\Schach_v1.Form1.resources
