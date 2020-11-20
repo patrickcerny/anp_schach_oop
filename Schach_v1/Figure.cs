@@ -64,7 +64,7 @@ namespace Schach_v1
             BoardTiles = Tiles;
 
             //Setzung des CurrentFigure des zugewiesenen Tiles
-            startingTile.CurrenFigure = this;
+            startingTile.CurrentFigure = this;
 
             //farbe wird Festegelegt
             if (startingTile.ID >= 0 && startingTile.ID <= 15)
@@ -131,7 +131,7 @@ namespace Schach_v1
             isFigOnBoard = false;
             foreach (Tile tile in BoardTiles)
             {
-                if (tile.CurrenFigure == this)
+                if (tile.CurrentFigure == this)
                 {
                     isFigOnBoard = true;
                 }
@@ -152,10 +152,10 @@ namespace Schach_v1
                     item.BackColor = _possibleMoveColor;
 
                     //checkt ob auf dem Feld überhaupt eine Figure ist
-                    if (item.CurrenFigure != null)
+                    if (item.CurrentFigure != null)
                     {
                         //färbt jedes Figure dessen Hintergrundfarbe geändert wurde
-                        item.CurrenFigure.BackColor = item.CurrenFigure.ChangeBackColor(item);
+                        item.CurrentFigure.BackColor = item.CurrentFigure.ChangeBackColor(item);
                     }
 
                 }

@@ -97,10 +97,10 @@ namespace Schach_v1
             foreach (Tile item in PossibleMoves)
             {
 
-                if (item.CurrenFigure != null)
+                if (item.CurrentFigure != null)
                 {
 
-                    if (item.CurrenFigure.FigureColor == figure.FigureColor)
+                    if (item.CurrentFigure.FigureColor == figure.FigureColor)
                     {
 
                         TilesToRemove.Add(item);

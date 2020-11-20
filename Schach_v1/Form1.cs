@@ -34,23 +34,39 @@ namespace Schach_v1
 
         List<Tile> Tiles = new List<Tile> { };
 
+        //Liste der geschlagenen Figuren
+        List<Figure> FiguresInfoBarWhite = new List<Figure>();
+        List<Figure> FiguresInfoBarBlack = new List<Figure>();
+
         // Label zur Ausgabe des CurrentPlayers
         Label lbl_currentPlayer;
 
         // Textbox für Eingabe der Zeit
         TextBox txt_durationStopwatch;
 
+        // Panel zum Gruppieren der Elemente im InfoBar
+        Panel pnl_InfoBar;
+
+        // Labels um Zeit der Spieler ausgeben
+        Label lbl_timeLeft_white, lbl_timeLeft_black;
+
+        // Timer um jede Sekunde die übrige Zeit herunter zu zählen
+        Timer tmr_sekunde;
+
+        // Button um Zeit einzugeben
+        Button btn_pushDuration;
+
         // Var zum speichern der eingegebenen Zeit (Spielzeit)
         int duration = 0;
+
+        // Übrige Zeit Label
+        int _timeLeftWhite, _timeLeftBlack;
 
         public Form1()
         {
             InitializeComponent();
             InitWindow();
             InitInfoBar();
-
-
-
         }
 
         /// <summary>
@@ -171,14 +187,14 @@ namespace Schach_v1
         public void InitInfoBar()
         {
             // InfoBar recht erstellen und definieren
-            Panel InfoBar = new Panel()
+            pnl_InfoBar = new Panel()
             {
                 Top = 0,
                 Left = 800,
                 Width = _tileSize.Width * 3,
                 Height = _tileSize.Height * 8
             };
-            Controls.Add(InfoBar);
+            Controls.Add(pnl_InfoBar);
 
             // Label zur Ausgabe des Spielers (am Zug), erstellen und definieren
             lbl_currentPlayer = new Label()
@@ -187,57 +203,138 @@ namespace Schach_v1
                 Height = _tileSize.Height * 2,
                 Font = new Font("Arial", 26)
             };
-            InfoBar.Controls.Add(lbl_currentPlayer); // Label ins Panel hinzufügen
+            pnl_InfoBar.Controls.Add(lbl_currentPlayer); // Label ins Panel hinzufügen
             // Spieler anfangs auf schwarz setzen damit beim Ersten Change Weiß ausgegeben wird (weiß beginnt)
             CurrentPlayer = Color.Black;
             ChangePlayer();
 
             txt_durationStopwatch = new TextBox()
             {
-                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top + 20,
-                Left = 70
+                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top + 10,
+                Left = 65
             };
-            InfoBar.Controls.Add(txt_durationStopwatch);
+            pnl_InfoBar.Controls.Add(txt_durationStopwatch);
 
             txt_durationStopwatch.Text = "15"; // Standard gemäß haben beide Spieler 15 Minuten Zeit
-
-            // Stopuhr für beide Spieler
-            Stopwatch spw_durationBlack = new Stopwatch();
-            Stopwatch spw_durationWhite = new Stopwatch();
+           
             // Button zum abschicken
-            Button btn_pushDuration = new Button()
+            btn_pushDuration = new Button()
             {
                 Left = txt_durationStopwatch.Left + txt_durationStopwatch.Width,
-                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top + 20,
+                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top + 10,
                 Text = "set"
             };
             // Eventhandler hinzufügen für Click Event
             btn_pushDuration.Click += Btn_pushDuration_Click;
-            InfoBar.Controls.Add(btn_pushDuration);
+            pnl_InfoBar.Controls.Add(btn_pushDuration);
 
             // Timer generieren der jede Sekunde tickt 
-            Timer tmr_sekunde = new Timer();
-            tmr_sekunde.Interval = 100;
-            tmr_sekunde.Start();
+            tmr_sekunde = new Timer();
+            tmr_sekunde.Interval = 1000;
             tmr_sekunde.Tick += Tmr_Sekunde_Tick;
 
-            // TO DO: Stopwatch Tick implementieren und im label ausgeben.  
+            // Labels zum ausgeben der übrigen Zeit
+            lbl_timeLeft_white = new Label()
+            {
+                
+                Top = txt_durationStopwatch.Top + txt_durationStopwatch.Height * 2,
+                Font = new Font("Arial", 12),
+                Height = 50,
+                Width = 90,
+                Left = _tileSize.Width - 30,
+            };
+            pnl_InfoBar.Controls.Add(lbl_timeLeft_white);
 
+            lbl_timeLeft_black = new Label()
+            {
+                Top = txt_durationStopwatch.Top + txt_durationStopwatch.Height * 2,
+                Font = new Font("Arial", 12),
+                Height = 50,
+                Width = 90,
+                Left = lbl_timeLeft_white.Width + lbl_timeLeft_white.Left 
+
+            };
+            pnl_InfoBar.Controls.Add(lbl_timeLeft_black);
+
+
+            // Starten wenn Button geklickt wurde
+            Button btn_startGame = new Button()
+            {
+                Width = pnl_InfoBar.Width,
+                Height = _tileSize.Height  / 2,
+                Top = pnl_InfoBar.Height - (_tileSize.Height),
+                Left = 0,
+                Text = "Starten"
+            };
+            pnl_InfoBar.Controls.Add(btn_startGame);
+            // Event Handler hinzufügen
+            btn_startGame.Click += Btn_startGame_Click;
+        }
+
+        private void Btn_startGame_Click(object sender, EventArgs e)
+        { 
+            // Elemente unbenutzbar machen wenn Timer nicht läuft
+            if (!tmr_sekunde.Enabled)
+            {
+                tmr_sekunde.Start();
+                txt_durationStopwatch.Enabled = false;
+                btn_pushDuration.Enabled = false;
+            }
         }
 
         private void Tmr_Sekunde_Tick(object sender, EventArgs e)
         {
+            if (CurrentPlayer == Color.White)
+            {
+                _timeLeftWhite--;
+                UpdateTimerText(lbl_timeLeft_white, _timeLeftWhite);
+            }
+            else
+            {
+                _timeLeftBlack--;
+                UpdateTimerText(lbl_timeLeft_black, _timeLeftBlack);
+            }
+           
+
+            
+            
+
             // TO DO: Stopuhr um 1 vermindern
+          
+        }
+
+        private void UpdateTimerText(Label lbl_toChange, int timeLeft)
+        {
+            int minLeft, secLeft;
+            minLeft = Convert.ToInt32(Math.Floor(timeLeft / 60.0)); // Minuten
+            secLeft = Convert.ToInt32(Math.Floor(timeLeft % 60.0)); // Sekunden
+            
+
+            lbl_toChange.Text = Convert.ToString(minLeft) + " : " + Convert.ToString(secLeft);
+
         }
 
         private void Btn_pushDuration_Click(object sender, EventArgs e)
         {
-            txt_durationStopwatch.Text = "15"; // Standard gemäß haben beide Spieler 15 Minuten Zeit
-            duration = Convert.ToInt32(txt_durationStopwatch.Text); // Dauer in Var speichern
-            txt_durationStopwatch.Clear();
+            if (txt_durationStopwatch.Text == "")
+            {
+                duration = 15; // Standardgemäß haben beide Spieler 15 Minuten Zeit
+            }
+            else
+            {
+                duration = Convert.ToInt32(txt_durationStopwatch.Text) * 60; // Dauer in Var speichern * 60 um in Sekunden
+                txt_durationStopwatch.Clear();
+                _timeLeftWhite = duration;
+                _timeLeftBlack = duration;
+            }
+
+            UpdateTimerText(lbl_timeLeft_white, duration);
+            UpdateTimerText(lbl_timeLeft_black, duration);
+            
+            // TO DO: Try and Catch rund um duration
         }
 
-        // TO DO: MEthode vom Click des Buttons machen
+        // TO DO: Methode vom Click des Buttons machen
 
 
         private void ChessTile_TileClicked(object sender, EventArgs e)
@@ -255,17 +352,21 @@ namespace Schach_v1
                     if (clickedTile.BackColor == PossibleMoveColor)
                     {
                         //wenn die figur leer ist ==> einfach die figur moven
-                        if (clickedTile.CurrenFigure == null)
+                        if (clickedTile.CurrentFigure == null)
                         {
                             MoveFigure(clickedTile);
                         }
                         //wenn eine figur drauf ist und sie die andere Farbe hat wie der Spieler dran ist ==> schlag
-                        else if (clickedTile.CurrenFigure.FigureColor != _lastFigureClicked.FigureColor)
+                        else if (clickedTile.CurrentFigure.FigureColor != _lastFigureClicked.FigureColor)
                         {
                             //entfernt die Figur von den Controls
-                            Controls.Remove(clickedTile.CurrenFigure);
+                            Controls.Remove(clickedTile.CurrentFigure);
+
+                            // TO DO: geschlagenen Figuren im INFOBAR anzeigen
+                            AddToBeatenFigureCollection(clickedTile.CurrentFigure);
+
                             //die Figur des Tiles wird auf 0 gesetzt
-                            clickedTile.CurrenFigure = null;
+                            clickedTile.CurrentFigure = null;
                             //der zug wird vollbracht
                             MoveFigure(clickedTile);
                         }
@@ -274,6 +375,31 @@ namespace Schach_v1
                     ChangePlayer();
                 }
             } 
+        }
+
+        private void AddToBeatenFigureCollection(Figure beatenFigure)
+        {
+            
+            // Event Handler löschen
+            beatenFigure.FigureClicked -= Figure_FigureClicked;
+            // geschlagenen Figur in InfoBar anzeigen
+            pnl_InfoBar.Controls.Add(beatenFigure);
+            // Größe des Panels festlegen
+            beatenFigure.Size = new Size(_tileSize.Width / 4, _tileSize.Height / 4);
+            // Hintergrund ändern
+            beatenFigure.BackColor = pnl_InfoBar.BackColor;
+            if (beatenFigure.FigureColor == Color.White)
+            {
+                
+                beatenFigure.Location = new Point(lbl_timeLeft_white.Left , lbl_timeLeft_white.Height + lbl_timeLeft_white.Top + FiguresInfoBarWhite.Count() * beatenFigure.Height);
+                FiguresInfoBarWhite.Add(beatenFigure);
+            }
+            else
+            {
+                beatenFigure.Location = new Point(_tileSize.Width * 2, lbl_timeLeft_black.Height + lbl_timeLeft_black.Top + FiguresInfoBarBlack.Count() * beatenFigure.Height);
+                FiguresInfoBarBlack.Add(beatenFigure);
+            }
+
         }
 
         private void Figure_FigureClicked(object sender, EventArgs e)
@@ -288,8 +414,9 @@ namespace Schach_v1
                 if (clickedFigure.CurrentTile.BackColor == PossibleMoveColor)
                 {
                     Controls.Remove(clickedFigure);
-                    clickedFigure.CurrentTile.CurrenFigure = null;
+                    clickedFigure.CurrentTile.CurrentFigure = null;
                     MoveFigure(clickedFigure.CurrentTile);
+                    AddToBeatenFigureCollection(clickedFigure);
                     ChangePlayer();
                 }
 
@@ -311,7 +438,7 @@ namespace Schach_v1
         }
 
         //färbt das Board neu
-        public void RePaintBoard()
+        private void RePaintBoard()
         {
            //geht jedes einzelne Tile durch
             foreach (Tile tile in Tiles)
@@ -319,7 +446,7 @@ namespace Schach_v1
 
                 if (tile.Coordinates["X"] == 2 && tile.Coordinates["Y"] == 5)
                 {
-                    Console.WriteLine(tile.CurrenFigure);
+                    Console.WriteLine(tile.CurrentFigure);
                 }
 
                 //Setzt die Farben auf den Standard zurück
@@ -340,10 +467,10 @@ namespace Schach_v1
                 }
 
                 //checkt ob das Tile eine Currenfigurehat
-                if (tile.CurrenFigure != null)
+                if (tile.CurrentFigure != null)
                 {
                     //Färbt 
-                    tile.CurrenFigure.BackColor = tile.BackColor;
+                    tile.CurrentFigure.BackColor = tile.BackColor;
                 }
             }
         }
@@ -351,32 +478,25 @@ namespace Schach_v1
         void MoveFigure(object sender)
         {
             Tile clickedTile = sender as Tile;
-            Console.WriteLine("Tile geclicked");
 
-            
-                //Console.WriteLine(_lastFigureClicked.CurrentTile.Coordinates["X"] + "X, " + _lastFigureClicked.CurrentTile.Coordinates["Y"]+ " Y");
+            //setzt auf das geclickte Tile die alte figure
+            clickedTile.CurrentFigure = _lastFigureClicked;
 
-
-                //des münnd ma uns nomml aschoa gea
-
-                //setzt auf das geclickte Tile die alte figure
-                clickedTile.CurrenFigure = _lastFigureClicked;
-
-                //cleart das alte Tile wo die Figure war
-                _lastFigureClicked.CurrentTile.CurrenFigure = null;
+            //cleart das alte Tile wo die Figure war
+            _lastFigureClicked.CurrentTile.CurrentFigure = null;
 
 
-                clickedTile.CurrenFigure.CurrentTile = clickedTile;
+            clickedTile.CurrentFigure.CurrentTile = clickedTile;
 
-                //position anhand der Position des Tiles
-                clickedTile.CurrenFigure.Left = clickedTile.Left + _tileSize.Width / 2 - clickedTile.CurrenFigure.Width / 2;
-                clickedTile.CurrenFigure.Top = clickedTile.Top + _tileSize.Height / 2 - clickedTile.CurrenFigure.Height / 2;
+            //position anhand der Position des Tiles
+            clickedTile.CurrentFigure.Left = clickedTile.Left + _tileSize.Width / 2 - clickedTile.CurrentFigure.Width / 2;
+            clickedTile.CurrentFigure.Top = clickedTile.Top + _tileSize.Height / 2 - clickedTile.CurrentFigure.Height / 2;
 
-                //z-index mol wieder
-                clickedTile.CurrenFigure.BringToFront();
+            //z-index mol wieder
+            clickedTile.CurrentFigure.BringToFront();
 
-                //neu färben
-                RePaintBoard();
+            //neu färben
+            RePaintBoard();
        
 
         }

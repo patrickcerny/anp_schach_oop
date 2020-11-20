@@ -91,7 +91,7 @@ namespace Schach_v1
             {
                 
                 //wenn das Feld leer ist wird es hinzugefügt
-                if (tile.CurrenFigure == null)
+                if (tile.CurrentFigure == null)
                 {
                     PossibleMoves.Add(tile);
                 }
@@ -99,7 +99,7 @@ namespace Schach_v1
                 else
                 {
                     //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrenFigure.FigureColor == figure.FigureColor)
+                    if (tile.CurrentFigure.FigureColor == figure.FigureColor)
                     {
                         break;
                     }
@@ -124,7 +124,7 @@ namespace Schach_v1
             {
                 
                 //wenn das Feld leer ist wird es hinzugefügt
-                if (tile.CurrenFigure == null)
+                if (tile.CurrentFigure == null)
                 {
                     PossibleMoves.Add(tile);
                 }
@@ -132,7 +132,7 @@ namespace Schach_v1
                 else
                 {
                     //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrenFigure.FigureColor == figure.FigureColor)
+                    if (tile.CurrentFigure.FigureColor == figure.FigureColor)
                     {
                         break;
                     }
@@ -155,7 +155,7 @@ namespace Schach_v1
             foreach (Tile tile in MovesLowerLeft)
             { 
                 //wenn das Feld leer ist wird es hinzugefügt
-                if (tile.CurrenFigure == null)
+                if (tile.CurrentFigure == null)
                 {
                     PossibleMoves.Add(tile);
                 }
@@ -163,7 +163,7 @@ namespace Schach_v1
                 else
                 {
                     //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrenFigure.FigureColor == figure.FigureColor)
+                    if (tile.CurrentFigure.FigureColor == figure.FigureColor)
                     {
                         break;
                     }
@@ -188,7 +188,7 @@ namespace Schach_v1
             {
                 
                 //wenn das Feld leer ist wird es hinzugefügt
-                if (tile.CurrenFigure == null)
+                if (tile.CurrentFigure == null)
                 {
                     PossibleMoves.Add(tile);
                 }
@@ -196,7 +196,7 @@ namespace Schach_v1
                 else
                 {
                     //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrenFigure.FigureColor == figure.FigureColor)
+                    if (tile.CurrentFigure.FigureColor == figure.FigureColor)
                     {
                         break;
                     }
