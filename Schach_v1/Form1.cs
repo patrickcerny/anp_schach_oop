@@ -56,6 +56,9 @@ namespace Schach_v1
         // Button um Zeit einzugeben
         Button btn_pushDuration;
 
+        // Button zum Starten des Spieles/Stopuhr
+        Button btn_startGame;
+
         // Var zum speichern der eingegebenen Zeit (Spielzeit)
         int duration = 0;
 
@@ -217,16 +220,7 @@ namespace Schach_v1
 
             txt_durationStopwatch.Text = "15"; // Standard gemäß haben beide Spieler 15 Minuten Zeit
            
-            // Button zum abschicken
-            btn_pushDuration = new Button()
-            {
-                Left = txt_durationStopwatch.Left + txt_durationStopwatch.Width,
-                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top + 10,
-                Text = "set"
-            };
-            // Eventhandler hinzufügen für Click Event
-            btn_pushDuration.Click += Btn_pushDuration_Click;
-            pnl_InfoBar.Controls.Add(btn_pushDuration);
+            
 
             // Timer generieren der jede Sekunde tickt 
             tmr_sekunde = new Timer();
@@ -256,19 +250,120 @@ namespace Schach_v1
             };
             pnl_InfoBar.Controls.Add(lbl_timeLeft_black);
 
+            #region Buttons
+            // Button zum abschicken
+            btn_pushDuration = new Button()
+            {
+                Left = txt_durationStopwatch.Left + txt_durationStopwatch.Width,
+                Top = lbl_currentPlayer.Height + lbl_currentPlayer.Top + 10,
+                Text = "set"
+            };
+            // Eventhandler hinzufügen für Click Event
+            btn_pushDuration.Click += Btn_pushDuration_Click;
+            pnl_InfoBar.Controls.Add(btn_pushDuration);
 
             // Starten wenn Button geklickt wurde
-            Button btn_startGame = new Button()
+            btn_startGame = new Button()
             {
                 Width = pnl_InfoBar.Width,
                 Height = _tileSize.Height  / 2,
-                Top = pnl_InfoBar.Height - (_tileSize.Height),
+                Top = pnl_InfoBar.Height - _tileSize.Height,
                 Left = 0,
                 Text = "Starten"
             };
             pnl_InfoBar.Controls.Add(btn_startGame);
             // Event Handler hinzufügen
             btn_startGame.Click += Btn_startGame_Click;
+
+            Button btn_remis = new Button()
+            {
+                Width = pnl_InfoBar.Width / 3,
+                Height = _tileSize.Height / 2,
+                Top = pnl_InfoBar.Height - btn_startGame.Height,
+                Left = 0,
+                Text = "Remis"
+            };
+            pnl_InfoBar.Controls.Add(btn_remis);
+            // Event Handler hinzufügen
+            btn_remis.Click += Btn_Remis_Click;
+
+            Button btn_aufgeben = new Button()
+            {
+                Width = pnl_InfoBar.Width / 3,
+                Height = _tileSize.Height / 2,
+                Top = pnl_InfoBar.Height - btn_startGame.Height,
+                Left = btn_remis.Width,
+                Text = "Aufgeben"
+            };
+            pnl_InfoBar.Controls.Add(btn_aufgeben);
+            // Event Handler hinzufügen
+            btn_aufgeben.Click += Btn_Aufgeben_Click;
+
+            Button btn_neuStarten = new Button()
+            {
+                Width = pnl_InfoBar.Width / 3,
+                Height = _tileSize.Height / 2,
+                Top = pnl_InfoBar.Height - btn_startGame.Height,
+                Left = btn_remis.Width + btn_aufgeben.Width,
+                Text = "Neu Starten"
+            };
+            pnl_InfoBar.Controls.Add(btn_neuStarten);
+            // Event Handler hinzufügen
+            btn_neuStarten.Click += Btn_NeuStarten_Click;
+            #endregion
+        }
+
+        private void Btn_NeuStarten_Click(object sender, EventArgs e)
+        {
+            SpielPausieren();
+
+            DialogResult answer = MessageBox.Show("Möchten Sie das Spiel wirklich neustarten?", "NEUSTART?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (answer == DialogResult.Yes)
+            {
+                // Spiel neustarten
+
+            }
+            
+        }
+
+        private void Btn_Aufgeben_Click(object sender, EventArgs e)
+        {
+            SpielPausieren();
+
+            DialogResult answer = MessageBox.Show("Möchten Sie wirklich aufgeben?", "AUFGEBEN?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (answer == DialogResult.Yes)
+            {
+                DialogResult OK = MessageBox.Show("Spieler " + CurrentPlayer + " hat gewonnen!", "Gewonnen durch Aufgabe des Gegners", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (OK == DialogResult.OK)
+                {
+                    Close();
+                }
+            }
+        }
+
+        private void SpielPausieren()
+        {
+            // SPiel pausieren
+            tmr_sekunde.Stop();
+        }
+
+        private void Btn_Remis_Click(object sender, EventArgs e)
+        {
+            SpielPausieren();
+
+            DialogResult answer = MessageBox.Show("Möchten Sie das Remis bestätigen?", "REMIS", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (answer == DialogResult.Yes)
+            {
+                DialogResult ok = MessageBox.Show("Das Spiel wurde mit einem Unentschieden beendet", "UNENTSCHIEDEN", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (ok == DialogResult.OK)
+                {
+                    Close();
+                }
+            }
+            else
+            {
+                tmr_sekunde.Start();
+            }
         }
 
         private void Btn_startGame_Click(object sender, EventArgs e)
@@ -280,6 +375,7 @@ namespace Schach_v1
                 txt_durationStopwatch.Enabled = false;
                 btn_pushDuration.Enabled = false;
             }
+            btn_startGame.Enabled = false;
         }
 
         private void Tmr_Sekunde_Tick(object sender, EventArgs e)
@@ -333,8 +429,6 @@ namespace Schach_v1
             
             // TO DO: Try and Catch rund um duration
         }
-
-        // TO DO: Methode vom Click des Buttons machen
 
 
         private void ChessTile_TileClicked(object sender, EventArgs e)
