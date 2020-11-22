@@ -9,7 +9,7 @@ namespace Schach_v1
 {
     class Horse : Figure
     {
-        public Horse(Size panelSize, Tile startingTile) : base(panelSize, startingTile)
+        public Horse(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
         {
 
             FigureType = FigureTypes.horse;
@@ -37,7 +37,8 @@ namespace Schach_v1
             foreach (Tile tile in Tiles)
             {
                 if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 2)
-                {                 
+                {
+                    
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
                     {
                         PossibleMoves.Add(tile);
@@ -45,11 +46,13 @@ namespace Schach_v1
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
                     {
                         PossibleMoves.Add(tile);
-                    }                 
+                    }
+                    
                 }
 
                 if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 2)
                 {
+                   
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
                     {
                         PossibleMoves.Add(tile);
@@ -58,10 +61,12 @@ namespace Schach_v1
                     {
                         PossibleMoves.Add(tile);
                     }
+
                 }
 
                 if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1)
                 {
+                    
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2)
                     {
                         PossibleMoves.Add(tile);
@@ -70,10 +75,12 @@ namespace Schach_v1
                     {
                         PossibleMoves.Add(tile);
                     }
+
                 }
 
                 if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1)
                 {
+                    
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2)
                     {
                         PossibleMoves.Add(tile);
@@ -82,15 +89,18 @@ namespace Schach_v1
                     {
                         PossibleMoves.Add(tile);
                     }
+
                 }
             }
 
             //welche felder entfernt werden müssen da sie nicht zugänglich sind
             foreach (Tile item in PossibleMoves)
             {
-                if (item.CurrenFigure != null)
+
+                if (item.CurrentFigure != null)
                 {
-                    if (item.CurrenFigure.FigureColor == figure.FigureColor)
+
+                    if (item.CurrentFigure.FigureColor == figure.FigureColor)
                     {
 
                         TilesToRemove.Add(item);

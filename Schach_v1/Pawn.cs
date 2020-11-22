@@ -41,17 +41,17 @@ namespace Schach_v1
                     if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"])
                     {
                         //geraudeaus fahren 8ein einzelnes feld
-                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1 && tile.CurrenFigure == null)
+                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1 && tile.CurrentFigure == null)
                         {
                             PossibleMoves.Add(tile);
                         }
 
                         //geradeaus fahren wenn das 1. feld nicht belegt ist und man an der startposition ist
-                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2 && tile.CurrenFigure == null && figure.CurrentTile.Coordinates["Y"] == 1)
+                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2 && tile.CurrentFigure == null && figure.CurrentTile.Coordinates["Y"] == 1)
                         {
                             //findet das feld unter dem 2. möglichen zugfeld und fragt ab ob dieses null ist == true => kann besprungen werden
                             Tile tileUnderPawn = Tiles.Find(x => x.Coordinates["X"] == tile.Coordinates["X"] && x.Coordinates["Y"] - 1 == figure.CurrentTile.Coordinates["Y"]);
-                            if (tileUnderPawn.CurrenFigure == null)
+                            if (tileUnderPawn.CurrentFigure == null)
                             {
                                 PossibleMoves.Add(tile);
                             }
@@ -64,10 +64,10 @@ namespace Schach_v1
                         if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1 || tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1)
                         {
                             //checkt ob das feld nicht leer ist
-                            if (tile.CurrenFigure != null)
+                            if (tile.CurrentFigure != null)
                             {
                                 //checkt ob die figur gegnerisch ist
-                                if (tile.CurrenFigure.FigureColor != figure.FigureColor)
+                                if (tile.CurrentFigure.FigureColor != figure.FigureColor)
                                 {
                                     PossibleMoves.Add(tile);
                                 }
@@ -82,18 +82,18 @@ namespace Schach_v1
                     if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"])
                     {
                         //geraudeaus fahren 8ein einzelnes feld
-                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1 && tile.CurrenFigure == null)
+                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1 && tile.CurrentFigure == null)
                         {
                             PossibleMoves.Add(tile);
                         }
 
                         //geradeaus fahren wenn das 1. feld nicht belegt ist und man an der startposition ist
-                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 2 && tile.CurrenFigure == null && figure.CurrentTile.Coordinates["Y"] == 6)
+                        if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 2 && tile.CurrentFigure == null && figure.CurrentTile.Coordinates["Y"] == 6)
                         {
                             //findet das feld unter dem 2. möglichen zugfeld und fragt ab ob dieses null ist == true => kann besprungen werden
                             Tile tileUnderPawn = Tiles.Find(x => x.Coordinates["X"] == tile.Coordinates["X"] && x.Coordinates["Y"] + 1 == figure.CurrentTile.Coordinates["Y"]);
                             
-                            if (tileUnderPawn.CurrenFigure == null)
+                            if (tileUnderPawn.CurrentFigure == null)
                             {
                                 PossibleMoves.Add(tile);
                             }
@@ -106,10 +106,10 @@ namespace Schach_v1
                         if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1 || tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1)
                         {
                             //checkt ob das feld nicht leer ist
-                            if (tile.CurrenFigure != null)
+                            if (tile.CurrentFigure != null)
                             {
                                 //checkt ob die figur gegnerisch ist
-                                if (tile.CurrenFigure.FigureColor != figure.FigureColor)
+                                if (tile.CurrentFigure.FigureColor != figure.FigureColor)
                                 {
                                     PossibleMoves.Add(tile);
                                 }

@@ -15,7 +15,7 @@ namespace Schach_v1
         public Dictionary<string, int> Coordinates = new Dictionary<string, int>();
 
         //die Daraufliegende Figur
-        public Figure CurrenFigure = null;
+        public Figure CurrentFigure = null;
 
         public Tile(Size tileSize, Color Color, int[] Coords)
         {

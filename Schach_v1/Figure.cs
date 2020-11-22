@@ -8,23 +8,34 @@ namespace Schach_v1
     public delegate void EventTypeClickedFigure(object sender, EventArgs e);
     public abstract class Figure : Panel
     {
+
         //event, wenn die Figur sich bewegt
         public event EventTypeClickedFigure FigureClicked;
+
+        
+
+        Color CurrentPlayer = Color.White;
+
+        //Farbe die Felder bekommen, wenn auf sie gezogen werden kann
+        Color _possibleMoveColor;
 
         //das Tile auf dem sich die Figure befindet
         public Tile CurrentTile;
 
+        
+
+        //Liste aller Tiles in der Form
+        List<Tile> BoardTiles;
+        
         //ob die Figure noch im Spiel ist
         public bool IsOnField = true;
 
         //Typ der Figur, enum FigureType
         public FigureTypes FigureType;
 
+
         //Farbe der Figur / Team der Figur
         private Color _figureColor;
-
-        //alle Tiles auf dem Board (braucht nur der König für den Check)
-        public static List<Tile> _boardTiles;
 
         public Color FigureColor
         {
@@ -44,16 +55,19 @@ namespace Schach_v1
         }
 
         //Construtor
-        public Figure(Size panelSize, Tile startingTile, List<Tile> Tiles = null)
+        public Figure(Size panelSize, Tile startingTile, List<Tile> Tiles)
         {
-            //Setzung des CurrentFigure des zugewiesenen Tiles
-            startingTile.CurrenFigure = this;
+            //Setzung der _possibleMoveColor (kann keine const sein weil weis Gott warum)
+            _possibleMoveColor = Color.ForestGreen;
 
-            //boardTiles eigenschaft
-            _boardTiles = Tiles;
+            //Speicherung aller Tiles der Form 
+            BoardTiles = Tiles;
+
+            //Setzung des CurrentFigure des zugewiesenen Tiles
+            startingTile.CurrentFigure = this;
 
             //farbe wird Festegelegt
-            if (startingTile.Coordinates["Y"] >= 0 && startingTile.Coordinates["Y"] <= 1)
+            if (startingTile.ID >= 0 && startingTile.ID <= 15)
             {
                 _figureColor = Color.Black;
             }
@@ -62,12 +76,15 @@ namespace Schach_v1
                 _figureColor = Color.White;
             }
 
+            
+
             //Tile auf dem es sich befindet
             CurrentTile = startingTile;
 
             //größe der Figure anhand der TIlesize
             Width = startingTile.Width / 2;
             Height = startingTile.Height / 2;
+
 
             //dynamische änderung der Hintergrundfarbe
             BackColor = ChangeBackColor(startingTile);
@@ -79,25 +96,18 @@ namespace Schach_v1
             Left = startingTile.Left + startingTile.Width / 2 - Width / 2;
             Top = startingTile.Top + startingTile.Height / 2 - Height / 2;
 
+            
             //z-index: 999999999; á la CSS
             BringToFront();
+            
         }
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// Ändert Hnertgrundfarbe des Panels und erstellte somit eine unechte Tranzparenz
         /// </summary>
         /// <param name="tile">Tile und dessen Farbe die man zurückgibt.</param>
         /// <returns></returns>
-        public Color ChangeBackColor(Tile tile)
+        Color ChangeBackColor(Tile tile)
         {
             return tile.BackColor;
         }
@@ -108,12 +118,52 @@ namespace Schach_v1
         /// <param name="e"></param>
         protected override void OnClick(EventArgs e)
         {
-            //Invoked das Clicked event mit dem object sender
+
+
+
+            //bool ob die Figur überhaupt noch auf dem Feld ist
+            bool isFigOnBoard;
+
+            //Invoked das Clicked event
             FigureClicked?.Invoke(this, e);
+
+            //checkt ob die angeklickte figur auf dem board ist
+            isFigOnBoard = false;
+            foreach (Tile tile in BoardTiles)
+            {
+                if (tile.CurrentFigure == this)
+                {
+                    isFigOnBoard = true;
+                }
+            }
+
+            
+
+            //falls ja dann werden die möglichen moves angezeigt ansonsten wird die Figur !in der Form! einfach entfernt
+            if (isFigOnBoard)
+            {
+                //Tiles, welche gefärbt werden müssen
+                List<Tile> _tilesToColor = GetPossibleMoves(this, BoardTiles);
+
+                //färbt jedes Tile 
+                foreach (Tile item in _tilesToColor)
+                {
+                    //jedes mögliche Feld wird Rot gefärbt
+                    item.BackColor = _possibleMoveColor;
+
+                    //checkt ob auf dem Feld überhaupt eine Figure ist
+                    if (item.CurrentFigure != null)
+                    {
+                        //färbt jedes Figure dessen Hintergrundfarbe geändert wurde
+                        item.CurrentFigure.BackColor = item.CurrentFigure.ChangeBackColor(item);
+                    }
+
+                }
+            }
+            
+
+            
         }
-
-
-
         /// <summary>
         /// Gibt eine Array an Tiles zurück, auf die die gewählte Figur springen kann, wird pro Klasse overridden (https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/virtual - bis i des gfunden Hob mein gott)
         /// </summary>

@@ -9,10 +9,10 @@ namespace Schach_v1
 {
     class King : Figure
     {
-        public King(Size panelSize, Tile startingTile, List<Tile> boardTiles) : base(panelSize, startingTile)
+        public King(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
         {
+            
             FigureType = FigureTypes.king;
-
 
             if (FigureColor == Color.Black)
             {
@@ -22,13 +22,16 @@ namespace Schach_v1
             {
                 BackgroundImage = Properties.Resources.king_white;
             }
+
         }
+
 
         public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
         {
 
             List<Tile> PossibleMoves = new List<Tile>(); ;
             List<Tile> TilesToRemove = new List<Tile>();
+
 
             //ALLE möglichen felder, auch wenn sie belegt sind
             foreach (Tile tile in Tiles)
@@ -47,6 +50,7 @@ namespace Schach_v1
                     {
                         PossibleMoves.Add(tile);
                     }
+
                 }
 
                 if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1)
@@ -63,6 +67,7 @@ namespace Schach_v1
                     {
                         PossibleMoves.Add(tile);
                     }
+
                 }
 
                 if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
@@ -80,16 +85,20 @@ namespace Schach_v1
                     {
                         PossibleMoves.Add(tile);
                     }
+
                 }
+
             }
+
 
             //welche felder entfernt werden müssen da sie nicht zugänglich sind
             foreach (Tile item in PossibleMoves)
             {
-                if (item.CurrenFigure != null)
+                
+                if (item.CurrentFigure != null)
                 {
                     
-                    if (item.CurrenFigure.FigureColor == figure.FigureColor)
+                    if (item.CurrentFigure.FigureColor == figure.FigureColor)
                     {
                         
                         TilesToRemove.Add(item);
@@ -102,25 +111,10 @@ namespace Schach_v1
             {
                 PossibleMoves.Remove(tileToRemove);
             }
-            
+
             return PossibleMoves;
         }
 
-        protected bool Check(Figure figure)
-        {
-            List<Tile> PossibleMoves = GetPossibleMoves(figure, _boardTiles);
-            Console.WriteLine("dafsfdsaf");
 
-            foreach (Tile tile in PossibleMoves)
-            {
-                if (tile == this.CurrentTile)
-                {
-                    
-                }
-
-            }
-
-            return true;
-        }
     }
 }
