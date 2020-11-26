@@ -313,6 +313,32 @@ namespace Schach_v1
             #endregion
         }
 
+        public void ResetGame()
+        {
+            #region ResetInfoBar
+            if (CurrentPlayer == Color.Black)
+            {
+                ChangePlayer();
+            }
+
+            lbl_timeLeft_black.Text = "";
+            lbl_timeLeft_white.Text = "";
+            btn_startGame.Enabled = true;
+            btn_pushDuration.Enabled = true;
+            txt_durationStopwatch.Enabled = true;
+
+            // TO DO: beaten figures removen 
+
+            #endregion
+
+
+        }
+
+        public void BringFiguresBackToStart()
+        {
+            
+        }
+
         private void Btn_NeuStarten_Click(object sender, EventArgs e)
         {
             SpielPausieren();
@@ -321,7 +347,7 @@ namespace Schach_v1
             if (answer == DialogResult.Yes)
             {
                 // Spiel neustarten
-
+                ResetGame();
             }
             
         }
@@ -412,6 +438,8 @@ namespace Schach_v1
 
         private void Btn_pushDuration_Click(object sender, EventArgs e)
         {
+            txt_durationStopwatch.Enabled = false;
+            btn_pushDuration.Enabled = false;
             if (txt_durationStopwatch.Text == "")
             {
                 duration = 15; // Standardgemäß haben beide Spieler 15 Minuten Zeit
