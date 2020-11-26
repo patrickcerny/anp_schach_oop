@@ -13,7 +13,7 @@ namespace Schach_v1
     /// </summary>
     class Queen : Figure
     {
-        public Queen(Size panelSize, Tile startingTile) : base(panelSize, startingTile)
+        public Queen(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
         {
             FigureType = FigureTypes.queen;
 

@@ -11,7 +11,7 @@ namespace Schach_v1
     public class Pawn : Figure
     {
 
-        public Pawn(Size panelSize, Tile startingTile) : base(panelSize, startingTile)
+        public Pawn(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
         {
             FigureType = FigureTypes.pawn;
 

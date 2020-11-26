@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Schach_v1
 {
-    public delegate void EventTypeClickedFigure(object sender, EventArgs e);
+    public delegate void EventTypeClickedFigure(object sender, EventArgs e, List<Tile> PossibleMoves);
     public abstract class Figure : Panel
     {
 
@@ -67,13 +67,14 @@ namespace Schach_v1
             startingTile.CurrentFigure = this;
 
             //farbe wird Festegelegt
-            if (startingTile.ID >= 0 && startingTile.ID <= 15)
+            if (startingTile.Coordinates["Y"] >= 6)
+            {
+                
+                _figureColor = Color.White;
+            }
+            else 
             {
                 _figureColor = Color.Black;
-            }
-            else
-            {
-                _figureColor = Color.White;
             }
 
             
@@ -118,51 +119,9 @@ namespace Schach_v1
         /// <param name="e"></param>
         protected override void OnClick(EventArgs e)
         {
-
-
-
-            //bool ob die Figur überhaupt noch auf dem Feld ist
-            bool isFigOnBoard;
-
             //Invoked das Clicked event
-            FigureClicked?.Invoke(this, e);
+            FigureClicked?.Invoke(this, e,  GetPossibleMoves(this, BoardTiles));
 
-            //checkt ob die angeklickte figur auf dem board ist
-            isFigOnBoard = false;
-            foreach (Tile tile in BoardTiles)
-            {
-                if (tile.CurrentFigure == this)
-                {
-                    isFigOnBoard = true;
-                }
-            }
-
-            
-
-            //falls ja dann werden die möglichen moves angezeigt ansonsten wird die Figur !in der Form! einfach entfernt
-            if (isFigOnBoard)
-            {
-                //Tiles, welche gefärbt werden müssen
-                List<Tile> _tilesToColor = GetPossibleMoves(this, BoardTiles);
-
-                //färbt jedes Tile 
-                foreach (Tile item in _tilesToColor)
-                {
-                    //jedes mögliche Feld wird Rot gefärbt
-                    item.BackColor = _possibleMoveColor;
-
-                    //checkt ob auf dem Feld überhaupt eine Figure ist
-                    if (item.CurrentFigure != null)
-                    {
-                        //färbt jedes Figure dessen Hintergrundfarbe geändert wurde
-                        item.CurrentFigure.BackColor = item.CurrentFigure.ChangeBackColor(item);
-                    }
-
-                }
-            }
-            
-
-            
         }
         /// <summary>
         /// Gibt eine Array an Tiles zurück, auf die die gewählte Figur springen kann, wird pro Klasse overridden (https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/virtual - bis i des gfunden Hob mein gott)
