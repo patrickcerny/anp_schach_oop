@@ -59,6 +59,15 @@ namespace Schach_v1
         // Button zum Starten des Spieles/Stopuhr
         Button btn_startGame;
 
+        // Button um Remis anbieten
+        Button btn_remis;
+
+        // Button Spiel neustarten
+        Button btn_neuStarten;
+
+        // Button zum Spiel aufgeben
+        Button btn_aufgeben;
+
         // Var zum speichern der eingegebenen Zeit (Spielzeit)
         int duration = 0;
 
@@ -275,7 +284,7 @@ namespace Schach_v1
             // Event Handler hinzufügen
             btn_startGame.Click += Btn_startGame_Click;
 
-            Button btn_remis = new Button()
+            btn_remis = new Button()
             {
                 Width = pnl_InfoBar.Width / 3,
                 Height = _tileSize.Height / 2,
@@ -287,7 +296,7 @@ namespace Schach_v1
             // Event Handler hinzufügen
             btn_remis.Click += Btn_Remis_Click;
 
-            Button btn_aufgeben = new Button()
+            btn_aufgeben = new Button()
             {
                 Width = pnl_InfoBar.Width / 3,
                 Height = _tileSize.Height / 2,
@@ -299,7 +308,7 @@ namespace Schach_v1
             // Event Handler hinzufügen
             btn_aufgeben.Click += Btn_Aufgeben_Click;
 
-            Button btn_neuStarten = new Button()
+            btn_neuStarten = new Button()
             {
                 Width = pnl_InfoBar.Width / 3,
                 Height = _tileSize.Height / 2,
@@ -310,34 +319,80 @@ namespace Schach_v1
             pnl_InfoBar.Controls.Add(btn_neuStarten);
             // Event Handler hinzufügen
             btn_neuStarten.Click += Btn_NeuStarten_Click;
+
+            btn_startGame.Enabled = false;
+            btn_aufgeben.Enabled = false;
+            btn_remis.Enabled = false;
+            btn_neuStarten.Enabled = false;
             #endregion
         }
 
         public void ResetGame()
         {
-            #region ResetInfoBar
             if (CurrentPlayer == Color.Black)
             {
                 ChangePlayer();
             }
 
+            // Liste zum Removen der Items
+            List<Control> itemsToRemoveControls = new List<Control>();
+            List<Control> itemsToRemovePanelControls = new List<Control>();
+
+            #region Infobar 
+            foreach (Figure f in FiguresInfoBarWhite)
+            {
+                itemsToRemovePanelControls.Add(f);
+            }
+            foreach (Figure f in FiguresInfoBarBlack)
+            {
+                itemsToRemovePanelControls.Add(f);
+            }
+            foreach (Control item in itemsToRemovePanelControls)
+            {
+                pnl_InfoBar.Controls.Remove(item);
+            }
+            #endregion
+
+            #region Clear
             lbl_timeLeft_black.Text = "";
             lbl_timeLeft_white.Text = "";
+            txt_durationStopwatch.Text = "15";
             btn_startGame.Enabled = true;
             btn_pushDuration.Enabled = true;
             txt_durationStopwatch.Enabled = true;
+            FiguresInfoBarWhite.Clear();
+            FiguresInfoBarBlack.Clear();
 
-            // TO DO: beaten figures removen 
+            btn_remis.Enabled = false;
+            btn_aufgeben.Enabled = false;
+            btn_neuStarten.Enabled = false;
+            btn_startGame.Enabled = false;
 
             #endregion
 
+            #region Board
+            foreach (Control item in Controls)
+            {
 
+                if (item is Figure f)
+                {
+                    itemsToRemoveControls.Add(f);
+                }
+                else if (item is Tile t)
+                {
+                    itemsToRemoveControls.Add(t);
+                }
+                
+            }
+            foreach (Control item in itemsToRemoveControls)
+            {
+                Controls.Remove(item);
+            }
+            InitWindow();
+            #endregion
         }
 
-        public void BringFiguresBackToStart()
-        {
-            
-        }
+
 
         private void Btn_NeuStarten_Click(object sender, EventArgs e)
         {
@@ -440,6 +495,11 @@ namespace Schach_v1
         {
             txt_durationStopwatch.Enabled = false;
             btn_pushDuration.Enabled = false;
+            btn_startGame.Enabled = true;
+            btn_aufgeben.Enabled = true;
+            btn_remis.Enabled = true;
+            btn_neuStarten.Enabled = true;
+
             if (txt_durationStopwatch.Text == "")
             {
                 duration = 15; // Standardgemäß haben beide Spieler 15 Minuten Zeit
