@@ -1,0 +1,258 @@
+<Project>
+  <Name>UML</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Schach</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Figure</Name>
+        <Access>Public</Access>
+        <Location left="1869" top="726" />
+        <Size width="281" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Color _figureColor</Member>
+        <Member type="Field">Color CurrentPlayer = Color.White</Member>
+        <Member type="Field">Color _possibleMoveColor</Member>
+        <Member type="Field">public Tile CurrentTile</Member>
+        <Member type="Field">public bool IsOnField = true</Member>
+        <Member type="Field">public FigureTypes FigureType</Member>
+        <Member type="Property">public Color FigureColor { get; }</Member>
+        <Member type="Event">public event EventTypeClickedFigure FigureClicked</Member>
+        <Member type="Constructor">public Figure(Size panelSize, Tile startingTile, List&lt;Tile&gt; Tiles)</Member>
+        <Member type="Method">protected override void OnClick(EventArgs e)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>FigureTypes</Name>
+        <Access>Public</Access>
+        <Location left="1677" top="786" />
+        <Size width="162" height="169" />
+        <Collapsed>False</Collapsed>
+        <Value>pawn</Value>
+        <Value>bishop</Value>
+        <Value>tower</Value>
+        <Value>horse</Value>
+        <Value>queen</Value>
+        <Value>king</Value>
+      </Entity>
+      <Entity type="Class">
+        <Name>Panel</Name>
+        <Access>Public</Access>
+        <Location left="2090" top="572" />
+        <Size width="162" height="77" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Form1</Name>
+        <Access>Public</Access>
+        <Location left="432" top="740" />
+        <Size width="398" height="604" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">Color[] _tileColors = new Color[] { Color.FromArgb(163, 163, 163), Color.FromArgb(102, 59, 7) }</Member>
+        <Member type="Field">public Color PossibleMoveColor = Color.ForestGreen</Member>
+        <Member type="Field">Color CurrentPlayer = Color.White</Member>
+        <Member type="Field">const int _BOARDSIZE = 800</Member>
+        <Member type="Field">Size _tileSize</Member>
+        <Member type="Field">Figure _lastFigureClicked = null</Member>
+        <Member type="Field">Label lbl_currentPlayer</Member>
+        <Member type="Field">TextBox txt_durationStopwatch</Member>
+        <Member type="Field">Panel pnl_InfoBar</Member>
+        <Member type="Field">Label lbl_timeLeft_white</Member>
+        <Member type="Field">Label lbl_timeLeft_black</Member>
+        <Member type="Field">Timer tmr_sekunde</Member>
+        <Member type="Field">int _timeLeftWhite</Member>
+        <Member type="Field">int _timeLeftBlack</Member>
+        <Member type="Constructor">public Form1()</Member>
+        <Member type="Method">void InitWindow()</Member>
+        <Member type="Method">public void ResetGame()</Member>
+        <Member type="Method">private void Btn_NeuStarten_Click(object sender, EventArgs e)</Member>
+        <Member type="Method">private void Btn_Aufgeben_Click(object sender, EventArgs e)</Member>
+        <Member type="Method">private void SpielPausieren()</Member>
+        <Member type="Method">private void Btn_Remis_Click(object sender, EventArgs e)</Member>
+        <Member type="Method">private void Btn_startGame_Click(object sender, EventArgs e)</Member>
+        <Member type="Method">private void Tmr_Sekunde_Tick(object sender, EventArgs e)</Member>
+        <Member type="Method">private void UpdateTimerText(Label lbl_toChange, int timeLeft)</Member>
+        <Member type="Method">private void Btn_pushDuration_Click(object sender, EventArgs e)</Member>
+        <Member type="Method">private void ChessTile_TileClicked(object sender, EventArgs e)</Member>
+        <Member type="Method">private void AddToBeatenFigureCollection(Figure beatenFigure)</Member>
+        <Member type="Method">private void Figure_FigureClicked(object sender, EventArgs e)</Member>
+        <Member type="Method">private void RePaintBoard()</Member>
+        <Member type="Method">void MoveFigure(object sender)</Member>
+        <Member type="Method">void ChangePlayer()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Form</Name>
+        <Access>Public</Access>
+        <Location left="548" top="556" />
+        <Size width="162" height="77" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Bishop</Name>
+        <Access>Public</Access>
+        <Location left="967" top="1052" />
+        <Size width="418" height="113" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public Bishop(Size panelSize, Tile startingTile, List&lt;Tile&gt; Tiles)</Member>
+        <Member type="Method">public override List&lt;Tile&gt; GetPossibleMoves(Figure figure, List&lt;Tile&gt; Tiles)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Horse</Name>
+        <Access>Public</Access>
+        <Location left="1422" top="1052" />
+        <Size width="412" height="113" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public Horse(Size panelSize, Tile startingTile, List&lt;Tile&gt; Tiles)</Member>
+        <Member type="Method">public override List&lt;Tile&gt; GetPossibleMoves(Figure figure, List&lt;Tile&gt; Tiles)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>King</Name>
+        <Access>Public</Access>
+        <Location left="1869" top="1052" />
+        <Size width="412" height="113" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public King(Size panelSize, Tile startingTile, List&lt;Tile&gt; Tiles)</Member>
+        <Member type="Method">public override List&lt;Tile&gt; GetPossibleMoves(Figure figure, List&lt;Tile&gt; Tiles)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Pawn</Name>
+        <Access>Public</Access>
+        <Location left="2319" top="1052" />
+        <Size width="415" height="113" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public Pawn(Size panelSize, Tile startingTile, List&lt;Tile&gt; Tiles)</Member>
+        <Member type="Method">public override List&lt;Tile&gt; GetPossibleMoves(Figure figure, List&lt;Tile&gt; Tiles)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Queen</Name>
+        <Access>Public</Access>
+        <Location left="2768" top="1052" />
+        <Size width="413" height="113" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public Queen(Size panelSize, Tile startingTile, List&lt;Tile&gt; Tiles)</Member>
+        <Member type="Method">public override List&lt;Tile&gt; GetPossibleMoves(Figure figure, List&lt;Tile&gt; Tiles)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Tile</Name>
+        <Access>Public</Access>
+        <Location left="2198" top="726" />
+        <Size width="272" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public Dictionary&lt;string, int&gt; Coordinates = new Dictionary&lt;string, int&gt;()</Member>
+        <Member type="Field">public int ID</Member>
+        <Member type="Field">public Figure CurrentFigure = null</Member>
+        <Member type="Constructor">public Tile(Size tileSize, Color Color, int id, int[] Coords)</Member>
+        <Member type="Method">protected override void OnClick(EventArgs e)</Member>
+        <Member type="Event">public event EventTypeTileClicked TileClicked</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Delegate">
+        <Name>EventTypeTileClicked</Name>
+        <Access>Public</Access>
+        <Location left="2541" top="726" />
+        <Size width="162" height="98" />
+        <Collapsed>False</Collapsed>
+        <ReturnType>void</ReturnType>
+        <Param>object sender</Param>
+        <Param>EventArgs e</Param>
+      </Entity>
+      <Entity type="Delegate">
+        <Name>EventTypeClickedFigure</Name>
+        <Access>Public</Access>
+        <Location left="1677" top="646" />
+        <Size width="162" height="104" />
+        <Collapsed>False</Collapsed>
+        <ReturnType>void</ReturnType>
+        <Param>object sender</Param>
+        <Param>EventArgs e</Param>
+      </Entity>
+      <Entity type="Class">
+        <Name>Tower</Name>
+        <Access>Public</Access>
+        <Location left="3210" top="1052" />
+        <Size width="413" height="112" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public Tower(Size panelSize, Tile startingTile, List&lt;Tile&gt; Tiles)</Member>
+        <Member type="Method">public override List&lt;Tile&gt; GetPossibleMoves(Figure figure, List&lt;Tile&gt; Tiles)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>zwei Listen in Figure nicht angelegt</Text>
+        <Location left="315" top="470" />
+        <Size width="149" height="56" />
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="0" second="1">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1864</X>
+          <Y>880</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Generalization" first="0" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="3" second="4">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="5" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="6" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="7" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="8" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="9" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="10" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="10" second="11">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="0" second="12">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1887</X>
+          <Y>701</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Generalization" first="13" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
