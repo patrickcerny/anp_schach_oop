@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace Schach_v1
 {
@@ -11,7 +8,6 @@ namespace Schach_v1
     {
         public Tower(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
         {
-
             FigureType = FigureTypes.tower;
 
             if (FigureColor == Color.Black)
@@ -22,14 +18,15 @@ namespace Schach_v1
             {
                 BackgroundImage = Properties.Resources.tower_white;
             }
-
         }
+
         public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
         {
-
             List<Tile> PossibleMoves = new List<Tile>();
             List<Tile> MovesInDirection = new List<Tile>();
 
+            // MACO: Auch das braucht ihr in mehreren Klassen. -> in Methode aus-
+            // lagern und diese in geeignete Oberklasse! (5)
             //geht vier mal in alle Directions
             for (int i = 0; i < 4; i++)
             {
@@ -205,6 +202,7 @@ namespace Schach_v1
                         break;
                 }
             }
+
             return PossibleMoves;
         }
     }

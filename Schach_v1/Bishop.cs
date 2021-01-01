@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace Schach_v1
 {
@@ -65,6 +62,9 @@ namespace Schach_v1
                 }
             }
 
+            // MACO: Für eine absteigende Sortierung gibt es die Methode "OrderBy-
+            // Descending" :-).
+
             //OBEN RECHTS SORTIERUNG UND ENTFERNUNG
             //Sortiert die Tiles AUSTEIGEND
             MovesUpperRight.OrderBy(x => x.Coordinates["X"]);
@@ -72,6 +72,8 @@ namespace Schach_v1
             //ändert die Tiles ABSTEIGEND
             MovesUpperRight.Reverse();
 
+            // MACO: Diese Schleife brauchst du öfters mit genau dem gleichen Inhalt. 
+            // -> in Methode auslagern! (4)
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesUpperRight)
             {
