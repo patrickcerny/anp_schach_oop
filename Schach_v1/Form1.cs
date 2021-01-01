@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace Schach_v1
 {
+    // MACO: In der Titelleiste eures Formulars steht immer "Form1". Das irritiert
+    // einen als Spieler.
+
     public partial class Form1 : Form
     {
         //Colors des SChachbretts
         Color[] _tileColors = new Color[] { Color.FromArgb(163, 163, 163), Color.FromArgb(102, 59, 7) };
 
+        // MACO: Wofür muss dieses Feld public sein?
         //farbe die das Feld annimmt wenn es besprungen werden kann
         public Color PossibleMoveColor = Color.ForestGreen;
 
@@ -31,7 +30,6 @@ namespace Schach_v1
         //letzte Figur die angeklickt worden ist
         Figure _lastFigureClicked = null;
 
-
         List<Tile> Tiles = new List<Tile> { };
 
         //Liste der geschlagenen Figuren
@@ -40,6 +38,11 @@ namespace Schach_v1
 
         // Label zur Ausgabe des CurrentPlayers
         Label lbl_currentPlayer;
+
+        //unteren drei buttons aufgeben /remis /neustart
+        Button btn_aufgeben;
+        Button btn_remis;
+        Button btn_neuStarten;
 
         // Textbox für Eingabe der Zeit
         TextBox txt_durationStopwatch;
@@ -59,20 +62,25 @@ namespace Schach_v1
         // Button zum Starten des Spieles/Stopuhr
         Button btn_startGame;
 
-        // Button um Remis anbieten
-        Button btn_remis;
+        // MACO: Die doppelte Deklaration dieser Variablen verursacht Compilerfehler.
+        // -> Aufräumen!
+        //// Button um Remis anbieten
+        //Button btn_remis;
 
-        // Button Spiel neustarten
-        Button btn_neuStarten;
+        //// Button Spiel neustarten
+        //Button btn_neuStarten;
 
-        // Button zum Spiel aufgeben
-        Button btn_aufgeben;
+        //// Button zum Spiel aufgeben
+        //Button btn_aufgeben;
 
         // Var zum speichern der eingegebenen Zeit (Spielzeit)
         int duration = 0;
 
         // Übrige Zeit Label
         int _timeLeftWhite, _timeLeftBlack;
+
+        //bool ob das Spiel gestarted ist
+        bool _started = false;
 
         public Form1()
         {
@@ -90,6 +98,8 @@ namespace Schach_v1
             int id = 0;
 
             //festlegung der Größe des Spielfeldes
+            // MACO: Warum wird hier die ClientSize gesetzt, wenn sie nachher eh
+            // wieder überschrieben wird?
             ClientSize = new Size(_BOARDSIZE, _BOARDSIZE);
             _tileSize = new Size(ClientSize.Width / 8, ClientSize.Height / 8);
             ClientSize = new Size(_BOARDSIZE + _tileSize.Width * 3, _BOARDSIZE);
@@ -114,13 +124,12 @@ namespace Schach_v1
                     }
 
                     //Erstellung des Tiles und Position anhand der ID
-                    Tile ChessTile = new Tile(_tileSize, color, id, new int[] { j, i });
+                    Tile ChessTile = new Tile(_tileSize, color, new int[] { j, i });
                     ChessTile.TileClicked += ChessTile_TileClicked;
                     ChessTile.Left = ChessTile.Width * j;
                     ChessTile.Top = ChessTile.Height * i;
 
                     //manuelle generation der Queen / King white
-
                     if (i == 0)
                     {
                         if (j == 3)
@@ -157,7 +166,6 @@ namespace Schach_v1
                         if (j == 1 || j == 6)
                         {
                             Controls.Add(new Horse(ClientSize, ChessTile, Tiles));
-
                         }
 
                         if (j == 2 || j == 5)
@@ -190,7 +198,6 @@ namespace Schach_v1
                 if (item is Figure figure)
                 {
                     figure.FigureClicked += Figure_FigureClicked;
-
                 }
             }
         }
@@ -202,9 +209,9 @@ namespace Schach_v1
             pnl_InfoBar = new Panel()
             {
                 Top = 0,
-                Left = 800,
+                Left = 800, // MACO: Warum wird hier nicht die Spielbrettgröße verwendet? (6)
                 Width = _tileSize.Width * 3,
-                Height = _tileSize.Height * 8
+                Height = _tileSize.Height * 8 // MACO: (8)
             };
             Controls.Add(pnl_InfoBar);
 
@@ -229,8 +236,6 @@ namespace Schach_v1
 
             txt_durationStopwatch.Text = "15"; // Standard gemäß haben beide Spieler 15 Minuten Zeit
            
-            
-
             // Timer generieren der jede Sekunde tickt 
             tmr_sekunde = new Timer();
             tmr_sekunde.Interval = 1000;
@@ -239,7 +244,6 @@ namespace Schach_v1
             // Labels zum ausgeben der übrigen Zeit
             lbl_timeLeft_white = new Label()
             {
-                
                 Top = txt_durationStopwatch.Top + txt_durationStopwatch.Height * 2,
                 Font = new Font("Arial", 12),
                 Height = 50,
@@ -255,7 +259,6 @@ namespace Schach_v1
                 Height = 50,
                 Width = 90,
                 Left = lbl_timeLeft_white.Width + lbl_timeLeft_white.Left 
-
             };
             pnl_InfoBar.Controls.Add(lbl_timeLeft_black);
 
@@ -278,7 +281,8 @@ namespace Schach_v1
                 Height = _tileSize.Height  / 2,
                 Top = pnl_InfoBar.Height - _tileSize.Height,
                 Left = 0,
-                Text = "Starten"
+                Text = "Starten",
+                Enabled= false
             };
             pnl_InfoBar.Controls.Add(btn_startGame);
             // Event Handler hinzufügen
@@ -290,7 +294,8 @@ namespace Schach_v1
                 Height = _tileSize.Height / 2,
                 Top = pnl_InfoBar.Height - btn_startGame.Height,
                 Left = 0,
-                Text = "Remis"
+                Text = "Remis",
+                Enabled = false
             };
             pnl_InfoBar.Controls.Add(btn_remis);
             // Event Handler hinzufügen
@@ -302,8 +307,9 @@ namespace Schach_v1
                 Height = _tileSize.Height / 2,
                 Top = pnl_InfoBar.Height - btn_startGame.Height,
                 Left = btn_remis.Width,
-                Text = "Aufgeben"
-            };
+                Text = "Aufgeben",
+                Enabled = false
+    };
             pnl_InfoBar.Controls.Add(btn_aufgeben);
             // Event Handler hinzufügen
             btn_aufgeben.Click += Btn_Aufgeben_Click;
@@ -314,8 +320,9 @@ namespace Schach_v1
                 Height = _tileSize.Height / 2,
                 Top = pnl_InfoBar.Height - btn_startGame.Height,
                 Left = btn_remis.Width + btn_aufgeben.Width,
-                Text = "Neu Starten"
-            };
+                Text = "Neu Starten",
+                Enabled = false
+        };
             pnl_InfoBar.Controls.Add(btn_neuStarten);
             // Event Handler hinzufügen
             btn_neuStarten.Click += Btn_NeuStarten_Click;
@@ -347,6 +354,8 @@ namespace Schach_v1
             {
                 itemsToRemovePanelControls.Add(f);
             }
+            // MACO: Warum kann das nicht gleich in den oberen Schleifen gelöscht
+            // werden?
             foreach (Control item in itemsToRemovePanelControls)
             {
                 pnl_InfoBar.Controls.Remove(item);
@@ -356,6 +365,7 @@ namespace Schach_v1
             #region Clear
             lbl_timeLeft_black.Text = "";
             lbl_timeLeft_white.Text = "";
+            // MACO: Der Wert 15 kommt öfter vor. -> in Variable / Konstante auslagern!
             txt_durationStopwatch.Text = "15";
             btn_startGame.Enabled = true;
             btn_pushDuration.Enabled = true;
@@ -373,11 +383,13 @@ namespace Schach_v1
             #region Board
             foreach (Control item in Controls)
             {
-
                 if (item is Figure f)
                 {
                     itemsToRemoveControls.Add(f);
                 }
+                // MACO: Warum werden die Tiles gelöscht? Die könnten doch auch wieder-
+                // verwendet werden, man müsste nur bei jedem Tile die draufstehende 
+                // Figur rauslöschen, oder?
                 else if (item is Tile t)
                 {
                     itemsToRemoveControls.Add(t);
@@ -392,8 +404,6 @@ namespace Schach_v1
             #endregion
         }
 
-
-
         private void Btn_NeuStarten_Click(object sender, EventArgs e)
         {
             SpielPausieren();
@@ -404,7 +414,6 @@ namespace Schach_v1
                 // Spiel neustarten
                 ResetGame();
             }
-            
         }
 
         private void Btn_Aufgeben_Click(object sender, EventArgs e)
@@ -414,6 +423,8 @@ namespace Schach_v1
             DialogResult answer = MessageBox.Show("Möchten Sie wirklich aufgeben?", "AUFGEBEN?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (answer == DialogResult.Yes)
             {
+                // MACO: Wenn ich als schwarzer Spieler aufgebe, steht in der Message-
+                // Box, dass schwarz gewonnen hat. Das ergibt keinen Sinn.
                 DialogResult OK = MessageBox.Show("Spieler " + CurrentPlayer + " hat gewonnen!", "Gewonnen durch Aufgabe des Gegners", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 if (OK == DialogResult.OK)
                 {
@@ -426,6 +437,8 @@ namespace Schach_v1
         {
             // SPiel pausieren
             tmr_sekunde.Stop();
+
+            _started = false;
         }
 
         private void Btn_Remis_Click(object sender, EventArgs e)
@@ -452,6 +465,10 @@ namespace Schach_v1
             // Elemente unbenutzbar machen wenn Timer nicht läuft
             if (!tmr_sekunde.Enabled)
             {
+                btn_remis.Enabled = true;
+                btn_aufgeben.Enabled = true;
+                btn_neuStarten.Enabled = true;
+                _started = true;
                 tmr_sekunde.Start();
                 txt_durationStopwatch.Enabled = false;
                 btn_pushDuration.Enabled = false;
@@ -471,13 +488,31 @@ namespace Schach_v1
                 _timeLeftBlack--;
                 UpdateTimerText(lbl_timeLeft_black, _timeLeftBlack);
             }
-           
 
-            
-            
+            // MACO: Hier steht zwei mal hintereinander der vom Prinzip her komplett
+            // gleiche Code. -> in Methode auslagern!
+            if (_timeLeftBlack == 0)
+            {
+                SpielPausieren();
 
-            // TO DO: Stopuhr um 1 vermindern
-          
+                DialogResult answer = MessageBox.Show("Schwarz hat verloren!", "Vorbei!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (answer == DialogResult.Yes)
+                {
+                        Close();
+                }
+            }
+            else if (_timeLeftWhite == 0)
+            {
+                SpielPausieren();
+
+                DialogResult answer = MessageBox.Show("Weiss hat verloren!", "Vorbei!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (answer == DialogResult.Yes)
+                {
+                    Close();
+                }
+            }
+
+            // TO DO: Stopuhr um 1 vermindern // MACO: ???
         }
 
         private void UpdateTimerText(Label lbl_toChange, int timeLeft)
@@ -486,9 +521,7 @@ namespace Schach_v1
             minLeft = Convert.ToInt32(Math.Floor(timeLeft / 60.0)); // Minuten
             secLeft = Convert.ToInt32(Math.Floor(timeLeft % 60.0)); // Sekunden
             
-
             lbl_toChange.Text = Convert.ToString(minLeft) + " : " + Convert.ToString(secLeft);
-
         }
 
         private void Btn_pushDuration_Click(object sender, EventArgs e)
@@ -514,54 +547,56 @@ namespace Schach_v1
 
             UpdateTimerText(lbl_timeLeft_white, duration);
             UpdateTimerText(lbl_timeLeft_black, duration);
-            
-            // TO DO: Try and Catch rund um duration
         }
 
-
+        // MACO: Ihr bestimmt in der Tile-Klasse via Delegate selber wie die Handler-
+        // Methode aussieht. Warum ist dann der sender nicht vom Typ Tile, so wie es
+        // für euch am besten passen würde? Und wofür ist der Parameter e da? (7)
         private void ChessTile_TileClicked(object sender, EventArgs e)
         {
-            
             Tile clickedTile = sender as Tile;
 
-            //checkt ob überhaupt schonmal ne figur geclickt wurde
-            if (_lastFigureClicked != null)
+            if (_started)
             {
-                //wenn ja ob sie die gleiche farbe hat wie der spieler der dran ist
-                if (CurrentPlayer == _lastFigureClicked.FigureColor)
+                //checkt ob überhaupt schonmal ne figur geclickt wurde
+                if (_lastFigureClicked != null)
                 {
-                    //checkt ob die Hintergrundfarbe die Farbe von einem Möglichen zug hat
-                    if (clickedTile.BackColor == PossibleMoveColor)
+                    //wenn ja ob sie die gleiche farbe hat wie der spieler der dran ist //möglicherweise 0 deswegen obiger check (2 if's)
+                    if (CurrentPlayer == _lastFigureClicked.FigureColor)
                     {
-                        //wenn die figur leer ist ==> einfach die figur moven
-                        if (clickedTile.CurrentFigure == null)
+                        //checkt ob die Hintergrundfarbe die Farbe von einem Möglichen zug hat
+                        if (clickedTile.BackColor == PossibleMoveColor)
                         {
-                            MoveFigure(clickedTile);
-                        }
-                        //wenn eine figur drauf ist und sie die andere Farbe hat wie der Spieler dran ist ==> schlag
-                        else if (clickedTile.CurrentFigure.FigureColor != _lastFigureClicked.FigureColor)
-                        {
-                            //entfernt die Figur von den Controls
-                            Controls.Remove(clickedTile.CurrentFigure);
+                            //wenn die figur leer ist ==> einfach die figur moven
+                            if (clickedTile.CurrentFigure == null)
+                            {
+                                MoveFigure(clickedTile);
+                            }
+                            //wenn eine figur drauf ist und sie die andere Farbe hat wie der Spieler dran ist ==> schlag
+                            else 
+                            {
+                                //HIT FIGURE
+                                //entfernt die Figur von den Controls
+                                Controls.Remove(clickedTile.CurrentFigure);
 
-                            // TO DO: geschlagenen Figuren im INFOBAR anzeigen
-                            AddToBeatenFigureCollection(clickedTile.CurrentFigure);
+                                // TO DO: geschlagenen Figuren im INFOBAR anzeigen
+                                AddToBeatenFigureCollection(clickedTile.CurrentFigure);
 
-                            //die Figur des Tiles wird auf 0 gesetzt
-                            clickedTile.CurrentFigure = null;
-                            //der zug wird vollbracht
-                            MoveFigure(clickedTile);
+                                //die Figur des Tiles wird auf 0 gesetzt
+                                clickedTile.CurrentFigure = null;
+                                //der zug wird vollbracht
+                                MoveFigure(clickedTile);
+                            }
+                            //spieler wird getausch
+                            ChangePlayer();
                         }
                     }
-                    //spieler wird getausch
-                    ChangePlayer();
                 }
-            } 
+            }
         }
 
         private void AddToBeatenFigureCollection(Figure beatenFigure)
         {
-            
             // Event Handler löschen
             beatenFigure.FigureClicked -= Figure_FigureClicked;
             // geschlagenen Figur in InfoBar anzeigen
@@ -572,7 +607,6 @@ namespace Schach_v1
             beatenFigure.BackColor = pnl_InfoBar.BackColor;
             if (beatenFigure.FigureColor == Color.White)
             {
-                
                 beatenFigure.Location = new Point(lbl_timeLeft_white.Left , lbl_timeLeft_white.Height + lbl_timeLeft_white.Top + FiguresInfoBarWhite.Count() * beatenFigure.Height);
                 FiguresInfoBarWhite.Add(beatenFigure);
             }
@@ -581,42 +615,50 @@ namespace Schach_v1
                 beatenFigure.Location = new Point(_tileSize.Width * 2, lbl_timeLeft_black.Height + lbl_timeLeft_black.Top + FiguresInfoBarBlack.Count() * beatenFigure.Height);
                 FiguresInfoBarBlack.Add(beatenFigure);
             }
-
         }
 
-        private void Figure_FigureClicked(object sender, EventArgs e)
+        // MACO: (7)
+        private void Figure_FigureClicked(object sender, EventArgs e, List<Tile> PossibleMoves)
         {
-
             Figure clickedFigure = sender as Figure;
-
-
-            //wenn die figur nicht die farbe des zurzeit angreifenden spielers hat (möglichkeit auf absicht auf das schlagen der Figur)
-            if (clickedFigure.FigureColor != CurrentPlayer)
+            //ob das game scho loft
+            if (_started)
             {
-                if (clickedFigure.CurrentTile.BackColor == PossibleMoveColor)
+                //HIT FIGURE
+                //wenn die figur nicht die farbe des zurzeit angreifenden spielers hat (möglichkeit auf absicht auf das schlagen der Figur)
+                if (clickedFigure.FigureColor != CurrentPlayer)
                 {
-                    Controls.Remove(clickedFigure);
-                    clickedFigure.CurrentTile.CurrentFigure = null;
-                    MoveFigure(clickedFigure.CurrentTile);
-                    AddToBeatenFigureCollection(clickedFigure);
-                    ChangePlayer();
+                    if (clickedFigure.CurrentTile.BackColor == PossibleMoveColor)
+                    {
+                        Controls.Remove(clickedFigure);
+                        clickedFigure.CurrentTile.CurrentFigure = null;
+                        MoveFigure(clickedFigure.CurrentTile);
+                        AddToBeatenFigureCollection(clickedFigure);
+                        ChangePlayer();
+                    }
                 }
+                //ansonsten ist es halt die zuletzt gedrückte Figur
+                else if (clickedFigure.FigureColor == CurrentPlayer)
+                {
+                    _lastFigureClicked = clickedFigure;
 
+                    //das board einfach neu painten
+                    RePaintBoard();
+
+                    foreach (Tile tile in PossibleMoves)
+                    {
+                        // MACO: Auch das Einfärben von sich und gegebenenfalls des
+                        // Hintergrunds der Figur, die drauf steht, gehört vom Sinn
+                        // her zum Tile. -> in die Tile-Klasse!
+                        tile.BackColor = PossibleMoveColor;
+
+                        if (tile.CurrentFigure != null)
+                        {
+                            tile.CurrentFigure.BackColor = PossibleMoveColor;
+                        }
+                    }
+                }
             }
-            //ansonsten ist es halt die zuletzt gedrückte Figur
-            else
-            {
-                _lastFigureClicked = clickedFigure;
-            }
-
-
-
-
-            //das board einfach neu painten
-            RePaintBoard();
-
-
-            
         }
 
         //färbt das Board neu
@@ -626,37 +668,35 @@ namespace Schach_v1
             foreach (Tile tile in Tiles)
             {
 
-                if (tile.Coordinates["X"] == 2 && tile.Coordinates["Y"] == 5)
-                {
-                    Console.WriteLine(tile.CurrentFigure);
-                }
 
                 //Setzt die Farben auf den Standard zurück
-                if (tile.ID % 2 == 0 && tile.Coordinates["Y"] % 2 == 0)
+                // MACO: Sich und gegebenenfalls den Background der draufstehenden
+                // Figur zurücksetzen in den farblichen Initialzustand sollte
+                // das Tile selbst können. -> in die Tile-Klasse!
+                if (tile.Coordinates["X"] % 2 == 0 && tile.Coordinates["Y"] % 2 == 0)
                 {
-                    
                     tile.BackColor = _tileColors[1];
                 }
-                else if (tile.ID % 2 == 1 && tile.Coordinates["Y"] % 2 == 1)
+                else if (tile.Coordinates["X"] % 2 == 1 && tile.Coordinates["Y"] % 2 == 1)
                 {
-                    
                     tile.BackColor = _tileColors[1];
                 }
                 else
                 {
-                    
                     tile.BackColor = _tileColors[0];
                 }
 
                 //checkt ob das Tile eine Currenfigurehat
                 if (tile.CurrentFigure != null)
                 {
-                    //Färbt 
+                    //Färbt // setz die Hintergrundfarbe von der Daraufstehenden figur von grün wieder auf die Farbe des Tiles auf dem es steht
                     tile.CurrentFigure.BackColor = tile.BackColor;
                 }
             }
         }
 
+        // MACO: Warum hat dieser Parameter nicht den Typ Tile und einen besseren
+        // Namen?
         void MoveFigure(object sender)
         {
             Tile clickedTile = sender as Tile;
@@ -666,7 +706,6 @@ namespace Schach_v1
 
             //cleart das alte Tile wo die Figure war
             _lastFigureClicked.CurrentTile.CurrentFigure = null;
-
 
             clickedTile.CurrentFigure.CurrentTile = clickedTile;
 
@@ -679,8 +718,6 @@ namespace Schach_v1
 
             //neu färben
             RePaintBoard();
-       
-
         }
 
         void ChangePlayer()
@@ -691,6 +728,8 @@ namespace Schach_v1
                 // Prüfen welcher Spieler an der Reihe ist und dann im Label ausgeben
                 lbl_currentPlayer.ForeColor = Color.White;
                 lbl_currentPlayer.BackColor = Color.Black;
+                // MACO: Warum braucht es diese Zeile? Abgsehen davon kommt sie in 
+                // allen Zweigen vor. -> nach dem If machen!
                 lbl_currentPlayer.TextAlign = ContentAlignment.MiddleCenter;
                 lbl_currentPlayer.Text = "Schwarz";
             }

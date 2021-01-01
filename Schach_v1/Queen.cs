@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace Schach_v1
 {
@@ -15,7 +12,6 @@ namespace Schach_v1
     {
         public Queen(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
         {
-            
             FigureType = FigureTypes.queen;
 
             if (FigureColor == Color.Black)
@@ -26,14 +22,10 @@ namespace Schach_v1
             {
                 BackgroundImage = Properties.Resources.queen_white;
             }
-
-
         }
-
 
         public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
         {
-
             List<Tile> PossibleMoves = new List<Tile>();
             List<Tile> MovesInDirection = new List<Tile>();
 
@@ -45,15 +37,13 @@ namespace Schach_v1
             //geht 4 mal in alle Directions (oben unten links rechts)
             for (int i = 0; i < 4; i++)
             {
-
                 //Cleared die Liste von dem Vorherigem Durchlauf
                 MovesInDirection.Clear();
+
                 switch (i)
                 {
-
                     //nach oben
                     case (0):
-
                         //geht jedes Tile durch
                         foreach (Tile tile in Tiles)
                         {
@@ -62,15 +52,25 @@ namespace Schach_v1
                             {
                                 MovesInDirection.Add(tile);
                             }
-
-                            
                         }
+
+
+                        //gehen Hand in Hand Orderby und Reverse (lambda)
 
                         //Sortiert die Tiles AUSTEIGEND
                         MovesInDirection.OrderBy(x => x.Coordinates["Y"]);
 
                         //ändert die Reiehnfolge auf ABSTEIGEND
                         MovesInDirection.Reverse();
+
+                        // MACO: (4) Da ihr dieses foreach sogar in mehreren Klassen
+                        // brauchst wäre eine Überlegung, die Methode, in die ihr das
+                        // auslagert in der Oberklasse zu schreiben, damit sie geerbt 
+                        // werden kann (sonst habt ihr sie ja doppelt). Da sie dann 
+                        // aber alle Klassen erben (und es brauchen sie ja nicht alle)
+                        // könntet ihr euch auch überlegen, noch eine Zwischenklasse
+                        // zu modellieren für jene Figuren, die sich ohne Begrenzung
+                        // in bestimmte Richtungen bewegen können. (5)
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
                         {
@@ -106,15 +106,10 @@ namespace Schach_v1
                             {
                                 MovesInDirection.Add(tile);
                             }
-
-
                         }
-
 
                         //Sortiert die Tiles AUSTEIGEND
                         MovesInDirection.OrderBy(x => x.Coordinates["X"]);
-
-                        
 
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
@@ -157,8 +152,6 @@ namespace Schach_v1
                         //Sortiert die Tiles AUSTEIGEND
                         MovesInDirection.OrderBy(x => x.Coordinates["Y"]);
 
-                        
-
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
                         {
@@ -183,8 +176,6 @@ namespace Schach_v1
                                 }
                             }
                         }
-
-
                         break;
 
                     //nach links
@@ -231,16 +222,17 @@ namespace Schach_v1
                         break;
                 }
             }
+
             //checkt die  anzahl der möglichen züge nach oben
+            // MACO: Auch das braucht ihr in mehreren Klassen. -> in Methode aus-
+            // lagern und diese in geeignete Oberklasse! (5)
             foreach (Tile tile in Tiles)
             {
                 if (figure.CurrentTile.Coordinates["X"] + figure.CurrentTile.Coordinates["Y"] == tile.Coordinates["X"] + tile.Coordinates["Y"])
                 {
-
                     //nur die Tiles oben rechts und unten links
                     if (tile.Coordinates["Y"] < figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] > figure.CurrentTile.Coordinates["X"])
                     {
-
                         MovesUpperRight.Add(tile);
                     }
                     //unten links
@@ -253,11 +245,8 @@ namespace Schach_v1
                 //nur die Tiles oben links
                 if (figure.CurrentTile.Coordinates["Y"] - figure.CurrentTile.Coordinates["X"] == tile.Coordinates["Y"] - tile.Coordinates["X"])
                 {
-
-
                     if (tile.Coordinates["Y"] < figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] < figure.CurrentTile.Coordinates["X"])
                     {
-
                         MovesUpperLeft.Add(tile);
                     }
                     else if (tile.Coordinates["Y"] > figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] > figure.CurrentTile.Coordinates["X"])
@@ -265,9 +254,6 @@ namespace Schach_v1
                         MovesLowerRight.Add(tile);
                     }
                 }
-
-
-
             }
 
             //OBEN RECHTS SORTIERUNG UND ENTFERNUNG
@@ -302,12 +288,9 @@ namespace Schach_v1
                 }
             }
 
-
             //UNTEN RECHTS SORTIERUNG UND ENTFERNUNG
             //Sortiert die Tiles AUSTEIGEND
             MovesLowerRight.OrderBy(x => x.Coordinates["X"]);
-
-
 
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesLowerRight)
@@ -337,8 +320,6 @@ namespace Schach_v1
             //UNTEN LINKS SORTIERUNG UND ENTFERNUNG
             //Sortiert die Tiles AUSTEIGEND
             MovesLowerLeft.OrderBy(x => x.Coordinates["X"]);
-
-
 
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesLowerLeft)
