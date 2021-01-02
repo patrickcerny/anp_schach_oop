@@ -87,6 +87,8 @@ namespace Schach_v1
             InitializeComponent();
             InitWindow();
             InitInfoBar();
+
+            Text = "Schach";
         }
 
         /// <summary>
