@@ -5,9 +5,13 @@ namespace Schach_v1
 {
     class King : Figure
     {
-        public King(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
+        public King( Tile startingTile, List<Tile> Tiles) : base( startingTile, Tiles)
         {
+<<<<<<< HEAD
+            
+=======
             FigureType = FigureTypes.king;
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
             if (FigureColor == Color.Black)
             {
@@ -19,57 +23,61 @@ namespace Schach_v1
             }
         }
 
+<<<<<<< HEAD
+        public override List<Tile> GetPossibleMoves()
+=======
         public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
         {
             List<Tile> PossibleMoves = new List<Tile>();
             List<Tile> TilesToRemove = new List<Tile>();
 
             //ALLE möglichen felder, auch wenn sie belegt sind
-            foreach (Tile tile in Tiles)
+            foreach (Tile tile in this.BoardTiles)
             {
-                if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1)
+                if (tile.X == this.CurrentTile.X- 1)
                 {
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"])
+                    if (tile.Y == this.CurrentTile.Y)
                     {
                         PossibleMoves.Add(tile);
                     }
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
+                    if (tile.Y == this.CurrentTile.Y+ 1)
                     {
                         PossibleMoves.Add(tile);
                     }
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
+                    if (tile.Y== this.CurrentTile.Y - 1)
                     {
                         PossibleMoves.Add(tile);
                     }
                 }
 
-                if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1)
+                if (tile.X == this.CurrentTile.X + 1)
                 {
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"])
+                    if (tile.Y == this.CurrentTile.Y)
                     {
                         PossibleMoves.Add(tile);
                     }
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
+                    if (tile.Y == this.CurrentTile.Y + 1)
                     {
                         PossibleMoves.Add(tile);
                     }
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
+                    if (tile.Y == this.CurrentTile.Y - 1)
                     {
                         PossibleMoves.Add(tile);
                     }
                 }
 
-                if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
+                if (tile.Y == this.CurrentTile.Y + 1)
                 {
-                    if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"])
+                    if (tile.X == this.CurrentTile.X)
                     {
                         PossibleMoves.Add(tile);
                     }
                 }
 
-                if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
+                if (tile.Y == this.CurrentTile.Y - 1)
                 {
-                    if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"])
+                    if (tile.X == this.CurrentTile.X)
                     {
                         PossibleMoves.Add(tile);
                     }
@@ -81,7 +89,11 @@ namespace Schach_v1
             {
                 if (item.CurrentFigure != null)
                 {
+<<<<<<< HEAD
+                    if (item.CurrentFigure.FigureColor == this.FigureColor)
+=======
                     if (item.CurrentFigure.FigureColor == figure.FigureColor)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
                     { 
                         TilesToRemove.Add(item);
                     }

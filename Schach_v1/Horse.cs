@@ -5,9 +5,13 @@ namespace Schach_v1
 {
     class Horse : Figure
     {
-        public Horse(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
+        public Horse( Tile startingTile, List<Tile> Tiles) : base( startingTile, Tiles)
         {
+<<<<<<< HEAD
+           
+=======
             FigureType = FigureTypes.horse;
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
             if (FigureColor == Color.Black)
             {
@@ -19,10 +23,15 @@ namespace Schach_v1
             }
         }
 
-        public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
+        public override List<Tile> GetPossibleMoves()
         {
+<<<<<<< HEAD
+            
+=======
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
             List<Tile> PossibleMoves = new List<Tile>();
             List<Tile> TilesToRemove = new List<Tile>();
+            
 
             // MACO: Ich fürchte ihr tut euch mit Listen zum Organisieren der Tiles
             // keinen Gefallen. Das dauernde komplette Durchlaufen der Liste und die
@@ -33,51 +42,71 @@ namespace Schach_v1
             // Indizes bieten, was für euch echt praktisch wäre.
             // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/multidimensional-arrays
             // https://www.tutorialspoint.com/csharp/csharp_multi_dimensional_arrays.htm
+<<<<<<< HEAD
+            foreach (Tile tile in this.BoardTiles)
+=======
             foreach (Tile tile in Tiles)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
             {
-                if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 2)
+                if (tile.X == this.CurrentTile.X - 2)
                 {
+<<<<<<< HEAD
+                    if (tile.Y == this.CurrentTile.Y + 1)
+=======
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
                     {
                         PossibleMoves.Add(tile);
                     }
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
+                    if (tile.Y== this.CurrentTile.Y - 1)
                     {
                         PossibleMoves.Add(tile);
                     }
                 }
 
-                if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 2)
+                if (tile.X == this.CurrentTile.X + 2)
                 {
+<<<<<<< HEAD
+                    if (tile.Y == this.CurrentTile.Y + 1)
+=======
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 1)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
                     {
                         PossibleMoves.Add(tile);
                     }
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 1)
-                    {
-                        PossibleMoves.Add(tile);
-                    }
-                }
-
-                if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] + 1)
-                {
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2)
-                    {
-                        PossibleMoves.Add(tile);
-                    }
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 2)
+                    if (tile.Y == this.CurrentTile.Y - 1)
                     {
                         PossibleMoves.Add(tile);
                     }
                 }
 
-                if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] - 1)
+                if (tile.X == this.CurrentTile.X + 1)
                 {
+<<<<<<< HEAD
+                    if (tile.Y == this.CurrentTile.Y + 2)
+=======
                     if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
                     {
                         PossibleMoves.Add(tile);
                     }
-                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] - 2)
+                    if (tile.Y == this.CurrentTile.Y - 2)
+                    {
+                        PossibleMoves.Add(tile);
+                    }
+                }
+
+                if (tile.X== this.CurrentTile.X - 1)
+                {
+<<<<<<< HEAD
+                    if (tile.Y == this.CurrentTile.Y + 2)
+=======
+                    if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] + 2)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
+                    {
+                        PossibleMoves.Add(tile);
+                    }
+                    if (tile.Y == this.CurrentTile.Y - 2)
                     {
                         PossibleMoves.Add(tile);
                     }
@@ -89,7 +118,11 @@ namespace Schach_v1
             {
                 if (item.CurrentFigure != null)
                 {
+<<<<<<< HEAD
+                    if (item.CurrentFigure.FigureColor == this.FigureColor)
+=======
                     if (item.CurrentFigure.FigureColor == figure.FigureColor)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
                     {
                         TilesToRemove.Add(item);
                     }

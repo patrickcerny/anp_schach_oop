@@ -6,9 +6,13 @@ namespace Schach_v1
 {
     class Tower : Figure
     {
-        public Tower(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
+        public Tower( Tile startingTile, List<Tile> Tiles) : base( startingTile, Tiles)
         {
+<<<<<<< HEAD
+          
+=======
             FigureType = FigureTypes.tower;
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
             if (FigureColor == Color.Black)
             {
@@ -20,7 +24,11 @@ namespace Schach_v1
             }
         }
 
+<<<<<<< HEAD
+        public override List<Tile> GetPossibleMoves()
+=======
         public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
         {
             List<Tile> PossibleMoves = new List<Tile>();
             List<Tile> MovesInDirection = new List<Tile>();
@@ -37,20 +45,18 @@ namespace Schach_v1
                     //nach oben
                     case (0):
                         //geht jedes Tile durch
-                        foreach (Tile tile in Tiles)
+                        foreach (Tile tile in this.BoardTiles)
                         {
                             //ob gleiche X position und ob tile Y kleiner als Figure Y
-                            if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] && tile.Coordinates["Y"] < figure.CurrentTile.Coordinates["Y"])
+                            if (tile.X == this.CurrentTile.X && tile.Y < this.CurrentTile.Y)
                             {
                                 MovesInDirection.Add(tile);
                             }
                         }
 
                         //Sortiert die Tiles AUSTEIGEND
-                        MovesInDirection.OrderBy(x => x.Coordinates["Y"]);
+                        MovesInDirection.OrderByDescending(x => x.Y);
                         
-                        //ändert die Reiehnfolge auf ABSTEIGEND
-                        MovesInDirection.Reverse();
 
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
@@ -64,7 +70,7 @@ namespace Schach_v1
                             else
                             {
                                 //wenn sie die gleiche Farbe hat wird abgebrochen
-                                if (tile.CurrentFigure.FigureColor == figure.FigureColor)
+                                if (tile.CurrentFigure.FigureColor == this.FigureColor)
                                 {
                                     break;
                                 }
@@ -80,17 +86,17 @@ namespace Schach_v1
 
                     //nach rechts
                     case (1):
-                        foreach (Tile tile in Tiles)
+                        foreach (Tile tile in this.BoardTiles)
                         {
                             //Ob auf der gleichen Y aber größere X
-                            if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] > figure.CurrentTile.Coordinates["X"])
+                            if (tile.Y == this.CurrentTile.Y && tile.X > this.CurrentTile.X)
                             {
                                 MovesInDirection.Add(tile);
                             }
                         }
 
                         //Sortiert die Tiles AUSTEIGEND
-                        MovesInDirection.OrderBy(x => x.Coordinates["X"]);
+                        MovesInDirection.OrderBy(x => x.X);
 
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
@@ -104,7 +110,7 @@ namespace Schach_v1
                             else
                             {
                                 //wenn sie die gleiche Farbe hat wird abgebrochen
-                                if (tile.CurrentFigure.FigureColor == figure.FigureColor)
+                                if (tile.CurrentFigure.FigureColor == this.FigureColor)
                                 {
                                     break;
                                 }
@@ -121,17 +127,17 @@ namespace Schach_v1
                     //nach unten
                     case (2):
                         //geht jedes Tile durch
-                        foreach (Tile tile in Tiles)
+                        foreach (Tile tile in this.BoardTiles)
                         {
                             //ob gleiche X position und ob tile Y größer als Figure Y
-                            if (tile.Coordinates["X"] == figure.CurrentTile.Coordinates["X"] && tile.Coordinates["Y"] > figure.CurrentTile.Coordinates["Y"])
+                            if (tile.X == this.CurrentTile.X && tile.Y > this.CurrentTile.Y)
                             {
                                 MovesInDirection.Add(tile);
                             }
                         }
 
                         //Sortiert die Tiles AUSTEIGEND
-                        MovesInDirection.OrderBy(x => x.Coordinates["Y"]);
+                        MovesInDirection.OrderBy(x => x.Y);
 
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
@@ -145,7 +151,7 @@ namespace Schach_v1
                             else
                             {
                                 //wenn sie die gleiche Farbe hat wird abgebrochen
-                                if (tile.CurrentFigure.FigureColor == figure.FigureColor)
+                                if (tile.CurrentFigure.FigureColor == this.FigureColor)
                                 {
                                     break;
                                 }
@@ -161,19 +167,17 @@ namespace Schach_v1
 
                     //nach links
                     case (3):
-                        foreach (Tile tile in Tiles)
+                        foreach (Tile tile in this.BoardTiles)
                         {
                             //Ob auf der gleichen Y aber kleinere X
-                            if (tile.Coordinates["Y"] == figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] < figure.CurrentTile.Coordinates["X"])
+                            if (tile.Y == this.CurrentTile.Y && tile.X < this.CurrentTile.X)
                             {
                                 MovesInDirection.Add(tile);
                             }
                         }
                         //Sortiert die Tiles AUSTEIGEND
-                        MovesInDirection.OrderBy(x => x.Coordinates["X"]);
+                        MovesInDirection.OrderByDescending(x => x.X);
 
-                        //ändert die Reihenfolge auf AUSTEIGEND
-                        MovesInDirection.Reverse();
 
                         //geht jedes Tile in der richtigen Reihenfolge durch
                         foreach (Tile tile in MovesInDirection)
@@ -187,7 +191,7 @@ namespace Schach_v1
                             else
                             {
                                 //wenn sie die gleiche Farbe hat wird abgebrochen
-                                if (tile.CurrentFigure.FigureColor == figure.FigureColor)
+                                if (tile.CurrentFigure.FigureColor == this.FigureColor)
                                 {
                                     break;
                                 }

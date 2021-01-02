@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace Schach_v1
 {
+<<<<<<< HEAD
+    public delegate void EventTypeClickedFigure(Figure clickedFigure);
+=======
     // MACO: Ist es wirklich sinnvoll, dass die Handler-Methode des Click-Events die
     // Liste von möglichen Moves mitgeliefert bekommt? Das nimmt schon einiges vorweg
     // in Bezug auf wie das Event verwendet wird und das soll aber eigentlich der, der
@@ -13,6 +16,7 @@ namespace Schach_v1
     // fach in der Handler-Methode dann die möglichen Moves geholt (die Methode dafür 
     // ist eh public)? (**)
     public delegate void EventTypeClickedFigure(object sender, EventArgs e, List<Tile> PossibleMoves);
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
     
     public abstract class Figure : Panel
     {
@@ -24,12 +28,15 @@ namespace Schach_v1
 
         // MACO: (1)
         //Farbe die Felder bekommen, wenn auf sie gezogen werden kann
-        Color _possibleMoveColor;
+         readonly Color _possibleMoveColor;
 
         // MACO: (2)
         //das Tile auf dem sich die Figure befindet
         public Tile CurrentTile;
 
+<<<<<<< HEAD
+        public List<Tile> BoardTiles;
+=======
         // MACO: Warum verfügt die Klasse Figure über diese Liste? Vom Sinn her müsste
         // doch das Spiel selbst (also die Form) alle Tiles verwalten und nicht die
         // einzelne Spielfigur. (3)
@@ -37,14 +44,19 @@ namespace Schach_v1
         // hier ein nicht mehr aktuelles Spielfeld gespeichert zu haben.
         //Liste aller Tiles in der Form
         List<Tile> BoardTiles;
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
         // MACO: (2)
         //ob die Figure noch im Spiel ist
         public bool IsOnField = true;
 
+<<<<<<< HEAD
+       
+=======
         // MACO: (2)
         //Typ der Figur, enum FigureType
         public FigureTypes FigureType;
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
         //Farbe der Figur / Team der Figur
         private Color _figureColor;
@@ -53,6 +65,20 @@ namespace Schach_v1
             get { return _figureColor; }
         }
 
+<<<<<<< HEAD
+
+
+        // MACO: Warum ist dieser Konstruktor public? In Anbetracht dessen, dass die
+        // Klasse abstract ist, ergibt das keinen Sinn.
+        // MACO: Der Parameter panelSize wird nie verwendet. -> aufräumen!
+
+        // Antwort: base funktioniert ohne "public" nicht!
+        public Figure(Tile startingTile, List<Tile> Tiles)
+        {
+            
+            //Setzung der readonly _possibleMoveColor
+             _possibleMoveColor = Color.ForestGreen;
+=======
         // MACO: Warum ist diese Enumeration innerhalb der Klasse definiert? Wenn ihr
         // sie mal in einer anderen Klasse braucht, macht das Umstände.
         //enum der Typen der Figur
@@ -80,6 +106,7 @@ namespace Schach_v1
             // mit static und readonly was konstantenähnliches hinkriegen ;-).
             //Setzung der _possibleMoveColor (kann keine const sein weil weis Gott warum)
             _possibleMoveColor = Color.ForestGreen;
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
             //Speicherung aller Tiles der Form 
             BoardTiles = Tiles;
@@ -94,7 +121,7 @@ namespace Schach_v1
             // Farben zulassen wollt, könnt ihr das ja trotzdem z.B. mit Hilfe einer
             // Enumeration beschränken.
             //farbe wird Festegelegt
-            if (startingTile.Coordinates["Y"] >= 6)
+            if (startingTile.Y >= 6)
             {
                 _figureColor = Color.White;
             }
@@ -111,9 +138,13 @@ namespace Schach_v1
             Height = startingTile.Height / 2;
 
             //dynamische änderung der Hintergrundfarbe
+<<<<<<< HEAD
+            BackColor = startingTile.BackColor;
+=======
             // MACO: (*) Und warum schreibt ihr hier nicht einfach hin "startingTile.
             // BackColor"?
             BackColor = ChangeBackColor(startingTile);
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
             //anpassung des Hntergundbildes
             BackgroundImageLayout = ImageLayout.Stretch;
@@ -126,6 +157,8 @@ namespace Schach_v1
             BringToFront();
         }
 
+<<<<<<< HEAD
+=======
         /// <summary>
         /// Ändert Hnertgrundfarbe des Panels und erstellte somit eine unechte Tranzparenz
         /// </summary>
@@ -141,6 +174,7 @@ namespace Schach_v1
             // Sinn her aber doch eher zum Tile, da sie ja nur dessen Hintergrundfarbe
             // zurückliefert. -> in die Tile-Klasse!
         }
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
         /// <summary>
         /// Überschriebene Click funktion
@@ -148,8 +182,13 @@ namespace Schach_v1
         /// <param name="e"></param> 
         protected override void OnClick(EventArgs e)
         {
+            
             //Invoked das Clicked event
+<<<<<<< HEAD
+            FigureClicked?.Invoke(this);
+=======
             FigureClicked?.Invoke(this, e, GetPossibleMoves(this, BoardTiles));
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
         }
 
         /// <summary>
@@ -157,6 +196,9 @@ namespace Schach_v1
         /// </summary>
         /// <param name="figure"></param>
         /// <returns></returns>
+<<<<<<< HEAD
+        public abstract List<Tile> GetPossibleMoves();
+=======
         // MACO: Warum muss hier die Figure mitgegeben werden, für die die möglichen
         // Moves berechnet werden? Die Methode muss ja auf eine Figure aufgerufen 
         // werden und damit ist ja dann klar um welche Figure es geht?
@@ -164,5 +206,6 @@ namespace Schach_v1
         // Feld gespeichert, das alle Unterklassen erben. Falls diese Feld im Zuge der
         // Einarbeitung des Feedbacks (3) weiter oben wegfällt, ist dieser Parameter ok.
         public abstract List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles);
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
     }
 }

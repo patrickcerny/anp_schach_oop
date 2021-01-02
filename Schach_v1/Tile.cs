@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Schach_v1
 {
-    public delegate void EventTypeTileClicked(object sender, EventArgs e);
+    public delegate void EventTypeTileClicked(Tile clickedTile);
 
     public class Tile : Panel
     {
@@ -18,12 +18,13 @@ namespace Schach_v1
         // ein Overkill (verkompliziert nur den Code). Warum nicht einfach über zwei
         // Eigenschaften umsetzen?
         //X und Y Coordinaten des Tiles
-        public Dictionary<string, int> Coordinates = new Dictionary<string, int>();
+        public int X, Y;
+
 
         //die Daraufliegende Figur
         public Figure CurrentFigure = null;
 
-        public Tile(Size tileSize, Color Color, int[] Coords)
+        public Tile(Size tileSize, Color Color, Point Coords)
         {
             //Setzung der Hintergrundfarbe
             BackColor = Color;
@@ -36,13 +37,19 @@ namespace Schach_v1
             // Viel einfacher wären doch zwei Parameter jeweils für x und y oder von
             // mir aus etwas vom Typ "Point", das beide Koordinaten beinhaltet?
             //Coordinaten des Tile's
+<<<<<<< HEAD
+            X = Coords.X;
+            Y = Coords.Y;
+            
+=======
             Coordinates.Add("X", Coords[0]);
             Coordinates.Add("Y", Coords[1]);
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
         }
 
         protected override void OnClick(EventArgs e)
         {
-            TileClicked?.Invoke(this, e);
+            TileClicked?.Invoke(this);
         }
     }
 }

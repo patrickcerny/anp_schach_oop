@@ -6,9 +6,9 @@ namespace Schach_v1
 {
     class Bishop : Figure
     {
-        public Bishop(Size panelSize, Tile startingTile, List<Tile> Tiles) : base(panelSize, startingTile, Tiles)
+        public Bishop( Tile startingTile, List<Tile> Tiles) : base( startingTile, Tiles)
         {
-            FigureType = FigureTypes.bishop;
+           
 
             if (FigureColor == Color.Black)
             {
@@ -20,7 +20,7 @@ namespace Schach_v1
             }
         }
 
-        public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
+        public override List<Tile> GetPossibleMoves()
         {
             List<Tile> PossibleMoves = new List<Tile>();
 
@@ -32,45 +32,49 @@ namespace Schach_v1
             //sorry für dean code, i hobs ned effizienter herkrigt :( es isch 2:28 und i HEUL weil der Code so hässlich isch, but u gotta do what u gotta do
 
             //checkt die  anzahl der möglichen züge nach oben
-            foreach (Tile tile in Tiles)
+            foreach (Tile tile in this.BoardTiles)
             {
-                if (figure.CurrentTile.Coordinates["X"] + figure.CurrentTile.Coordinates["Y"] == tile.Coordinates["X"] + tile.Coordinates["Y"])
+                if (this.CurrentTile.X + this.CurrentTile.Y == tile.X + tile.Y)
                 {            
                     //nur die Tiles oben rechts und unten links
-                    if (tile.Coordinates["Y"] < figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] > figure.CurrentTile.Coordinates["X"])
+                    if (tile.Y < this.CurrentTile.Y && tile.X > this.CurrentTile.X)
                     {             
                         MovesUpperRight.Add(tile);
                     }
                     //unten links
-                    else if (tile.Coordinates["Y"] > figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] < figure.CurrentTile.Coordinates["X"])
+                    else if (tile.Y > this.CurrentTile.Y && tile.X < this.CurrentTile.X)
                     {
                         MovesLowerLeft.Add(tile);
                     }
                 }
 
-                //nur die Tiles oben links
-                if (figure.CurrentTile.Coordinates["Y"] - figure.CurrentTile.Coordinates["X"]  == tile.Coordinates["Y"] - tile.Coordinates["X"])
+                
+                if (this.CurrentTile.Y - this.CurrentTile.X  == tile.Y - tile.X)
                 {
-                    if (tile.Coordinates["Y"] < figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] < figure.CurrentTile.Coordinates["X"])
+                    if (tile.Y < this.CurrentTile.Y && tile.X < this.CurrentTile.X)
                     {
                         MovesUpperLeft.Add(tile);
                     }
-                    else if (tile.Coordinates["Y"] > figure.CurrentTile.Coordinates["Y"] && tile.Coordinates["X"] > figure.CurrentTile.Coordinates["X"])
+                    else if (tile.Y > this.CurrentTile.Y && tile.X > this.CurrentTile.X)
                     {
                         MovesLowerRight.Add(tile);
                     }
                 }
             }
 
+<<<<<<< HEAD
+
+
+=======
             // MACO: Für eine absteigende Sortierung gibt es die Methode "OrderBy-
             // Descending" :-).
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
             //OBEN RECHTS SORTIERUNG UND ENTFERNUNG
-            //Sortiert die Tiles AUSTEIGEND
-            MovesUpperRight.OrderBy(x => x.Coordinates["X"]);
+            //Sortiert die Tiles ABSTEIGEND
+            MovesUpperRight.OrderByDescending(x => x.X);
 
-            //ändert die Tiles ABSTEIGEND
-            MovesUpperRight.Reverse();
+
 
             // MACO: Diese Schleife brauchst du öfters mit genau dem gleichen Inhalt. 
             // -> in Methode auslagern! (4)
@@ -86,7 +90,7 @@ namespace Schach_v1
                 else
                 {
                     //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrentFigure.FigureColor == figure.FigureColor)
+                    if (tile.CurrentFigure.FigureColor == this.FigureColor)
                     {
                         break;
                     }
@@ -101,8 +105,8 @@ namespace Schach_v1
 
 
             //UNTEN RECHTS SORTIERUNG UND ENTFERNUNG
-            //Sortiert die Tiles AUSTEIGEND
-            MovesLowerRight.OrderBy(x => x.Coordinates["X"]);
+            //Sortiert die Tiles AUFSTEIGEND
+            MovesLowerRight.OrderBy(x => x.X);
 
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesLowerRight)
@@ -116,7 +120,7 @@ namespace Schach_v1
                 else
                 {
                     //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrentFigure.FigureColor == figure.FigureColor)
+                    if (tile.CurrentFigure.FigureColor == this.FigureColor)
                     {
                         break;
                     }
@@ -131,7 +135,7 @@ namespace Schach_v1
 
             //UNTEN LINKS SORTIERUNG UND ENTFERNUNG
             //Sortiert die Tiles AUSTEIGEND
-            MovesLowerLeft.OrderBy(x => x.Coordinates["X"]);
+            MovesLowerLeft.OrderBy(x => x.X);
 
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesLowerLeft)
@@ -145,7 +149,7 @@ namespace Schach_v1
                 else
                 {
                     //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrentFigure.FigureColor == figure.FigureColor)
+                    if (tile.CurrentFigure.FigureColor == this.FigureColor)
                     {
                         break;
                     }
@@ -160,10 +164,9 @@ namespace Schach_v1
 
             //OBEN LENKS SORTIERUNG UND ENTFERNUNG
             //Sortiert die Tiles AUSTEIGEND
-            MovesUpperLeft.OrderBy(x => x.Coordinates["X"]);
+            MovesUpperLeft.OrderByDescending(x => x.X);
 
-            //ändert die Tiles ABSTEIGEND
-            MovesUpperLeft.Reverse();
+
 
             //geht jedes Tile in der richtigen Reihenfolge durch
             foreach (Tile tile in MovesUpperLeft)
@@ -177,7 +180,7 @@ namespace Schach_v1
                 else
                 {
                     //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrentFigure.FigureColor == figure.FigureColor)
+                    if (tile.CurrentFigure.FigureColor == this.FigureColor)
                     {
                         break;
                     }

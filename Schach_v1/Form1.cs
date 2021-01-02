@@ -6,8 +6,12 @@ using System.Windows.Forms;
 
 namespace Schach_v1
 {
+<<<<<<< HEAD
+
+=======
     // MACO: In der Titelleiste eures Formulars steht immer "Form1". Das irritiert
     // einen als Spieler.
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
     public partial class Form1 : Form
     {
@@ -17,6 +21,9 @@ namespace Schach_v1
         // MACO: Wofür muss dieses Feld public sein?
         //farbe die das Feld annimmt wenn es besprungen werden kann
         public Color PossibleMoveColor = Color.ForestGreen;
+
+        // Definiert die standart spielzeit
+        const int startingTime = 15;
 
         //der Spielende Spieler
         Color CurrentPlayer = Color.White;
@@ -62,6 +69,8 @@ namespace Schach_v1
         // Button zum Starten des Spieles/Stopuhr
         Button btn_startGame;
 
+<<<<<<< HEAD
+=======
         // MACO: Die doppelte Deklaration dieser Variablen verursacht Compilerfehler.
         // -> Aufräumen!
         //// Button um Remis anbieten
@@ -73,6 +82,7 @@ namespace Schach_v1
         //// Button zum Spiel aufgeben
         //Button btn_aufgeben;
 
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
         // Var zum speichern der eingegebenen Zeit (Spielzeit)
         int duration = 0;
 
@@ -84,6 +94,7 @@ namespace Schach_v1
 
         public Form1()
         {
+            Text = "Schach - Extended Version";
             InitializeComponent();
             InitWindow();
             InitInfoBar();
@@ -100,6 +111,11 @@ namespace Schach_v1
             //festlegung der Größe des Spielfeldes
             // MACO: Warum wird hier die ClientSize gesetzt, wenn sie nachher eh
             // wieder überschrieben wird?
+<<<<<<< HEAD
+            // Antwort: Weil wir zuerst die des Boards setzen, anhand von dem die Tiles erstellen, und die
+            // Form dann um 3 Tilesizes erweitern (für die Infobar)
+=======
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
             ClientSize = new Size(_BOARDSIZE, _BOARDSIZE);
             _tileSize = new Size(ClientSize.Width / 8, ClientSize.Height / 8);
             ClientSize = new Size(_BOARDSIZE + _tileSize.Width * 3, _BOARDSIZE);
@@ -124,7 +140,7 @@ namespace Schach_v1
                     }
 
                     //Erstellung des Tiles und Position anhand der ID
-                    Tile ChessTile = new Tile(_tileSize, color, new int[] { j, i });
+                    Tile ChessTile = new Tile(_tileSize, color, new Point(j, i));
                     ChessTile.TileClicked += ChessTile_TileClicked;
                     ChessTile.Left = ChessTile.Width * j;
                     ChessTile.Top = ChessTile.Height * i;
@@ -134,11 +150,11 @@ namespace Schach_v1
                     {
                         if (j == 3)
                         {
-                            Controls.Add(new Queen(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new Queen( ChessTile, Tiles));
                         }
                         if (j == 4)
                         {
-                            Controls.Add(new King(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new King( ChessTile, Tiles));
                         }
                     }
 
@@ -147,11 +163,11 @@ namespace Schach_v1
                     {
                         if (j == 3)
                         {
-                            Controls.Add(new Queen(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new Queen( ChessTile, Tiles));
                         }
                         if (j == 4)
                         {
-                            Controls.Add(new King(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new King( ChessTile, Tiles));
                         }
                     }
 
@@ -160,24 +176,28 @@ namespace Schach_v1
                     {
                         if (j == 0 || j == 7)
                         {
-                            Controls.Add(new Tower(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new Tower( ChessTile, Tiles));
                         }
 
                         if (j == 1 || j == 6)
                         {
+<<<<<<< HEAD
+                            Controls.Add(new Horse( ChessTile, Tiles));
+=======
                             Controls.Add(new Horse(ClientSize, ChessTile, Tiles));
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
                         }
 
                         if (j == 2 || j == 5)
                         {
-                            Controls.Add(new Bishop(ClientSize, ChessTile, Tiles));
+                            Controls.Add(new Bishop( ChessTile, Tiles));
                         }
                     }
 
                     //generation pawns
                     if (i == 1 || i == 6)
                     {
-                        Controls.Add(new Pawn(ClientSize, ChessTile, Tiles));
+                        Controls.Add(new Pawn( ChessTile, Tiles));
                     }
 
                     //hinzufpgen zur liste der Tiles
@@ -234,7 +254,7 @@ namespace Schach_v1
             };
             pnl_InfoBar.Controls.Add(txt_durationStopwatch);
 
-            txt_durationStopwatch.Text = "15"; // Standard gemäß haben beide Spieler 15 Minuten Zeit
+            txt_durationStopwatch.Text = Convert.ToString(startingTime); // Standard gemäß haben beide Spieler 15 Minuten Zeit
            
             // Timer generieren der jede Sekunde tickt 
             tmr_sekunde = new Timer();
@@ -356,6 +376,10 @@ namespace Schach_v1
             }
             // MACO: Warum kann das nicht gleich in den oberen Schleifen gelöscht
             // werden?
+<<<<<<< HEAD
+            // Antwort: Weil man nicht direkt aus der Liste löschen kann, wenn man sie durchgeht
+=======
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
             foreach (Control item in itemsToRemovePanelControls)
             {
                 pnl_InfoBar.Controls.Remove(item);
@@ -365,8 +389,12 @@ namespace Schach_v1
             #region Clear
             lbl_timeLeft_black.Text = "";
             lbl_timeLeft_white.Text = "";
+<<<<<<< HEAD
+            txt_durationStopwatch.Text = Convert.ToString(startingTime);
+=======
             // MACO: Der Wert 15 kommt öfter vor. -> in Variable / Konstante auslagern!
             txt_durationStopwatch.Text = "15";
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
             btn_startGame.Enabled = true;
             btn_pushDuration.Enabled = true;
             txt_durationStopwatch.Enabled = true;
@@ -535,7 +563,7 @@ namespace Schach_v1
 
             if (txt_durationStopwatch.Text == "")
             {
-                duration = 15; // Standardgemäß haben beide Spieler 15 Minuten Zeit
+                duration = startingTime; // Standardgemäß haben beide Spieler 15 Minuten Zeit
             }
             else
             {
@@ -549,6 +577,12 @@ namespace Schach_v1
             UpdateTimerText(lbl_timeLeft_black, duration);
         }
 
+<<<<<<< HEAD
+
+        
+        private void ChessTile_TileClicked(Tile clickedTile)
+        {
+=======
         // MACO: Ihr bestimmt in der Tile-Klasse via Delegate selber wie die Handler-
         // Methode aussieht. Warum ist dann der sender nicht vom Typ Tile, so wie es
         // für euch am besten passen würde? Und wofür ist der Parameter e da? (7)
@@ -556,6 +590,7 @@ namespace Schach_v1
         {
             Tile clickedTile = sender as Tile;
 
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
             if (_started)
             {
                 //checkt ob überhaupt schonmal ne figur geclickt wurde
@@ -618,9 +653,13 @@ namespace Schach_v1
         }
 
         // MACO: (7)
+<<<<<<< HEAD
+        private void Figure_FigureClicked(Figure clickedFigure)
+=======
         private void Figure_FigureClicked(object sender, EventArgs e, List<Tile> PossibleMoves)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
         {
-            Figure clickedFigure = sender as Figure;
+            List<Tile> PossibleMoves = clickedFigure.GetPossibleMoves();
             //ob das game scho loft
             if (_started)
             {
@@ -673,11 +712,15 @@ namespace Schach_v1
                 // MACO: Sich und gegebenenfalls den Background der draufstehenden
                 // Figur zurücksetzen in den farblichen Initialzustand sollte
                 // das Tile selbst können. -> in die Tile-Klasse!
+<<<<<<< HEAD
+                if (tile.X % 2 == 0 && tile.Y % 2 == 0)
+=======
                 if (tile.Coordinates["X"] % 2 == 0 && tile.Coordinates["Y"] % 2 == 0)
+>>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
                 {
                     tile.BackColor = _tileColors[1];
                 }
-                else if (tile.Coordinates["X"] % 2 == 1 && tile.Coordinates["Y"] % 2 == 1)
+                else if (tile.X % 2 == 1 && tile.Y % 2 == 1)
                 {
                     tile.BackColor = _tileColors[1];
                 }
