@@ -37,14 +37,11 @@ namespace Schach_v1
             // Viel einfacher wären doch zwei Parameter jeweils für x und y oder von
             // mir aus etwas vom Typ "Point", das beide Koordinaten beinhaltet?
             //Coordinaten des Tile's
-<<<<<<< HEAD
+
             X = Coords.X;
             Y = Coords.Y;
             
-=======
-            Coordinates.Add("X", Coords[0]);
-            Coordinates.Add("Y", Coords[1]);
->>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
+
         }
 
         protected override void OnClick(EventArgs e)

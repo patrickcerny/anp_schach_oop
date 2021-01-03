@@ -20,11 +20,8 @@ namespace Schach_v1
             }
         }
 
-<<<<<<< HEAD
+
         public override List<Tile> GetPossibleMoves()
-=======
-        public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
->>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
         {
             List<Tile> PossibleMoves = new List<Tile>();
             List<Tile> MovesInDirection = new List<Tile>();
@@ -226,11 +223,8 @@ namespace Schach_v1
             //checkt die  anzahl der möglichen züge nach oben
             // MACO: Auch das braucht ihr in mehreren Klassen. -> in Methode aus-
             // lagern und diese in geeignete Oberklasse! (5)
-<<<<<<< HEAD
             foreach (Tile tile in this.BoardTiles)
-=======
-            foreach (Tile tile in Tiles)
->>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
+
             {
                 if (this.CurrentTile.X + this.CurrentTile.Y == tile.X + tile.Y)
                 {

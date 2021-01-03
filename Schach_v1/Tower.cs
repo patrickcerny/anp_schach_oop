@@ -8,11 +8,11 @@ namespace Schach_v1
     {
         public Tower( Tile startingTile, List<Tile> Tiles) : base( startingTile, Tiles)
         {
-<<<<<<< HEAD
+
           
-=======
-            FigureType = FigureTypes.tower;
->>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
+
+           
+
 
             if (FigureColor == Color.Black)
             {
@@ -24,11 +24,11 @@ namespace Schach_v1
             }
         }
 
-<<<<<<< HEAD
+
+
+
         public override List<Tile> GetPossibleMoves()
-=======
-        public override List<Tile> GetPossibleMoves(Figure figure, List<Tile> Tiles)
->>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
+
         {
             List<Tile> PossibleMoves = new List<Tile>();
             List<Tile> MovesInDirection = new List<Tile>();

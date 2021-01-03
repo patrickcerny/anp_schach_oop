@@ -62,13 +62,7 @@ namespace Schach_v1
                 }
             }
 
-<<<<<<< HEAD
 
-
-=======
-            // MACO: Für eine absteigende Sortierung gibt es die Methode "OrderBy-
-            // Descending" :-).
->>>>>>> 2a02e19f3548dfaf48b0c6802bcbf83765365052
 
             //OBEN RECHTS SORTIERUNG UND ENTFERNUNG
             //Sortiert die Tiles ABSTEIGEND
