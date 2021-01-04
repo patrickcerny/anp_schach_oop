@@ -1,0 +1,15 @@
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\obj\Debug\netcoreapp3.1\Schach_Test.AssemblyInfoInputs.cache
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\obj\Debug\netcoreapp3.1\Schach_Test.AssemblyInfo.cs
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\obj\Debug\netcoreapp3.1\Schach_Test.csproj.CoreCompileInputs.cache
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\obj\Debug\netcoreapp3.1\Schach_Test.csproj.GenerateResource.cache
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\bin\Debug\netcoreapp3.1\Schach_Test.exe
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\bin\Debug\netcoreapp3.1\Schach_Test.deps.json
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\bin\Debug\netcoreapp3.1\Schach_Test.runtimeconfig.json
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\bin\Debug\netcoreapp3.1\Schach_Test.runtimeconfig.dev.json
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\bin\Debug\netcoreapp3.1\Schach_Test.dll
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\bin\Debug\netcoreapp3.1\Schach_Test.pdb
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\obj\Debug\netcoreapp3.1\Schach_v1.Form1.resources
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\obj\Debug\netcoreapp3.1\Schach_Test.dll
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\obj\Debug\netcoreapp3.1\Schach_Test.pdb
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\obj\Debug\netcoreapp3.1\Schach_Test.genruntimeconfig.cache
+C:\Users\patri\Desktop\Schach_Test\Schach_Test\obj\Debug\netcoreapp3.1\Schach_Test.csprojAssemblyReference.cache
