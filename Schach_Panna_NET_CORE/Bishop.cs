@@ -12,11 +12,11 @@ namespace Schach_v1
 
             if (FigureColor == Color.Black)
             {
-                BackgroundImage =Image.FromFile(@"C:\\Users\\patri\\Desktop\\Schach_Test\\Schach_Test\\img\\king_black.png");
+                BackgroundImage = Bitmap.FromFile(@"..\..\..\img\bishop_black.png");
             }
             else
             {
-                BackgroundImage = Image.FromFile(@"C:\\Users\\patri\\Desktop\\Schach_Test\\Schach_Test\\img\\king_black.png");
+                BackgroundImage = Bitmap.FromFile(@"..\..\..\img\bishop_white.png");
             }
         }
 
@@ -65,130 +65,24 @@ namespace Schach_v1
 
 
             //OBEN RECHTS SORTIERUNG UND ENTFERNUNG
-            //Sortiert die Tiles ABSTEIGEND
-            MovesUpperRight.OrderByDescending(x => x.X);
-
-
-
-            // MACO: Diese Schleife brauchst du öfters mit genau dem gleichen Inhalt. 
-            // -> in Methode auslagern! (4)
-            //geht jedes Tile in der richtigen Reihenfolge durch
-            foreach (Tile tile in MovesUpperRight)
-            {
-                //wenn das Feld leer ist wird es hinzugefügt
-                if (tile.CurrentFigure == null)
-                {
-                    PossibleMoves.Add(tile);
-                }
-                //falls nicht wird gecheckt welche FigureColor die Figur hat
-                else
-                {
-                    //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrentFigure.FigureColor == this.FigureColor)
-                    {
-                        break;
-                    }
-                    //ansonsten Hinzugefügt und abgebrochen
-                    else
-                    {
-                        PossibleMoves.Add(tile);
-                        break;
-                    }
-                }
-            }
-
+            
+            PossibleMoves.AddRange(this.SortOutMoves(MovesUpperRight.OrderBy(x => x.X).ToList<Tile>()));
 
             //UNTEN RECHTS SORTIERUNG UND ENTFERNUNG
-            //Sortiert die Tiles AUFSTEIGEND
-            MovesLowerRight.OrderBy(x => x.X);
-
-            //geht jedes Tile in der richtigen Reihenfolge durch
-            foreach (Tile tile in MovesLowerRight)
-            {
-                //wenn das Feld leer ist wird es hinzugefügt
-                if (tile.CurrentFigure == null)
-                {
-                    PossibleMoves.Add(tile);
-                }
-                //falls nicht wird gecheckt welche FigureColor die Figur hat
-                else
-                {
-                    //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrentFigure.FigureColor == this.FigureColor)
-                    {
-                        break;
-                    }
-                    //ansonsten Hinzugefügt und abgebrochen
-                    else
-                    {
-                        PossibleMoves.Add(tile);
-                        break;
-                    }
-                }
-            }
+            
+            PossibleMoves.AddRange(this.SortOutMoves(MovesLowerRight.OrderBy(x => x.X).ToList<Tile>()));
 
             //UNTEN LINKS SORTIERUNG UND ENTFERNUNG
-            //Sortiert die Tiles AUSTEIGEND
-            MovesLowerLeft.OrderBy(x => x.X);
+            
+            PossibleMoves.AddRange(this.SortOutMoves(MovesLowerLeft.OrderByDescending(x => x.X).ToList<Tile>()));
 
-            //geht jedes Tile in der richtigen Reihenfolge durch
-            foreach (Tile tile in MovesLowerLeft)
-            { 
-                //wenn das Feld leer ist wird es hinzugefügt
-                if (tile.CurrentFigure == null)
-                {
-                    PossibleMoves.Add(tile);
-                }
-                //falls nicht wird gecheckt welche FigureColor die Figur hat
-                else
-                {
-                    //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrentFigure.FigureColor == this.FigureColor)
-                    {
-                        break;
-                    }
-                    //ansonsten Hinzugefügt und abgebrochen
-                    else
-                    {
-                        PossibleMoves.Add(tile);
-                        break;
-                    }
-                }
-            }
 
             //OBEN LENKS SORTIERUNG UND ENTFERNUNG
-            //Sortiert die Tiles AUSTEIGEND
-            MovesUpperLeft.OrderByDescending(x => x.X);
+            
+            PossibleMoves.AddRange(this.SortOutMoves(MovesUpperLeft.OrderByDescending(x => x.X).ToList<Tile>()));
 
 
-
-
-
-
-            //geht jedes Tile in der richtigen Reihenfolge durch
-            foreach (Tile tile in MovesUpperLeft)
-            {
-                //wenn das Feld leer ist wird es hinzugefügt
-                if (tile.CurrentFigure == null)
-                {
-                    PossibleMoves.Add(tile);
-                }
-                //falls nicht wird gecheckt welche FigureColor die Figur hat
-                else
-                {
-                    //wenn sie die gleiche Farbe hat wird abgebrochen
-                    if (tile.CurrentFigure.FigureColor == this.FigureColor)
-                    {
-                        break;
-                    }
-                    //ansonsten Hinzugefügt und abgebrochen
-                    else
-                    {
-                        PossibleMoves.Add(tile);
-                        break;
-                    }
-                }
-            }
+           
             return PossibleMoves;
         }
     }

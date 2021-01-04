@@ -117,5 +117,47 @@ namespace Schach_v1
         /// <returns></returns>
         public abstract List<Tile> GetPossibleMoves();
 
+
+        public virtual List<Tile> SortOutMoves(List<Tile> PossibleMoves) {
+
+            List<Tile> ListToReturn = new List<Tile>();
+
+
+           
+            
+            //geht jedes Tile in der richtigen Reihenfolge durch
+            foreach (Tile tile in PossibleMoves)
+            {
+                //wenn das Feld leer ist wird es hinzugefügt
+                if (tile.CurrentFigure == null)
+                {
+                    Console.WriteLine("Feld Hinzugefügt: X: " + tile.X + ", " + "Y: " + tile.Y);
+
+                    ListToReturn.Add(tile);
+                }
+                //falls nicht wird gecheckt welche FigureColor die Figur hat
+                else
+                {
+                    //wenn sie die gleiche Farbe hat wird abgebrochen
+                    if (tile.CurrentFigure.FigureColor == this.FigureColor)
+                    {
+                        Console.WriteLine("ABRUCHHHHHHHHHHH");
+                        return ListToReturn;
+
+                    }
+                    //ansonsten Hinzugefügt und abgebrochen
+                    else
+                    {
+                        Console.WriteLine("Feld Hinzugefügt: X: " + tile.X + ", " + "Y: " + tile.Y);
+                        ListToReturn.Add(tile);
+                        return ListToReturn;
+                    }
+                }
+            }
+
+
+
+            return ListToReturn;
+        }
     }
 }

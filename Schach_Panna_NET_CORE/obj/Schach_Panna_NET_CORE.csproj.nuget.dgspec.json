@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\patri\\Desktop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj": {}
+    "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj": {}
   },
   "projects": {
-    "C:\\Users\\patri\\Desktop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj": {
+    "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\patri\\Desktop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj",
+        "projectUniqueName": "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj",
         "projectName": "Schach_Panna_NET_CORE",
-        "projectPath": "C:\\Users\\patri\\Desktop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj",
+        "projectPath": "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj",
         "packagesPath": "C:\\Users\\patri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\patri\\Desktop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE\\obj\\",
+        "outputPath": "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

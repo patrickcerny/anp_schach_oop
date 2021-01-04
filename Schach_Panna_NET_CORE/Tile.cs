@@ -51,6 +51,11 @@ namespace Schach_v1
         public void PaintSelfPossible(Color PossibleMoveColor)
         {
             this.BackColor = PossibleMoveColor;
+
+            if (this.CurrentFigure != null)
+            {
+                this.CurrentFigure.BackColor = PossibleMoveColor;
+            }
         }
     }
 }

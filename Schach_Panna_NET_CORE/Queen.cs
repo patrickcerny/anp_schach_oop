@@ -12,11 +12,11 @@ namespace Schach_v1
 
             if (FigureColor == Color.Black)
             {
-                BackgroundImage = Image.FromFile("C:\\Users\\patri\\Desktop\\Schach_Test\\Schach_Test\\img\\king_black.png");
+                BackgroundImage = Bitmap.FromFile(@"..\..\..\img\queen_black.png");
             }
             else
             {
-                BackgroundImage = Image.FromFile("C:\\Users\\patri\\Desktop\\Schach_Test\\Schach_Test\\img\\king_black.png");
+                BackgroundImage = Bitmap.FromFile(@"..\..\..\img\queen_white.png");
             }
         }
 
