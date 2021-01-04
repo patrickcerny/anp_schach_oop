@@ -1,6 +1,7 @@
 ﻿ using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Schach_v1
@@ -12,21 +13,18 @@ namespace Schach_v1
         //event, wenn die Figur sich bewegt
         public event EventTypeClickedFigure FigureClicked;
 
-        // MACO: Dieses Feld wird nie verwendet. -> aufräumen! (1)
-        Color CurrentPlayer = Color.White;
+        
 
-        // MACO: (1)
-        //Farbe die Felder bekommen, wenn auf sie gezogen werden kann
-         readonly Color _possibleMoveColor;
+        
 
-        // MACO: (2)
+        
         //das Tile auf dem sich die Figure befindet
         public Tile CurrentTile;
 
 
         public List<Tile> BoardTiles;
 
-        // MACO: (2)
+       
         //ob die Figure noch im Spiel ist
         public bool IsOnField = true;
 
@@ -47,22 +45,13 @@ namespace Schach_v1
         // Antwort: base funktioniert ohne "public" nicht!
         public Figure(Tile startingTile, List<Tile> Tiles)
         {
-            
-            //Setzung der readonly _possibleMoveColor
-             _possibleMoveColor = Color.ForestGreen;
-
+           
             //Speicherung aller Tiles der Form 
             BoardTiles = Tiles;
 
             //Setzung des CurrentFigure des zugewiesenen Tiles
             startingTile.CurrentFigure = this;
 
-            // MACO: Hier wäre nett, wenn das auch für größere / kleinere Spielfelder
-            // gehen würde und wenn man die Figuren individuell einfärben könnte. 
-            // Überlegung - Farbe als Übergabeparameter im Konstruktor machen, damit
-            // sie von außen bestimmt werden kann. Wenn ihr nur Schwarz und Weiß als
-            // Farben zulassen wollt, könnt ihr das ja trotzdem z.B. mit Hilfe einer
-            // Enumeration beschränken.
             //farbe wird Festegelegt
             if (startingTile.Y >= 6)
             {
@@ -111,14 +100,170 @@ namespace Schach_v1
         }
 
         /// <summary>
-        /// Gibt eine Array an Tiles zurück, auf die die gewählte Figur springen kann, wird pro Klasse overridden (https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/virtual - bis i des gfunden Hob mein gott) MACO: aber nice, dass as gfunda heasch :-D
+        /// Gibt eine Liste an Tiles zurück, auf die die gewählte Figur springen kann, wird pro Klasse overridden (https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/virtual - bis i des gfunden Hob mein gott) MACO: aber nice, dass as gfunda heasch :-D
         /// </summary>
         /// <param name="figure"></param>
         /// <returns></returns>
         public abstract List<Tile> GetPossibleMoves();
 
 
-        public virtual List<Tile> SortOutMoves(List<Tile> PossibleMoves) {
+        public List<Tile> GetDiagonalMoves()
+        {
+            List<Tile> PossibleMoves = new List<Tile>();
+
+            List<Tile> MovesUpperRight = new List<Tile>();
+            List<Tile> MovesLowerRight = new List<Tile>();
+            List<Tile> MovesLowerLeft = new List<Tile>();
+            List<Tile> MovesUpperLeft = new List<Tile>();
+
+            //sorry für dean code, i hobs ned effizienter herkrigt :( es isch 2:28 und i HEUL weil der Code so hässlich isch, but u gotta do what u gotta do
+
+            //checkt die  anzahl der möglichen züge nach oben
+            foreach (Tile tile in this.BoardTiles)
+            {
+                if (this.CurrentTile.X + this.CurrentTile.Y == tile.X + tile.Y)
+                {            
+                    //nur die Tiles oben rechts und unten links
+                    if (tile.Y < this.CurrentTile.Y && tile.X > this.CurrentTile.X)
+                    {             
+                        MovesUpperRight.Add(tile);
+                    }
+                    //unten links
+                    else if (tile.Y > this.CurrentTile.Y && tile.X < this.CurrentTile.X)
+                    {
+                        MovesLowerLeft.Add(tile);
+                    }
+                }
+
+                
+                if (this.CurrentTile.Y - this.CurrentTile.X  == tile.Y - tile.X)
+                {
+                    if (tile.Y < this.CurrentTile.Y && tile.X < this.CurrentTile.X)
+                    {
+                        MovesUpperLeft.Add(tile);
+                    }
+                    else if (tile.Y > this.CurrentTile.Y && tile.X > this.CurrentTile.X)
+                    {
+                        MovesLowerRight.Add(tile);
+                    }
+                }
+            }
+
+
+
+            //OBEN RECHTS SORTIERUNG UND ENTFERNUNG
+            
+            PossibleMoves.AddRange(this.SortOutMoves(MovesUpperRight.OrderBy(x => x.X).ToList<Tile>()));
+
+            //UNTEN RECHTS SORTIERUNG UND ENTFERNUNG
+            
+            PossibleMoves.AddRange(this.SortOutMoves(MovesLowerRight.OrderBy(x => x.X).ToList<Tile>()));
+
+            //UNTEN LINKS SORTIERUNG UND ENTFERNUNG
+            
+            PossibleMoves.AddRange(this.SortOutMoves(MovesLowerLeft.OrderByDescending(x => x.X).ToList<Tile>()));
+
+
+            //OBEN LENKS SORTIERUNG UND ENTFERNUNG
+            
+            PossibleMoves.AddRange(this.SortOutMoves(MovesUpperLeft.OrderByDescending(x => x.X).ToList<Tile>()));
+
+
+           
+            return PossibleMoves;
+        }
+
+        public List<Tile> GetStraightMoves()
+        {
+
+            List<Tile> PossibleMoves = new List<Tile>();
+            List<Tile> MovesInDirection = new List<Tile>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                //Cleared die Liste von dem Vorherigem Durchlauf
+                MovesInDirection.Clear();
+                switch (i)
+                {
+                    //nach oben
+                    case (0):
+                        //geht jedes Tile durch
+                        foreach (Tile tile in this.BoardTiles)
+                        {
+                            //ob gleiche X position und ob tile Y kleiner als Figure Y
+                            if (tile.X == this.CurrentTile.X && tile.Y < this.CurrentTile.Y)
+                            {
+                                MovesInDirection.Add(tile);
+                            }
+                        }
+
+                        //Sortiert die Tiles AUSTEIGEND
+                        PossibleMoves.AddRange(this.SortOutMoves(MovesInDirection.OrderByDescending(x => x.Y).ToList<Tile>()));
+
+
+
+                        break;
+
+                    //nach rechts
+                    case (1):
+                        foreach (Tile tile in this.BoardTiles)
+                        {
+                            //Ob auf der gleichen Y aber größere X
+                            if (tile.Y == this.CurrentTile.Y && tile.X > this.CurrentTile.X)
+                            {
+                                MovesInDirection.Add(tile);
+                            }
+                        }
+
+                        //Sortiert die Tiles AUSTEIGEND
+                        PossibleMoves.AddRange(this.SortOutMoves(MovesInDirection.OrderBy(x => x.X).ToList<Tile>()));
+
+                        //geht jedes Tile in der richtigen Reihenfolge durch
+
+                        break;
+
+                    //nach unten
+                    case (2):
+                        //geht jedes Tile durch
+                        foreach (Tile tile in this.BoardTiles)
+                        {
+                            //ob gleiche X position und ob tile Y größer als Figure Y
+                            if (tile.X == this.CurrentTile.X && tile.Y > this.CurrentTile.Y)
+                            {
+                                MovesInDirection.Add(tile);
+                            }
+                        }
+
+                        //Sortiert die Tiles AUSTEIGEND
+                        PossibleMoves.AddRange(this.SortOutMoves(MovesInDirection.OrderBy(x => x.Y).ToList<Tile>()));
+                        
+
+                        
+                        break;
+
+                    //nach links
+                    case (3):
+                        foreach (Tile tile in this.BoardTiles)
+                        {
+                            //Ob auf der gleichen Y aber kleinere X
+                            if (tile.Y == this.CurrentTile.Y && tile.X < this.CurrentTile.X)
+                            {
+                                MovesInDirection.Add(tile);
+                            }
+                        }
+                        //Sortiert die Tiles AUSTEIGEND
+                        PossibleMoves.AddRange(this.SortOutMoves(MovesInDirection.OrderByDescending(x => x.X).ToList<Tile>()));
+                        ;
+
+               
+                        break;
+                }
+            }
+
+            return PossibleMoves;
+        }
+
+        public List<Tile> SortOutMoves(List<Tile> PossibleMoves) {
 
             List<Tile> ListToReturn = new List<Tile>();
 

@@ -34,10 +34,13 @@ namespace Schach_v1
             // Indizes bieten, was für euch echt praktisch wäre.
             // https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/multidimensional-arrays
             // https://www.tutorialspoint.com/csharp/csharp_multi_dimensional_arrays.htm
+            // Antwort: HAb ich mir mitten im Projekt auch gedacht, aber alles nochmal neu umzustrukturieren war uns zu viel Arbeit
 
             foreach (Tile tile in this.BoardTiles)
 
             {
+
+
                 if (tile.X == this.CurrentTile.X - 2)
                 {
 
@@ -109,15 +112,6 @@ namespace Schach_v1
                 }
             }
 
-            // MACO: Warum tut ihr hier so kompliziert mit einer extra Liste der zu
-            // entfernenden herum? Lasst doch einfach die obere Schleife über eine
-            // Kopie von PossibleMoves laufen und dann könnt ihr die direkt in der
-            // Schleife entfernen.
-            // MACO: Warum wird überhaupt erst danach entfernt? Man könnte ja gleich
-            // checken, ob eine entsprechende Figur drauf steht und die dann erst gar
-            // nicht adden? Da müsste man nur diesen Check in eine geeignete Methode
-            // auslagern.
-            //entfernung der nicht möglichen moves
             foreach (Tile tileToRemove in TilesToRemove)
             {
                 PossibleMoves.Remove(tileToRemove);
@@ -126,8 +120,5 @@ namespace Schach_v1
             return PossibleMoves;
         }
 
-        // MACO: Ihr habt in diesen Unterklassen superviel doppelten und dreifachen
-        // Code. Da müsst ihr euch eine sinnvolle Gliederung überlegen und das besser
-        // strukturieren, sodass der Code nur noch 1 Mal vorkommt!
     }
 }

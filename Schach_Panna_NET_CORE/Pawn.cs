@@ -24,8 +24,6 @@ namespace Schach_v1
         public override List<Tile> GetPossibleMoves()
         {
             List<Tile> PossibleMoves = new List<Tile>();
-            // MACO: Diese Liste wird nie verwendet. -> aufräumen!
-            List<Tile> TilesToRemove = new List<Tile>();
 
             //ALLE möglichen felder, auch wenn sie belegt sind
             foreach (Tile tile in this.BoardTiles)
@@ -42,11 +40,6 @@ namespace Schach_v1
                             PossibleMoves.Add(tile);
                         }
 
-
-                        // MACO: Ob der Bauer schon mal gefahren ist oder nicht, könnte
-                        // man sich leicht mit einem Feld merken. Dann sind auch andere
-                        // Startpositionen als die offizielle möglich und funktionieren.
-                        //geradeaus fahren wenn das 1. feld nicht belegt ist und man an der startposition ist
                         if (tile.Y == this.CurrentTile.Y + 2 && tile.CurrentFigure == null && this.CurrentTile.Y == 1)
                         {
                             //findet das feld unter dem 2. möglichen zugfeld und fragt ab ob dieses null ist == true => kann besprungen werden

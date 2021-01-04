@@ -1,0 +1,13 @@
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\bin\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.exe
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\bin\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.deps.json
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\bin\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.runtimeconfig.json
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\bin\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.runtimeconfig.dev.json
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\bin\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.dll
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\bin\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.pdb
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\obj\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.csprojAssemblyReference.cache
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\obj\Debug\netcoreapp3.0\Schach_v1.Form1.resources
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\obj\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.csproj.GenerateResource.cache
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\obj\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.AssemblyInfoInputs.cache
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\obj\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.AssemblyInfo.cs
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\obj\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.dll
+C:\Users\anbue\Documents\GitHub\anp_schach_oop\Schach_Panna_NET_CORE\obj\Debug\netcoreapp3.0\Schach_Panna_NET_CORE.pdb

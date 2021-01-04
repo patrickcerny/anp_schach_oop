@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "Schach_Panna_NET_CORE/1.0.0": {
+        "runtime": {
+          "Schach_Panna_NET_CORE.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Schach_Panna_NET_CORE/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
