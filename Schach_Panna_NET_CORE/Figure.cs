@@ -268,8 +268,6 @@ namespace Schach_v1
                 //wenn das Feld leer ist wird es hinzugefügt
                 if (tile.CurrentFigure == null)
                 {
-                    Console.WriteLine("Feld Hinzugefügt: X: " + tile.X + ", " + "Y: " + tile.Y);
-
                     ListToReturn.Add(tile);
                 }
                 //falls nicht wird gecheckt welche FigureColor die Figur hat
@@ -278,14 +276,12 @@ namespace Schach_v1
                     //wenn sie die gleiche Farbe hat wird abgebrochen
                     if (tile.CurrentFigure.FigureColor == this.FigureColor)
                     {
-                        Console.WriteLine("ABRUCHHHHHHHHHHH");
                         return ListToReturn;
 
                     }
                     //ansonsten Hinzugefügt und abgebrochen
                     else
                     {
-                        Console.WriteLine("Feld Hinzugefügt: X: " + tile.X + ", " + "Y: " + tile.Y);
                         ListToReturn.Add(tile);
                         return ListToReturn;
                     }

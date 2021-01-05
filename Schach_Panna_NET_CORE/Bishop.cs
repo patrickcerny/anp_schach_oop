@@ -26,3 +26,4 @@ namespace Schach_v1
         }
     }
 }
+
