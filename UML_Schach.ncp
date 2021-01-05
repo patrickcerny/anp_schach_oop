@@ -22,19 +22,6 @@
         <Member type="Method">protected override void OnClick(EventArgs e)</Member>
         <Modifier>Abstract</Modifier>
       </Entity>
-      <Entity type="Enum">
-        <Name>FigureTypes</Name>
-        <Access>Public</Access>
-        <Location left="1634" top="515" />
-        <Size width="215" height="169" />
-        <Collapsed>False</Collapsed>
-        <Value>pawn</Value>
-        <Value>bishop</Value>
-        <Value>tower</Value>
-        <Value>horse</Value>
-        <Value>queen</Value>
-        <Value>king</Value>
-      </Entity>
       <Entity type="Class">
         <Name>Panel</Name>
         <Access>Public</Access>
@@ -140,7 +127,11 @@
       </Entity>
     </Entities>
     <Relationships>
-      <Relationship type="Generalization" first="0" second="2">
+      <Relationship type="Generalization" first="0" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="2" second="0">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
@@ -160,15 +151,11 @@
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Generalization" first="7" second="0">
+      <Relationship type="Generalization" first="7" second="1">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
-      <Relationship type="Generalization" first="8" second="2">
-        <StartOrientation>Vertical</StartOrientation>
-        <EndOrientation>Vertical</EndOrientation>
-      </Relationship>
-      <Relationship type="Generalization" first="11" second="0">
+      <Relationship type="Generalization" first="10" second="0">
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
       </Relationship>
