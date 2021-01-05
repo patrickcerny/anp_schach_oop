@@ -6,7 +6,7 @@ namespace Schach_v1
 {
     class Queen : Figure
     {
-        public Queen( Tile startingTile, List<Tile> Tiles) : base( startingTile, Tiles)
+        public Queen( Tile startingTile, List<Tile> Tiles) : base(startingTile, Tiles)
         {
            
 
