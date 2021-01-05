@@ -117,8 +117,7 @@
         <Size width="209" height="98" />
         <Collapsed>False</Collapsed>
         <ReturnType>void</ReturnType>
-        <Param>object sender</Param>
-        <Param>EventArgs e</Param>
+        <Param>Tile clickedTile</Param>
       </Entity>
       <Entity type="Delegate">
         <Name>EventTypeClickedFigure</Name>
@@ -127,8 +126,7 @@
         <Size width="216" height="104" />
         <Collapsed>False</Collapsed>
         <ReturnType>void</ReturnType>
-        <Param>object sender</Param>
-        <Param>EventArgs e</Param>
+        <Param>Figure ClickedFigure</Param>
       </Entity>
       <Entity type="Class">
         <Name>Tower</Name>
@@ -139,11 +137,6 @@
         <Member type="Constructor">public Tower(Tile startingTile, List&lt;Tile&gt; Tiles)</Member>
         <Member type="Method">public override List&lt;Tile&gt; GetPossibleMoves()</Member>
         <Modifier>None</Modifier>
-      </Entity>
-      <Entity type="Comment">
-        <Text>zwei Listen in Figure nicht angelegt</Text>
-        <Location left="315" top="470" />
-        <Size width="149" height="56" />
       </Entity>
     </Entities>
     <Relationships>
