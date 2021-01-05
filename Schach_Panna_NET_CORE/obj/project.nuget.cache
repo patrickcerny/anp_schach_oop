@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qSJ6IhZhSZ0++mbs0Mz2dxA3Om1N6ne/fVZOCDAeEZU+OAAZtI88wXP5Jt2hD4ttTquZf9RACMyz1H8lWQZZiw==",
+  "dgSpecHash": "NR65LfQ333WHLpxDd8O1CUt1iXx+15kXsHOUsghXWO/CBdJ/qnbSnfj36+pL7mfw/R40U2npI0Ga+U5Punyu9A==",
   "success": true,
   "projectFilePath": "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\patri\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.0.1\\microsoft.aspnetcore.app.ref.3.0.1.nupkg.sha512",
-    "C:\\Users\\patri\\.nuget\\packages\\microsoft.netcore.app.ref\\3.0.0\\microsoft.netcore.app.ref.3.0.0.nupkg.sha512",
-    "C:\\Users\\patri\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.0.3\\microsoft.netcore.app.host.win-x64.3.0.3.nupkg.sha512",
-    "C:\\Users\\patri\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\3.0.0\\microsoft.windowsdesktop.app.ref.3.0.0.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
