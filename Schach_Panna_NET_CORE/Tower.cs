@@ -8,12 +8,6 @@ namespace Schach_v1
     {
         public Tower( Tile startingTile, List<Tile> Tiles) : base( startingTile, Tiles)
         {
-
-          
-
-           
-
-
             if (FigureColor == Color.Black)
             {
                 BackgroundImage = Bitmap.FromFile(@"..\..\..\img\Tower_black.png");
@@ -23,9 +17,6 @@ namespace Schach_v1
                 BackgroundImage = Bitmap.FromFile(@"..\..\..\img\Tower_white.png");
             }
         }
-
-
-
 
         public override List<Tile> GetPossibleMoves()
 

@@ -12,22 +12,14 @@ namespace Schach_v1
     {
         //event, wenn die Figur sich bewegt
         public event EventTypeClickedFigure FigureClicked;
-
-        
-
-        
-
         
         //das Tile auf dem sich die Figure befindet
         public Tile CurrentTile;
 
-
         public List<Tile> BoardTiles;
-
        
         //ob die Figure noch im Spiel ist
         public bool IsOnField = true;
-
 
         //Farbe der Figur / Team der Figur
         private Color _figureColor;
