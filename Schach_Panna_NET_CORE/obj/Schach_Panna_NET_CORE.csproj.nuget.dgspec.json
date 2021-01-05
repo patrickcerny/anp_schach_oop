@@ -1,35 +1,35 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\anbue\\Documents\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj": {}
+    "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj": {}
   },
   "projects": {
-    "C:\\Users\\anbue\\Documents\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj": {
+    "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\anbue\\Documents\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj",
+        "projectUniqueName": "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj",
         "projectName": "Schach_Panna_NET_CORE",
-        "projectPath": "C:\\Users\\anbue\\Documents\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj",
-        "packagesPath": "C:\\Users\\anbue\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\anbue\\Documents\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\obj\\",
+        "projectPath": "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\Schach_Panna_NET_CORE.csproj",
+        "packagesPath": "C:\\Users\\patri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\patri\\Desktop\\GitHub\\anp_schach_oop\\Schach_Panna_NET_CORE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\anbue\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\patri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.0"
+          "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.0": {
+          "netcoreapp3.1": {
             "projectReferences": {}
           }
         },
@@ -40,7 +40,7 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.0": {
+        "netcoreapp3.1": {
           "imports": [
             "net461",
             "net462",
@@ -59,7 +59,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
